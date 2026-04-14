@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4讲：AI产品的数据与指标 — 曾言</title>
+
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root{--bg-primary:#0b1120;--bg-secondary:#111b2e;--bg-card:rgba(255,255,255,.04);--bg-card-hover:rgba(255,255,255,.07);--text-primary:#f0f4f8;--text-secondary:#8899aa;--text-muted:#556677;--accent:#00e5c7;--accent-dim:rgba(0,229,199,.15);--accent-glow:rgba(0,229,199,.25);--red:#ff6b6b;--red-dim:rgba(255,107,107,.15);--orange:#ffa94d;--orange-dim:rgba(255,169,77,.15);--blue:#74c0fc;--blue-dim:rgba(116,192,252,.15);--purple:#b197fc;--purple-dim:rgba(177,151,252,.15);--yellow:#ffd43b;--yellow-dim:rgba(255,212,59,.15);--border:rgba(255,255,255,.06);--font-display:'Clash Display','Noto Sans SC',sans-serif;--font-body:'Satoshi','Noto Sans SC',sans-serif;--title-size:clamp(2rem,5.5vw,4.5rem);--h2-size:clamp(1.5rem,4vw,3rem);--h3-size:clamp(1.1rem,2.5vw,1.75rem);--body-size:clamp(.8rem,1.4vw,1.15rem);--small-size:clamp(.7rem,1vw,.9rem);--label-size:clamp(.6rem,.9vw,.8rem);--slide-padding:clamp(1.5rem,5vw,5rem);--content-gap:clamp(.75rem,2vw,2rem);--element-gap:clamp(.4rem,1vh,1rem);--ease-out-expo:cubic-bezier(.16,1,.3,1);--duration:.7s}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;height:100%;overflow-x:hidden}body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;height:100%;-webkit-font-smoothing:antialiased}
+        .slide{width:100vw;height:100vh;height:100dvh;padding:var(--slide-padding);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;max-width:1200px;width:100%;margin:0 auto}
+        .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:1000;transition:width .3s ease;box-shadow:0 0 10px var(--accent-glow)}
+        .nav-dots{position:fixed;right:clamp(.75rem,2vw,1.5rem);top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);border:none;cursor:pointer;transition:all .3s ease;padding:0}.nav-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent-glow);transform:scale(1.3)}.nav-dot.section-start{width:10px;height:10px}
+        .slide-number{position:absolute;bottom:clamp(1rem,2vw,1.5rem);right:clamp(1.5rem,3vw,2.5rem);font-size:var(--small-size);color:var(--text-muted);font-weight:500}.section-label{font-size:var(--label-size);text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:700;margin-bottom:clamp(.5rem,1.5vw,1.5rem)}
+        .title-huge{font-family:var(--font-display);font-size:var(--title-size);font-weight:700;line-height:1.1;letter-spacing:-.02em}.title-slide-sub{font-size:clamp(.9rem,1.8vw,1.3rem);color:var(--text-secondary);margin-top:clamp(.5rem,1.5vw,1.5rem);font-weight:400;line-height:1.5}h2{font-family:var(--font-display);font-size:var(--h2-size);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--content-gap)}h3{font-family:var(--font-body);font-size:var(--h3-size);font-weight:700;line-height:1.3;margin-bottom:var(--element-gap)}p{font-size:var(--body-size);line-height:1.65;color:var(--text-secondary)}
+        .accent{color:var(--accent)}.red{color:var(--red)}.orange{color:var(--orange)}.blue{color:var(--blue)}.purple{color:var(--purple)}.yellow{color:var(--yellow)}
+        .story-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.25rem,3vw,2.5rem);margin-top:var(--content-gap);backdrop-filter:blur(10px)}.story-card p{font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.7}.story-card p+p{margin-top:clamp(.5rem,1vh,.75rem)}
+        .highlight-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:clamp(1rem,2vw,1.5rem) clamp(1.25rem,2.5vw,2rem);margin-top:var(--content-gap)}.highlight-box p{color:var(--text-primary);font-weight:500;font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.6}.highlight-box.red-box{background:var(--red-dim);border-left-color:var(--red)}.highlight-box.orange-box{background:var(--orange-dim);border-left-color:var(--orange)}.highlight-box.blue-box{background:var(--blue-dim);border-left-color:var(--blue)}.highlight-box.purple-box{background:var(--purple-dim);border-left-color:var(--purple)}.highlight-box.yellow-box{background:var(--yellow-dim);border-left-color:var(--yellow)}
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(.75rem,1.5vw,1.25rem);margin-top:var(--content-gap)}.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);transition:background .3s ease}.card:hover{background:var(--bg-card-hover)}.card-icon{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.card h3{font-size:clamp(.9rem,1.5vw,1.1rem);margin-bottom:clamp(.25rem,.5vh,.5rem)}.card p{font-size:var(--small-size);line-height:1.5}
+        .comparison{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.75rem,2vw,1.5rem);margin-top:var(--content-gap)}@media(max-width:600px){.comparison{grid-template-columns:1fr}}.comparison-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem)}.comparison-col h3{font-size:clamp(.9rem,1.4vw,1.1rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.comparison-col ul{list-style:none;padding:0}.comparison-col li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.5;padding:clamp(.2rem,.5vh,.4rem) 0;padding-left:1.2em;position:relative}.comparison-col li::before{content:'';position:absolute;left:0;top:clamp(.55rem,1vh,.7rem);width:6px;height:6px;border-radius:50%}.comparison-col.green li::before{background:var(--accent)}.comparison-col.orange li::before{background:var(--orange)}.comparison-col.red li::before{background:var(--red)}
+        .slide-table{width:100%;border-collapse:collapse;margin-top:var(--content-gap);font-size:var(--body-size)}.slide-table th{text-align:left;padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);background:var(--accent-dim);color:var(--accent);font-weight:600;font-size:var(--small-size);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}.slide-table td{padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);border-bottom:1px solid var(--border);color:var(--text-secondary);line-height:1.5}.slide-table tr:last-child td{border-bottom:none}.slide-table td:first-child{color:var(--text-primary);font-weight:500}
+        .bullet-list{list-style:none;padding:0;margin-top:var(--content-gap);display:flex;flex-direction:column;gap:var(--element-gap)}.bullet-list li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6;padding-left:1.5em;position:relative}.bullet-list li::before{content:'';position:absolute;left:0;top:clamp(.5rem,.8vh,.65rem);width:6px;height:6px;border-radius:50%;background:var(--accent)}.bullet-list li strong{color:var(--text-primary)}
+        .quote{font-size:clamp(1.1rem,2.5vw,1.75rem);font-style:italic;color:var(--text-primary);line-height:1.5;border-left:3px solid var(--accent);padding-left:clamp(1rem,2vw,1.5rem);max-width:800px}
+        .slide.section-divider{background:var(--bg-secondary)}.section-divider .section-number{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:700;color:var(--accent);opacity:.15;position:absolute;top:clamp(1rem,3vw,2rem);right:clamp(2rem,5vw,4rem);line-height:1}
+        .big-stat{font-family:var(--font-display);font-size:clamp(3rem,10vw,8rem);font-weight:700;color:var(--accent);line-height:1;letter-spacing:-.03em}.big-stat-label{font-size:clamp(1rem,2vw,1.5rem);color:var(--text-secondary);margin-top:clamp(.5rem,1vh,1rem)}
+        /* Flywheel */
+        .flywheel{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:clamp(.5rem,1vw,.75rem);margin-top:var(--content-gap);text-align:center}
+        .fw-step{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(.6rem,1.2vw,1rem) clamp(.8rem,1.5vw,1.25rem);font-size:var(--small-size);color:var(--text-primary);font-weight:500;max-width:180px}
+        .fw-arrow{color:var(--accent);font-size:clamp(1rem,2vw,1.5rem);font-weight:700}
+        /* Tier */
+        .tier-bar{display:flex;flex-direction:column;gap:clamp(.5rem,1vh,.75rem);margin-top:var(--content-gap)}.tier-item{display:flex;align-items:center;gap:clamp(.75rem,1.5vw,1.25rem);background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(.75rem,1.5vw,1.25rem) clamp(1rem,2vw,1.5rem)}.tier-badge{font-family:var(--font-display);font-weight:700;font-size:clamp(.9rem,1.5vw,1.1rem);flex-shrink:0;min-width:clamp(2rem,3vw,2.5rem)}.tier-body h3{font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:2px}.tier-body p{font-size:var(--small-size)}
+
+        .bg-glow{position:absolute;width:clamp(300px,50vw,600px);height:clamp(300px,50vw,600px);border-radius:50%;filter:blur(120px);opacity:.07;pointer-events:none}.bg-glow.teal{background:var(--accent)}.bg-glow.blue{background:#4c6ef5}.bg-glow.purple{background:#7950f2}
+        .reveal{opacity:0;transform:translateY(25px);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal{opacity:1;transform:translateY(0)}.reveal:nth-child(1){transition-delay:.05s}.reveal:nth-child(2){transition-delay:.15s}.reveal:nth-child(3){transition-delay:.25s}.reveal:nth-child(4){transition-delay:.35s}.reveal:nth-child(5){transition-delay:.45s}.reveal:nth-child(6){transition-delay:.55s}
+        .reveal-scale{opacity:0;transform:scale(.92);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal-scale{opacity:1;transform:scale(1)}
+        @media(max-height:700px){:root{--slide-padding:clamp(1rem,3vw,2.5rem);--content-gap:clamp(.5rem,1.5vw,1rem);--title-size:clamp(1.75rem,5vw,3.5rem);--h2-size:clamp(1.25rem,3.5vw,2.25rem)}}@media(max-height:600px){:root{--slide-padding:clamp(.75rem,2.5vw,1.5rem);--content-gap:clamp(.4rem,1vw,.75rem);--title-size:clamp(1.5rem,4.5vw,2.5rem);--h2-size:clamp(1.1rem,3vw,1.75rem);--body-size:clamp(.7rem,1.2vw,.95rem)}.nav-dots,.bg-glow{display:none}}@media(max-height:500px){:root{--slide-padding:clamp(.5rem,2vw,1rem);--title-size:clamp(1.25rem,4vw,2rem);--h2-size:clamp(1rem,2.5vw,1.5rem);--body-size:clamp(.65rem,1vw,.85rem)}}@media(max-width:600px){:root{--title-size:clamp(1.5rem,8vw,3rem)}.card-grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}html{scroll-behavior:auto}}
+        .keyboard-hint{position:fixed;bottom:clamp(1rem,2vw,1.5rem);left:50%;transform:translateX(-50%);font-size:var(--small-size);color:var(--text-muted);opacity:.5;transition:opacity .5s;pointer-events:none}.keyboard-hint.hidden{opacity:0}
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint" id="keyHint">按 ← → 或滚动翻页</div>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:-20%;right:-10%"></div>
+        <div class="bg-glow purple" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content">
+            <p class="section-label reveal">第4讲</p>
+            <h1 class="title-huge reveal">AI产品的<span class="accent">数据与指标</span></h1>
+            <p class="title-slide-sub reveal">准确率 · 覆盖率 · 用户接受率 — 三个数字背后的取舍</p>
+        </div>
+        <span class="slide-number">1</span>
+    </section>
+
+    <!-- SLIDE 2: 回顾 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">上一讲回顾</p>
+            <h2 class="reveal">我们已经知道了</h2>
+            <ul class="bullet-list">
+                <li class="reveal">AI产品PRD多了三样东西：<strong>行为规格、置信度、降级策略</strong></li>
+                <li class="reveal">AI产品的tradeoff比传统产品<strong>多得多</strong></li>
+                <li class="reveal">把直觉写成文档，团队才能<strong>统一执行</strong></li>
+            </ul>
+            <div class="highlight-box reveal">
+                <p>今天的问题：PRD写好了，上线了，<strong class="accent">怎么知道做得好不好？看什么数字？</strong></p>
+            </div>
+        </div>
+        <span class="slide-number">2</span>
+    </section>
+
+    <!-- SLIDE 3: SECTION 4.1 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">4.1</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第一节</p>
+            <h2 class="reveal" style="max-width:700px">AI产品的指标体系：<span class="accent">不只是准确率</span></h2>
+        </div>
+        <span class="slide-number">3</span>
+    </section>
+
+    <!-- SLIDE 4: 开场 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.1 — 一个问题</p>
+            <h2 class="reveal">成功率85%，好还是不好？</h2>
+            <div class="story-card reveal">
+                <p>AI值机的成功率是85%。这个数字好不好？</p>
+                <p style="color:var(--text-primary);font-weight:500;margin-top:clamp(.5rem,1vh,.75rem)">答案是：不知道。</p>
+                <p>因为你还不知道<strong style="color:var(--accent)">覆盖率</strong>是多少。</p>
+            </div>
+        </div>
+        <span class="slide-number">4</span>
+    </section>
+
+    <!-- SLIDE 5: 覆盖率的重要性 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.1 — 同样85%</p>
+            <h2 class="reveal">覆盖率决定了85%的含金量</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col orange">
+                    <h3><span class="orange">覆盖率5%</span></h3>
+                    <ul>
+                        <li>只接最简单的航司</li>
+                        <li>当然成功率高</li>
+                        <li>但几乎没有用户受益</li>
+                    </ul>
+                </div>
+                <div class="comparison-col green">
+                    <h3><span class="accent">覆盖率50%</span></h3>
+                    <ul>
+                        <li>接了一半的航司</li>
+                        <li>包括很多复杂的</li>
+                        <li>85%成功率就很厉害</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>AI产品<strong>从来不是一个数字能说清楚的</strong>，至少需要三个。</p>
+            </div>
+        </div>
+        <span class="slide-number">5</span>
+    </section>
+
+    <!-- SLIDE 6: 三个核心指标 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.1 — 核心指标</p>
+            <h2 class="reveal">AI值机的<span class="accent">三个核心数字</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">🎯</div>
+                    <h3>值机成功率</h3>
+                    <p>AI操作成功的比例 — AI"做得准不准"</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">📊</div>
+                    <h3>值机覆盖率</h3>
+                    <p>AI能处理的航司/航线比例 — AI"管得宽不宽"</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--red)">📞</div>
+                    <h3>客服进线率</h3>
+                    <p>值机后用户联系客服的比例 — "真的解决问题了吗"</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">6</span>
+    </section>
+
+    <!-- SLIDE 7: 客服进线率最重要 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.1 — 最重要的指标</p>
+            <h2 class="reveal">为什么<span class="accent">客服进线率</span>才是关键</h2>
+            <ul class="bullet-list">
+                <li class="reveal">成功率和覆盖率是<strong>AI视角</strong>——系统觉得自己做完了</li>
+                <li class="reveal">客服进线率是<strong>用户视角</strong>——用户觉得问题解决了吗</li>
+                <li class="reveal">AI说"值机成功"，用户到机场发现<strong>座位不对</strong>——他会打客服电话</li>
+            </ul>
+            <div class="highlight-box reveal">
+                <p>客服进线率才是真正的"<strong class="accent">用户接受率</strong>"。</p>
+            </div>
+        </div>
+        <span class="slide-number">7</span>
+    </section>
+
+    <!-- SLIDE 8: 三层指标框架 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.1 — 通用框架</p>
+            <h2 class="reveal">AI产品指标的<span class="accent">三个层次</span></h2>
+            <div class="tier-bar reveal-scale">
+                <div class="tier-item" style="border-left:3px solid var(--accent)">
+                    <div class="tier-badge accent">模型层</div>
+                    <div class="tier-body">
+                        <h3>AI做得对不对</h3>
+                        <p>准确率 / 精确率 — 值机案例：成功率</p>
+                    </div>
+                </div>
+                <div class="tier-item" style="border-left:3px solid var(--orange)">
+                    <div class="tier-badge orange">产品层</div>
+                    <div class="tier-body">
+                        <h3>AI管得多不多</h3>
+                        <p>覆盖率 / 处理率 — 值机案例：覆盖率</p>
+                    </div>
+                </div>
+                <div class="tier-item" style="border-left:3px solid var(--red)">
+                    <div class="tier-badge red">用户层</div>
+                    <div class="tier-body">
+                        <h3>用户满不满意</h3>
+                        <p>满意度 / 投诉率 — 值机案例：客服进线率</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">8</span>
+    </section>
+
+    <!-- SLIDE 9: 最常见错误 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.1 — 常见错误</p>
+            <h2 class="reveal">只看模型层是<span class="red">最常见的错误</span></h2>
+            <div class="story-card reveal">
+                <p>算法团队汇报："我们的准确率 <strong style="color:var(--text-primary)">93%</strong>。"</p>
+                <p>但用户还在骂。</p>
+                <p style="margin-top:clamp(.5rem,1vh,.75rem)">因为模型层和用户层之间，<strong style="color:var(--red)">隔着产品层</strong>。</p>
+            </div>
+            <div class="highlight-box red-box reveal">
+                <p>模型准确率高 ≠ 用户体验好。中间的产品设计决定了<strong>用户真正感受到什么</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">9</span>
+    </section>
+
+    <!-- SLIDE 10: SECTION 4.2 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">4.2</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第二节</p>
+            <h2 class="reveal" style="max-width:700px">准确率和覆盖率的<span class="orange">取舍</span></h2>
+        </div>
+        <span class="slide-number">10</span>
+    </section>
+
+    <!-- SLIDE 11: 为什么打架 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.2 — 冲突</p>
+            <h2 class="reveal">它们为什么会<span class="orange">打架</span></h2>
+            <ul class="bullet-list">
+                <li class="reveal">覆盖率要高 → 就得接更多航司，包括<strong>网站复杂、反爬严格的</strong></li>
+                <li class="reveal">但这些航司恰恰是AI<strong>最容易失败的</strong></li>
+                <li class="reveal">所以覆盖率上去了，成功率就可能<strong>掉下来</strong></li>
+            </ul>
+            <div class="highlight-box orange-box reveal">
+                <p>和第3讲的tradeoff一脉相承：AI产品的<strong>每一个决策都是权衡</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">11</span>
+    </section>
+
+    <!-- SLIDE 12: 底线思维 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.2 — 取舍方法</p>
+            <h2 class="reveal">先画<span class="accent">底线</span>，再提上限</h2>
+            <div class="story-card reveal">
+                <p><strong style="color:var(--text-primary)">AI值机的实际做法：</strong></p>
+                <p>成功率设一个底线：<strong style="color:var(--red)">80%</strong>。低于80%的航司不上线。</p>
+                <p>在80%底线之上，尽量提升覆盖率。</p>
+                <p style="margin-top:clamp(.5rem,1vh,.75rem)">从覆盖率20%做到50%的过程中，成功率始终<strong style="color:var(--accent)">保持在80%以上</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">12</span>
+    </section>
+
+    <!-- SLIDE 13: 为什么80% -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.2 — 底线怎么定</p>
+            <h2 class="reveal">为什么底线是80%而不是90%？</h2>
+            <ul class="bullet-list">
+                <li class="reveal">因为有<strong>降级方案</strong>——AI失败了还有爬虫和人工兜底</li>
+                <li class="reveal">如果没有降级方案，底线可能需要设在<strong>95%</strong></li>
+            </ul>
+            <div class="highlight-box reveal">
+                <p>底线的高低取决于<strong class="accent">失败后果</strong>和<strong class="accent">降级能力</strong>——又回到第3讲的框架。</p>
+            </div>
+        </div>
+        <span class="slide-number">13</span>
+    </section>
+
+    <!-- SLIDE 14: 放弃 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.2 — 反直觉决策</p>
+            <h2 class="reveal">有些航司，我们选择<span class="red">放弃</span></h2>
+            <ul class="bullet-list">
+                <li class="reveal">有一些航司，AI怎么都做不到80%的成功率</li>
+                <li class="reveal">网站特别复杂、反爬特别严、页面变化特别频繁</li>
+                <li class="reveal">我们的选择：<strong>放弃，不硬做</strong></li>
+            </ul>
+        </div>
+        <span class="slide-number">14</span>
+    </section>
+
+    <!-- SLIDE 15: 为什么放弃是对的 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.2 — 为什么这是对的</p>
+            <h2 class="reveal">放弃的三个理由</h2>
+            <ul class="bullet-list">
+                <li class="reveal">精力花在能做好的航司上，<strong>整体ROI更高</strong></li>
+                <li class="reveal">强行上线拉低成功率，<strong>影响用户信任</strong></li>
+                <li class="reveal">AI产品不是要100%覆盖，是要在覆盖范围内<strong>做到可靠</strong></li>
+            </ul>
+            <div class="highlight-box reveal">
+                <p>AI产品的成熟标志：不是什么都能做，而是<strong class="accent">知道什么不该做</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">15</span>
+    </section>
+
+    <!-- SLIDE 16: SECTION 4.3 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">4.3</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第三节</p>
+            <h2 class="reveal" style="max-width:700px"><span class="accent">数据飞轮</span><br>让AI产品越用越好</h2>
+        </div>
+        <span class="slide-number">16</span>
+    </section>
+
+    <!-- SLIDE 17: 什么是数据飞轮 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.3 — 核心概念</p>
+            <h2 class="reveal">AI产品有一个独特的优势</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col orange">
+                    <h3><span class="orange">传统产品优化</span></h3>
+                    <ul>
+                        <li>产品经理开需求</li>
+                        <li>工程师改代码</li>
+                        <li>人推动，人力密集</li>
+                    </ul>
+                </div>
+                <div class="comparison-col green">
+                    <h3><span class="accent">AI产品优化</span></h3>
+                    <ul>
+                        <li>数据回流到模型</li>
+                        <li>模型自己变好</li>
+                        <li>设计好机制，它能自进化</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>前提：你设计了一个让<strong class="accent">数据回流</strong>的机制。</p>
+            </div>
+        </div>
+        <span class="slide-number">17</span>
+    </section>
+
+    <!-- SLIDE 18: 值机飞轮 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.3 — AI值机的飞轮</p>
+            <h2 class="reveal">自进化的循环</h2>
+            <div class="flywheel reveal-scale">
+                <div class="fw-step">AI操作值机</div>
+                <div class="fw-arrow">→</div>
+                <div class="fw-step">成功/失败case<br>都沉淀下来</div>
+                <div class="fw-arrow">→</div>
+                <div class="fw-step">失败case<br>改进模型</div>
+                <div class="fw-arrow">→</div>
+                <div class="fw-step">模型升级</div>
+                <div class="fw-arrow">→</div>
+                <div class="fw-step">成功率提升<br>覆盖更多航司</div>
+                <div class="fw-arrow">→</div>
+                <div class="fw-step" style="border-color:var(--accent)">更多case<br>继续改进</div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>这个模型是<strong class="accent">自进化的</strong>——这一点特别重要。</p>
+            </div>
+        </div>
+        <span class="slide-number">18</span>
+    </section>
+
+    <!-- SLIDE 19: 设计要点 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.3 — 设计要点</p>
+            <h2 class="reveal">让飞轮转起来的<span class="accent">三个关键</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <h3>收集什么数据</h3>
+                    <p>不只收结果，还要收过程——每一步操作、页面截图、决策路径。失败case比成功case更有价值</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <h3>数据怎么回流</h3>
+                    <p>自动标注进训练数据 + 难搞case人工分析。两条路并行</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <h3>怎么衡量飞轮在转</h3>
+                    <p>每周看：成功率在上升吗？同航司失败率在下降吗？数字不动 = 飞轮卡住了</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">19</span>
+    </section>
+
+    <!-- SLIDE 20: 飞轮陷阱 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">4.3 — 陷阱</p>
+            <h2 class="reveal">数据飞轮的<span class="red">三个陷阱</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card" style="border-color:rgba(255,107,107,.2)">
+                    <div class="card-icon">⚠️</div>
+                    <h3>幸存者偏差</h3>
+                    <p>你只收集了AI处理过的数据。不覆盖的航司没有数据，也没法改进——飞轮只在覆盖范围内转</p>
+                </div>
+                <div class="card" style="border-color:rgba(255,107,107,.2)">
+                    <div class="card-icon">⚠️</div>
+                    <h3>数据质量衰减</h3>
+                    <p>早期人工标注质量高，规模化后自动标注质量下降。脏数据进训练集，模型反而变差</p>
+                </div>
+                <div class="card" style="border-color:rgba(255,107,107,.2)">
+                    <div class="card-icon">⚠️</div>
+                    <h3>过拟合当前模式</h3>
+                    <p>AI越来越擅长老航司，但新航司上线表现很差。需要定期引入新数据保持泛化能力</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">20</span>
+    </section>
+
+    <!-- SLIDE 21: 金句 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="bottom:20%;right:20%"></div>
+        <div class="slide-content" style="justify-content:center">
+            <div class="quote reveal">
+                AI产品最大的竞争壁垒，<br>
+                不是模型有多强，<br><br>
+                而是你的<span class="accent">数据飞轮转了多久</span>。
+            </div>
+        </div>
+        <span class="slide-number">21</span>
+    </section>
+
+    <!-- SLIDE 22: 回顾 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课程回顾</p>
+            <h2 class="reveal">今天的三个关键收获</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <h3>三层指标</h3>
+                    <p>模型层 / 产品层 / 用户层 — 只看模型层是最常见的错误</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <h3>底线思维</h3>
+                    <p>准确率设底线，在底线之上最大化覆盖率。知道什么不该做</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <h3>数据飞轮</h3>
+                    <p>设计好数据回流机制，让模型自进化。但要警惕三个陷阱</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">22</span>
+    </section>
+
+    <!-- SLIDE 23: 费曼检验 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课后自测 — 费曼检验</p>
+            <h2 class="reveal">你能回答这三个问题吗？</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <p>你能说出AI产品指标的三个层次吗？你的产品在每层该看什么？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <p>准确率和覆盖率打架时，你怎么设底线？底线的高低取决于什么？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <p>你能画出你产品的数据飞轮吗？数据从哪来、怎么回流、怎么衡量？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">23</span>
+    </section>
+
+    <!-- SLIDE 24: 下一讲预告 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:-10%;right:-5%"></div>
+        <div class="bg-glow purple" style="bottom:-15%;left:-5%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">第4讲完</p>
+            <h1 class="title-huge reveal" style="font-size:clamp(1.75rem,4.5vw,3.5rem)">下一讲预告</h1>
+            <p class="title-slide-sub reveal">Vibe Coding入门 — 产品人如何用AI做自己的工具</p>
+            <p class="reveal" style="margin-top:clamp(1.5rem,3vw,2.5rem);color:var(--text-muted);font-size:var(--small-size)">曾言 — 数学博士 × AI产品人 × 出海先锋</p>
+        </div>
+        <span class="slide-number">24</span>
+    </section>
+
+    <script>
+        class SlidePresentation{constructor(){this.slides=document.querySelectorAll('.slide');this.currentSlide=0;this.totalSlides=this.slides.length;this.init()}init(){this.createNavDots();this.setupIntersectionObserver();this.setupKeyboardNav();this.setupTouchNav();this.updateProgress();this.hideKeyHintOnScroll()}createNavDots(){const c=document.getElementById('navDots');const s=[0,2,9,15];this.slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(s.includes(i)?' section-start':'');d.setAttribute('aria-label',`Go to slide ${i+1}`);d.addEventListener('click',()=>{this.slides[i].scrollIntoView({behavior:'smooth'})});c.appendChild(d)});this.navDots=c.querySelectorAll('.nav-dot')}setupIntersectionObserver(){const o=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const i=Array.from(this.slides).indexOf(e.target);if(i!==-1){this.currentSlide=i;this.updateProgress();this.updateNavDots()}}})},{threshold:0.5});this.slides.forEach(s=>o.observe(s))}setupKeyboardNav(){document.addEventListener('keydown',(e)=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();this.goToSlide(this.currentSlide+1)}else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();this.goToSlide(this.currentSlide-1)}})}setupTouchNav(){let sy=0,sx=0;document.addEventListener('touchstart',(e)=>{sy=e.touches[0].clientY;sx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',(e)=>{const dy=sy-e.changedTouches[0].clientY,dx=sx-e.changedTouches[0].clientX;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>50){this.goToSlide(dy>0?this.currentSlide+1:this.currentSlide-1)}},{passive:true})}goToSlide(i){if(i>=0&&i<this.totalSlides)this.slides[i].scrollIntoView({behavior:'smooth'})}updateProgress(){document.getElementById('progressBar').style.width=((this.currentSlide+1)/this.totalSlides)*100+'%'}updateNavDots(){if(!this.navDots)return;this.navDots.forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide))}hideKeyHintOnScroll(){const h=document.getElementById('keyHint');let done=false;const hide=()=>{if(!done){h.classList.add('hidden');done=true}};document.addEventListener('scroll',hide,{once:true});document.addEventListener('keydown',hide,{once:true})}}
+        document.addEventListener('DOMContentLoaded',()=>{new SlidePresentation()});
+    </script>
+</body>
+</html>

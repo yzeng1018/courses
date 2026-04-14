@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出海第5讲：跨文化团队管理 — 曾言</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg-primary:#0c0f1a;--bg-secondary:#12162a;--bg-card:rgba(255,255,255,.04);--bg-card-hover:rgba(255,255,255,.07);--text-primary:#f0f4f8;--text-secondary:#8899aa;--text-muted:#556677;--accent:#f59e0b;--accent-dim:rgba(245,158,11,.15);--accent-glow:rgba(245,158,11,.25);--red:#ff6b6b;--red-dim:rgba(255,107,107,.15);--orange:#ffa94d;--orange-dim:rgba(255,169,77,.15);--blue:#74c0fc;--blue-dim:rgba(116,192,252,.15);--purple:#b197fc;--purple-dim:rgba(177,151,252,.15);--green:#51cf66;--green-dim:rgba(81,207,102,.15);--teal:#00e5c7;--teal-dim:rgba(0,229,199,.15);--border:rgba(255,255,255,.06);--font-display:'Clash Display','Noto Sans SC',sans-serif;--font-body:'Satoshi','Noto Sans SC',sans-serif;--title-size:clamp(2rem,5.5vw,4.5rem);--h2-size:clamp(1.5rem,4vw,3rem);--h3-size:clamp(1.1rem,2.5vw,1.75rem);--body-size:clamp(.8rem,1.4vw,1.15rem);--small-size:clamp(.7rem,1vw,.9rem);--label-size:clamp(.6rem,.9vw,.8rem);--slide-padding:clamp(1.5rem,5vw,5rem);--content-gap:clamp(.75rem,2vw,2rem);--element-gap:clamp(.4rem,1vh,1rem);--ease-out-expo:cubic-bezier(.16,1,.3,1);--duration:.7s}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;height:100%;overflow-x:hidden}body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;height:100%;-webkit-font-smoothing:antialiased}
+        .slide{width:100vw;height:100vh;height:100dvh;padding:var(--slide-padding);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;max-width:1200px;width:100%;margin:0 auto}
+        .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:1000;transition:width .3s ease;box-shadow:0 0 10px var(--accent-glow)}
+        .nav-dots{position:fixed;right:clamp(.75rem,2vw,1.5rem);top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);border:none;cursor:pointer;transition:all .3s ease;padding:0}.nav-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent-glow);transform:scale(1.3)}.nav-dot.section-start{width:10px;height:10px}
+        .slide-number{position:absolute;bottom:clamp(1rem,2vw,1.5rem);right:clamp(1.5rem,3vw,2.5rem);font-size:var(--small-size);color:var(--text-muted);font-weight:500}.section-label{font-size:var(--label-size);text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:700;margin-bottom:clamp(.5rem,1.5vw,1.5rem)}
+        .title-huge{font-family:var(--font-display);font-size:var(--title-size);font-weight:700;line-height:1.1;letter-spacing:-.02em}.title-slide-sub{font-size:clamp(.9rem,1.8vw,1.3rem);color:var(--text-secondary);margin-top:clamp(.5rem,1.5vw,1.5rem);font-weight:400;line-height:1.5}h2{font-family:var(--font-display);font-size:var(--h2-size);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--content-gap)}h3{font-family:var(--font-body);font-size:var(--h3-size);font-weight:700;line-height:1.3;margin-bottom:var(--element-gap)}p{font-size:var(--body-size);line-height:1.65;color:var(--text-secondary)}
+        .accent{color:var(--accent)}.red{color:var(--red)}.green{color:var(--green)}.blue{color:var(--blue)}.purple{color:var(--purple)}.teal{color:var(--teal)}
+        .story-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.25rem,3vw,2.5rem);margin-top:var(--content-gap);backdrop-filter:blur(10px)}.story-card p{font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.7}.story-card p+p{margin-top:clamp(.5rem,1vh,.75rem)}
+        .highlight-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:clamp(1rem,2vw,1.5rem) clamp(1.25rem,2.5vw,2rem);margin-top:var(--content-gap)}.highlight-box p{color:var(--text-primary);font-weight:500;font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.6}.highlight-box.red-box{background:var(--red-dim);border-left-color:var(--red)}.highlight-box.green-box{background:var(--green-dim);border-left-color:var(--green)}.highlight-box.blue-box{background:var(--blue-dim);border-left-color:var(--blue)}
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(.75rem,1.5vw,1.25rem);margin-top:var(--content-gap)}.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);transition:background .3s ease}.card:hover{background:var(--bg-card-hover)}.card-icon{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.card h3{font-size:clamp(.9rem,1.5vw,1.1rem);margin-bottom:clamp(.25rem,.5vh,.5rem)}.card p{font-size:var(--small-size);line-height:1.5}
+        .comparison{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.75rem,2vw,1.5rem);margin-top:var(--content-gap)}@media(max-width:600px){.comparison{grid-template-columns:1fr}}.comparison-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem)}.comparison-col h3{font-size:clamp(.9rem,1.4vw,1.1rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.comparison-col ul{list-style:none;padding:0}.comparison-col li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.5;padding:clamp(.2rem,.5vh,.4rem) 0;padding-left:1.2em;position:relative}.comparison-col li::before{content:'';position:absolute;left:0;top:clamp(.55rem,1vh,.7rem);width:6px;height:6px;border-radius:50%}.comparison-col.col-accent li::before{background:var(--accent)}.comparison-col.col-green li::before{background:var(--green)}.comparison-col.col-red li::before{background:var(--red)}.comparison-col.col-blue li::before{background:var(--blue)}
+        .slide-table{width:100%;border-collapse:collapse;margin-top:var(--content-gap);font-size:var(--body-size)}.slide-table th{text-align:left;padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);background:var(--accent-dim);color:var(--accent);font-weight:600;font-size:var(--small-size);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}.slide-table td{padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);border-bottom:1px solid var(--border);color:var(--text-secondary);line-height:1.5}.slide-table tr:last-child td{border-bottom:none}.slide-table td:first-child{color:var(--text-primary);font-weight:500}
+        .bullet-list{list-style:none;padding:0;margin-top:var(--content-gap);display:flex;flex-direction:column;gap:var(--element-gap)}.bullet-list li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6;padding-left:1.5em;position:relative}.bullet-list li::before{content:'';position:absolute;left:0;top:clamp(.5rem,.8vh,.65rem);width:6px;height:6px;border-radius:50%;background:var(--accent)}.bullet-list li strong{color:var(--text-primary)}
+        .quote{font-size:clamp(1.1rem,2.5vw,1.75rem);font-style:italic;color:var(--text-primary);line-height:1.5;border-left:3px solid var(--accent);padding-left:clamp(1rem,2vw,1.5rem);max-width:800px}
+        .slide.section-divider{background:var(--bg-secondary)}.section-divider .section-number{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:700;color:var(--accent);opacity:.15;position:absolute;top:clamp(1rem,3vw,2rem);right:clamp(2rem,5vw,4rem);line-height:1}
+        .bg-glow{position:absolute;width:clamp(300px,50vw,600px);height:clamp(300px,50vw,600px);border-radius:50%;filter:blur(120px);opacity:.07;pointer-events:none}.bg-glow.glow-amber{background:var(--accent)}.bg-glow.glow-blue{background:#4c6ef5}.bg-glow.glow-purple{background:#7950f2}
+        .reveal{opacity:0;transform:translateY(25px);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal{opacity:1;transform:translateY(0)}.reveal:nth-child(1){transition-delay:.05s}.reveal:nth-child(2){transition-delay:.15s}.reveal:nth-child(3){transition-delay:.25s}.reveal:nth-child(4){transition-delay:.35s}.reveal:nth-child(5){transition-delay:.45s}.reveal:nth-child(6){transition-delay:.55s}
+        .reveal-scale{opacity:0;transform:scale(.92);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal-scale{opacity:1;transform:scale(1)}
+        .step-flow{display:flex;flex-direction:column;gap:clamp(.5rem,1vh,.75rem);margin-top:var(--content-gap)}.step-item{display:flex;align-items:flex-start;gap:clamp(.75rem,1.5vw,1.25rem)}.step-num{font-family:var(--font-display);font-size:clamp(1rem,1.8vw,1.4rem);font-weight:700;color:var(--accent);min-width:clamp(1.5rem,3vw,2rem)}.step-text{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6}.step-text strong{color:var(--text-primary)}
+        @media(max-height:700px){:root{--slide-padding:clamp(1rem,3vw,2.5rem);--content-gap:clamp(.5rem,1.5vw,1rem);--title-size:clamp(1.75rem,5vw,3.5rem);--h2-size:clamp(1.25rem,3.5vw,2.25rem)}}@media(max-height:600px){:root{--slide-padding:clamp(.75rem,2.5vw,1.5rem);--content-gap:clamp(.4rem,1vw,.75rem);--title-size:clamp(1.5rem,4.5vw,2.5rem);--h2-size:clamp(1.1rem,3vw,1.75rem);--body-size:clamp(.7rem,1.2vw,.95rem)}.nav-dots,.bg-glow{display:none}}@media(max-height:500px){:root{--slide-padding:clamp(.5rem,2vw,1rem);--title-size:clamp(1.25rem,4vw,2rem);--h2-size:clamp(1rem,2.5vw,1.5rem);--body-size:clamp(.65rem,1vw,.85rem)}}@media(max-width:600px){:root{--title-size:clamp(1.5rem,8vw,3rem)}.card-grid{grid-template-columns:1fr}.comparison{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}html{scroll-behavior:auto}}
+        .keyboard-hint{position:fixed;bottom:clamp(1rem,2vw,1.5rem);left:50%;transform:translateX(-50%);font-size:var(--small-size);color:var(--text-muted);opacity:.5;transition:opacity .5s;pointer-events:none}.keyboard-hint.hidden{opacity:0}
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint" id="keyHint">按 ← → 或滚动翻页</div>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide">
+        <div class="bg-glow glow-amber" style="top:-20%;right:-10%"></div>
+        <div class="bg-glow glow-purple" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content">
+            <p class="section-label reveal">出海实战 · 第5讲</p>
+            <h1 class="title-huge reveal">跨文化<span class="accent">团队管理</span></h1>
+            <p class="title-slide-sub reveal">在7个国家同时打仗</p>
+        </div>
+        <span class="slide-number">1</span>
+    </section>
+
+    <!-- SLIDE 2: 开场 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 三种团队</p>
+            <h2 class="reveal">我在巴西管过<span class="accent">三种团队</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <h3>滴滴巴西</h3>
+                    <p>外派中国人 + 本地巴西人，小而精</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">02</div>
+                    <h3>快手巴西</h3>
+                    <p>北京产品算法 + 巴西运营内容 + 多国审核团队</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">03</div>
+                    <h3>Betse</h3>
+                    <p>全自建本地团队 + 远程技术团队</p>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>三种组合，三种完全不同的管理挑战。今天讲的不是理论，是踩过的坑。</p>
+            </div>
+        </div>
+        <span class="slide-number">2</span>
+    </section>
+
+    <!-- SLIDE 3: SECTION 5.1 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">5.1</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第一节</p>
+            <h2 class="reveal" style="max-width:700px">外派 vs 本地招聘：<br><span class="accent">永恒的难题</span></h2>
+        </div>
+        <span class="slide-number">3</span>
+    </section>
+
+    <!-- SLIDE 4: 外派 vs 本地 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 优劣对比</p>
+            <h2 class="reveal"><span class="blue">外派</span> vs <span class="accent">本地招聘</span></h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col col-blue">
+                    <h3><span class="blue">外派优势</span></h3>
+                    <ul>
+                        <li>文化传导，带总部理念</li>
+                        <li>总部信任基础高</li>
+                        <li>全局视野，战略一致</li>
+                    </ul>
+                </div>
+                <div class="comparison-col col-accent">
+                    <h3><span class="accent">本地优势</span></h3>
+                    <ul>
+                        <li>语言、文化、人脉</li>
+                        <li>成本低，稳定性高</li>
+                        <li>用户视角更准确</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">4</span>
+    </section>
+
+    <!-- SLIDE 5: 判断框架 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 决策框架</p>
+            <h2 class="reveal">什么岗位用<span class="accent">什么人</span></h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr><th>岗位</th><th>建议</th><th>理由</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>GM/负责人</td><td>外派→本地化</td><td>初期需总部信任和资源</td></tr>
+                    <tr><td>产品/算法</td><td>北京为主</td><td>核心技术在总部</td></tr>
+                    <tr><td>运营/内容</td><td>本地为主</td><td>必须懂本地文化</td></tr>
+                    <tr><td>商务/政府</td><td>必须本地</td><td>人脉和信任无法替代</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">5</span>
+    </section>
+
+    <!-- SLIDE 6: 关键经验 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 关键经验</p>
+            <h2 class="reveal">招优秀的本地人，<span class="accent">哪怕贵一些</span></h2>
+            <div class="story-card reveal">
+                <p>便宜的人带来的管理成本远超薪资差。</p>
+                <p>墨西哥的经验验证了这一点——墨西哥人比巴西人更好管理，核心原因是我们在墨西哥<strong style="color:var(--accent)">招到了更好的本地负责人</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">6</span>
+    </section>
+
+    <!-- SLIDE 7: SECTION 5.2 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">5.2</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第二节</p>
+            <h2 class="reveal" style="max-width:700px">跨文化沟通：<br><span class="accent">真实的难题</span></h2>
+        </div>
+        <span class="slide-number">7</span>
+    </section>
+
+    <!-- SLIDE 8: 工作习惯差异 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 文化差异</p>
+            <h2 class="reveal">巴西人 vs 中国人：<span class="accent">四大差异</span></h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr><th>维度</th><th>中国团队</th><th>巴西团队</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>时间观念</td><td>准时开始</td><td>晚15分钟是常态</td></tr>
+                    <tr><td>反馈方式</td><td>可公开直接批评</td><td>公开批评=关系终结</td></tr>
+                    <tr><td>家庭优先</td><td>加班文化</td><td>孩子演出必须去</td></tr>
+                    <tr><td>决策方式</td><td>"老板说了，做"</td><td>需要理解"为什么"</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">8</span>
+    </section>
+
+    <!-- SLIDE 9: 解法 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 我的解法</p>
+            <h2 class="reveal">不是"教育"，是<span class="accent">适应</span></h2>
+            <div class="step-flow reveal-scale">
+                <div class="step-item">
+                    <span class="step-num">01</span>
+                    <span class="step-text"><strong>时间</strong> — 重要会议提前15分钟安排，真正内容从实际到齐时间开始</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">02</span>
+                    <span class="step-text"><strong>反馈</strong> — 所有负面反馈私下一对一，公开场合只表扬</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">03</span>
+                    <span class="step-text"><strong>家庭</strong> — 尊重。合理工作节奏比强制加班产出更高</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">04</span>
+                    <span class="step-text"><strong>决策</strong> — 多花时间解释背景，看似慢了，但执行质量更高</span>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">9</span>
+    </section>
+
+    <!-- SLIDE 10: 司机管理洞察 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 拉美运营洞察</p>
+            <h2 class="reveal">巴西司机 vs 中国司机：<span class="accent">产品设计</span></h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr><th>洞察</th><th>中国</th><th>巴西</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>算数能力</td><td>精确计算收入</td><td>Dashboard必须极简</td></tr>
+                    <tr><td>工作动力</td><td>为钱可以很卷</td><td>荣誉体系更有效</td></tr>
+                    <tr><td>激励偏好</td><td>长期目标可接受</td><td>每天到账很重要</td></tr>
+                    <tr><td>银行账户</td><td>人人有</td><td>很多司机没有银行卡</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">10</span>
+    </section>
+
+    <!-- SLIDE 11: 本地化极致 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 极致本地化</p>
+            <h2 class="reveal">本地化不是翻译，是<span class="accent">理解生活</span></h2>
+            <ul class="bullet-list reveal">
+                <li>收入页面要做到<strong>小学生能看懂</strong></li>
+                <li>奖励结算从周结改成<strong>日结</strong></li>
+                <li>荣誉勋章、排行榜比单纯加钱<strong>更能留住司机</strong></li>
+                <li>我们甚至<strong>帮每个司机开银行账户</strong></li>
+            </ul>
+        </div>
+        <span class="slide-number">11</span>
+    </section>
+
+    <!-- SLIDE 12: SECTION 5.3 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">5.3</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第三节</p>
+            <h2 class="reveal" style="max-width:700px">跨时区管理与<br><span class="accent">角色升级</span></h2>
+        </div>
+        <span class="slide-number">12</span>
+    </section>
+
+    <!-- SLIDE 13: 跨时区 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 11-12小时时差</p>
+            <h2 class="reveal">北京 ↔ 圣保罗：<span class="red">2-3小时重叠</span></h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr><th>类型</th><th>方式</th><th>频率</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>日常沟通</td><td>Slack异步 + 文档</td><td>持续</td></tr>
+                    <tr><td>周同步</td><td>视频会（北京晚9点）</td><td>每周1-2次</td></tr>
+                    <tr><td>关键决策</td><td>专题会 + 会前文档</td><td>按需</td></tr>
+                    <tr><td>季度对齐</td><td>线下面对面</td><td>每季度</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">13</span>
+    </section>
+
+    <!-- SLIDE 14: 信息同步原则 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 核心原则</p>
+            <h2 class="reveal">信息同步是跨时区管理的<span class="accent">基础设施</span></h2>
+            <div class="highlight-box reveal">
+                <p>任何重要信息必须有文字记录。不要只在会上说了就完——巴西团队可能没参加那个会。</p>
+            </div>
+            <div class="highlight-box red-box reveal">
+                <p>做不好信息同步，一切都会出问题。异步协作为主，同步会议为辅。</p>
+            </div>
+        </div>
+        <span class="slide-number">14</span>
+    </section>
+
+    <!-- SLIDE 15: 产品人到GM -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 角色升级</p>
+            <h2 class="reveal">从产品总监到<span class="accent">GM</span></h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col col-blue">
+                    <h3><span class="blue">产品总监</span></h3>
+                    <ul>
+                        <li>关注产品体验和指标</li>
+                        <li>管产品+设计+部分研发</li>
+                        <li>做出好产品</li>
+                    </ul>
+                </div>
+                <div class="comparison-col col-accent">
+                    <h3><span class="accent">GM</span></h3>
+                    <ul>
+                        <li>关注业务P&L</li>
+                        <li>管产品+运营+市场+商务+GR</li>
+                        <li>经营一个业务</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">15</span>
+    </section>
+
+    <!-- SLIDE 16: 三个跨越 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 能力跨越</p>
+            <h2 class="reveal">最大的跨越<span class="accent">不是管更多人</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <h3>政府关系</h3>
+                    <p>不是数据说话，是关系说话。巴西监管环境复杂</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--red)">02</div>
+                    <h3>媒体管理</h3>
+                    <p>一条负面新闻 = 一周的用户增长归零</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <h3>商务BD</h3>
+                    <p>从商业价值出发谈判——不是产品人的舒适区</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">16</span>
+    </section>
+
+    <!-- SLIDE 17: 给产品人的建议 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 建议</p>
+            <h2 class="reveal">产品人走出海路线，<span class="accent">现在培养两个能力</span></h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col col-accent">
+                    <h3><span class="accent">商业思维</span></h3>
+                    <ul>
+                        <li>不只想"产品怎么做好"</li>
+                        <li>想"这个业务怎么赚钱"</li>
+                        <li>理解P&L和单位经济模型</li>
+                    </ul>
+                </div>
+                <div class="comparison-col col-green">
+                    <h3><span class="green">跨文化敏感度</span></h3>
+                    <ul>
+                        <li>读《文化地图》（Erin Meyer）</li>
+                        <li>关注不同文化的思维方式</li>
+                        <li>沟通方式的差异</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">17</span>
+    </section>
+
+    <!-- SLIDE 18: 金句 -->
+    <section class="slide">
+        <div class="bg-glow glow-amber" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">5.3 — 结语</p>
+            <p class="quote reveal" style="border-left:none;text-align:center;padding-left:0">管理跨文化团队，<br>最重要的不是制度和流程，<br><br>是<span class="accent">尊重</span>。</p>
+        </div>
+        <span class="slide-number">18</span>
+    </section>
+
+    <!-- SLIDE 19: 费曼检验 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课后自测 — 费曼检验</p>
+            <h2 class="reveal">你能回答这三个问题吗？</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <p>外派和本地招聘各自的优劣，什么岗位用哪种？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">02</div>
+                    <p>举出三个中国团队和巴西团队的工作习惯差异</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">03</div>
+                    <p>从产品人到GM，最大的能力跨越是什么？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">19</span>
+    </section>
+
+    <!-- SLIDE 20: 下一讲 -->
+    <section class="slide">
+        <div class="bg-glow glow-amber" style="top:-10%;right:-5%"></div>
+        <div class="bg-glow glow-purple" style="bottom:-15%;left:-5%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">第5讲完</p>
+            <h1 class="title-huge reveal" style="font-size:clamp(1.75rem,4.5vw,3.5rem)">下一讲预告</h1>
+            <p class="title-slide-sub reveal">出海的未来与复盘 — AI如何重塑出海</p>
+        </div>
+        <span class="slide-number">20</span>
+    </section>
+
+    <script>
+        class SlidePresentation{constructor(){this.slides=document.querySelectorAll('.slide');this.currentSlide=0;this.totalSlides=this.slides.length;this.init()}init(){this.createNavDots();this.setupIntersectionObserver();this.setupKeyboardNav();this.setupTouchNav();this.updateProgress();this.hideKeyHintOnScroll()}createNavDots(){const c=document.getElementById('navDots');const s=[0,2,6,11];this.slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(s.includes(i)?' section-start':'');d.setAttribute('aria-label',`Go to slide ${i+1}`);d.addEventListener('click',()=>{this.slides[i].scrollIntoView({behavior:'smooth'})});c.appendChild(d)});this.navDots=c.querySelectorAll('.nav-dot')}setupIntersectionObserver(){const o=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const i=Array.from(this.slides).indexOf(e.target);if(i!==-1){this.currentSlide=i;this.updateProgress();this.updateNavDots()}}})},{threshold:0.5});this.slides.forEach(s=>o.observe(s))}setupKeyboardNav(){document.addEventListener('keydown',(e)=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();this.goToSlide(this.currentSlide+1)}else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();this.goToSlide(this.currentSlide-1)}})}setupTouchNav(){let sy=0,sx=0;document.addEventListener('touchstart',(e)=>{sy=e.touches[0].clientY;sx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',(e)=>{const dy=sy-e.changedTouches[0].clientY,dx=sx-e.changedTouches[0].clientX;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>50){this.goToSlide(dy>0?this.currentSlide+1:this.currentSlide-1)}},{passive:true})}goToSlide(i){if(i>=0&&i<this.totalSlides)this.slides[i].scrollIntoView({behavior:'smooth'})}updateProgress(){document.getElementById('progressBar').style.width=((this.currentSlide+1)/this.totalSlides)*100+'%'}updateNavDots(){if(!this.navDots)return;this.navDots.forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide))}hideKeyHintOnScroll(){const h=document.getElementById('keyHint');let done=false;const hide=()=>{if(!done){h.classList.add('hidden');done=true}};document.addEventListener('scroll',hide,{once:true});document.addEventListener('keydown',hide,{once:true})}}
+        document.addEventListener('DOMContentLoaded',()=>{new SlidePresentation()});
+    </script>
+</body>
+</html>

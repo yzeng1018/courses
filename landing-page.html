@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品人的AI实战课 — 曾言</title>
+    <meta name="description" content="数学博士×AI产品人×出海先锋，10年实战经验浓缩为6讲。从认知到方法论到动手做，帮P6-P8产品经理在AI时代建立真正的竞争力。">
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b1120;
+            --bg-secondary: #111b2e;
+            --bg-card: rgba(255,255,255,.04);
+            --bg-card-hover: rgba(255,255,255,.07);
+            --text-primary: #f0f4f8;
+            --text-secondary: #8899aa;
+            --text-muted: #556677;
+            --accent: #00e5c7;
+            --accent-dim: rgba(0,229,199,.15);
+            --accent-glow: rgba(0,229,199,.25);
+            --red: #ff6b6b;
+            --orange: #ffa94d;
+            --blue: #74c0fc;
+            --purple: #b197fc;
+            --yellow: #ffd43b;
+            --border: rgba(255,255,255,.06);
+            --border-light: rgba(255,255,255,.1);
+            --font-display: 'Clash Display', 'Noto Sans SC', sans-serif;
+            --font-body: 'Satoshi', 'Noto Sans SC', sans-serif;
+            --ease-out-expo: cubic-bezier(.16, 1, .3, 1);
+            --section-padding: clamp(3rem, 8vw, 7rem) clamp(1.25rem, 5vw, 4rem);
+            --max-width: 1080px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* =========================================
+           UTILITY
+           ========================================= */
+        .container { max-width: var(--max-width); margin: 0 auto; width: 100%; }
+        .accent { color: var(--accent); }
+        .muted { color: var(--text-muted); }
+        .secondary { color: var(--text-secondary); }
+
+        /* Reveal on scroll */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity .7s var(--ease-out-expo), transform .7s var(--ease-out-expo);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal.d1 { transition-delay: .1s; }
+        .reveal.d2 { transition-delay: .2s; }
+        .reveal.d3 { transition-delay: .3s; }
+        .reveal.d4 { transition-delay: .4s; }
+
+        /* =========================================
+           NAV
+           ========================================= */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: clamp(.75rem, 2vw, 1rem) clamp(1.25rem, 5vw, 4rem);
+            background: rgba(11, 17, 32, .85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            transition: transform .3s ease;
+        }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: clamp(.95rem, 2vw, 1.15rem);
+            font-weight: 700; color: var(--text-primary);
+            letter-spacing: -.01em;
+        }
+        .nav-cta {
+            display: inline-block;
+            padding: .45rem 1.25rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 700;
+            font-size: clamp(.75rem, 1.2vw, .9rem);
+            border-radius: 8px;
+            border: none; cursor: pointer;
+            transition: opacity .2s;
+        }
+        .nav-cta:hover { opacity: .85; text-decoration: none; }
+
+        /* =========================================
+           HERO
+           ========================================= */
+        .hero {
+            padding: clamp(7rem, 15vw, 11rem) clamp(1.25rem, 5vw, 4rem) clamp(3rem, 8vw, 6rem);
+            position: relative; overflow: hidden;
+            text-align: center;
+        }
+        .hero .bg-glow {
+            position: absolute; width: clamp(300px, 60vw, 700px); height: clamp(300px, 60vw, 700px);
+            border-radius: 50%; filter: blur(140px); opacity: .08; pointer-events: none;
+        }
+        .hero .glow-1 { background: var(--accent); top: -30%; right: -15%; }
+        .hero .glow-2 { background: #7950f2; bottom: -30%; left: -15%; }
+        .hero-label {
+            font-size: clamp(.65rem, 1vw, .8rem);
+            text-transform: uppercase; letter-spacing: .2em;
+            color: var(--accent); font-weight: 700;
+            margin-bottom: clamp(.75rem, 2vw, 1.5rem);
+        }
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 6vw, 4.5rem);
+            font-weight: 700; line-height: 1.1; letter-spacing: -.02em;
+            max-width: 800px; margin: 0 auto;
+        }
+        .hero-sub {
+            font-size: clamp(.95rem, 2vw, 1.35rem);
+            color: var(--text-secondary); line-height: 1.6;
+            max-width: 600px; margin: clamp(1rem, 2.5vw, 1.75rem) auto 0;
+        }
+        .hero-meta {
+            display: flex; gap: clamp(1rem, 3vw, 2rem);
+            justify-content: center; flex-wrap: wrap;
+            margin-top: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: clamp(.75rem, 1.2vw, .9rem);
+            color: var(--text-muted);
+        }
+        .hero-meta span { white-space: nowrap; }
+        .hero-meta .sep { color: var(--border-light); }
+        .hero-actions {
+            display: flex; gap: clamp(.75rem, 1.5vw, 1rem);
+            justify-content: center; flex-wrap: wrap;
+            margin-top: clamp(2rem, 4vw, 3rem);
+        }
+        .btn-primary {
+            display: inline-block;
+            padding: clamp(.7rem, 1.5vw, .9rem) clamp(1.5rem, 3vw, 2.5rem);
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: clamp(.85rem, 1.3vw, 1rem);
+            border-radius: 10px; border: none; cursor: pointer;
+            transition: opacity .2s, transform .2s;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .btn-primary:hover { opacity: .9; transform: translateY(-1px); text-decoration: none; }
+        .btn-secondary {
+            display: inline-block;
+            padding: clamp(.7rem, 1.5vw, .9rem) clamp(1.5rem, 3vw, 2.5rem);
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: clamp(.85rem, 1.3vw, 1rem);
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            transition: border-color .2s, color .2s;
+        }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--text-primary); text-decoration: none; }
+
+        /* =========================================
+           SOCIAL PROOF BAR
+           ========================================= */
+        .proof-bar {
+            padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 5vw, 4rem);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+        .proof-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; justify-content: center; align-items: center;
+            gap: clamp(1.5rem, 4vw, 3.5rem); flex-wrap: wrap;
+            text-align: center;
+        }
+        .proof-item { display: flex; flex-direction: column; align-items: center; }
+        .proof-num {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-weight: 700; color: var(--accent); line-height: 1;
+        }
+        .proof-label {
+            font-size: clamp(.65rem, 1vw, .8rem);
+            color: var(--text-muted); margin-top: .35rem;
+        }
+
+        /* =========================================
+           SECTIONS (generic)
+           ========================================= */
+        section { padding: var(--section-padding); }
+        .section-label {
+            font-size: clamp(.6rem, .9vw, .75rem);
+            text-transform: uppercase; letter-spacing: .2em;
+            color: var(--accent); font-weight: 700;
+            margin-bottom: clamp(.5rem, 1.5vw, 1rem);
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.75rem);
+            font-weight: 700; line-height: 1.15; letter-spacing: -.01em;
+            margin-bottom: clamp(.5rem, 1.5vw, 1rem);
+        }
+        .section-desc {
+            font-size: clamp(.85rem, 1.4vw, 1.1rem);
+            color: var(--text-secondary); line-height: 1.65;
+            max-width: 640px;
+        }
+
+        /* =========================================
+           PAIN POINTS
+           ========================================= */
+        .pain-section { background: var(--bg-secondary); }
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: clamp(.75rem, 1.5vw, 1.25rem);
+            margin-top: clamp(1.5rem, 3vw, 2.5rem);
+        }
+        .pain-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: clamp(1.25rem, 2.5vw, 2rem);
+        }
+        .pain-card .icon {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            margin-bottom: clamp(.5rem, 1vh, .75rem);
+        }
+        .pain-card h3 {
+            font-size: clamp(.9rem, 1.5vw, 1.1rem);
+            font-weight: 700; margin-bottom: clamp(.3rem, .5vh, .5rem);
+        }
+        .pain-card p {
+            font-size: clamp(.75rem, 1.2vw, .9rem);
+            color: var(--text-secondary); line-height: 1.55;
+        }
+
+        /* =========================================
+           CURRICULUM
+           ========================================= */
+        .curriculum-list {
+            margin-top: clamp(1.5rem, 3vw, 2.5rem);
+            display: flex; flex-direction: column;
+            gap: clamp(.5rem, 1vh, .75rem);
+        }
+        .lecture-row {
+            display: flex; align-items: flex-start;
+            gap: clamp(.75rem, 2vw, 1.5rem);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.5vw, 2rem);
+            transition: background .3s ease, border-color .3s ease;
+        }
+        .lecture-row:hover { background: var(--bg-card-hover); border-color: var(--border-light); }
+        .lecture-num {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 700; color: var(--accent);
+            min-width: clamp(2rem, 4vw, 2.5rem);
+            line-height: 1.2;
+        }
+        .lecture-info { flex: 1; }
+        .lecture-info h3 {
+            font-size: clamp(.9rem, 1.5vw, 1.1rem);
+            font-weight: 700; line-height: 1.35;
+            margin-bottom: clamp(.2rem, .5vh, .35rem);
+        }
+        .lecture-info p {
+            font-size: clamp(.75rem, 1.2vw, .9rem);
+            color: var(--text-secondary); line-height: 1.55;
+        }
+        .lecture-tag {
+            display: inline-block;
+            font-size: clamp(.55rem, .85vw, .7rem);
+            font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+            padding: .15rem .55rem; border-radius: 5px;
+            margin-top: clamp(.3rem, .5vh, .5rem);
+        }
+        .tag-cognition { background: rgba(116,192,252,.15); color: var(--blue); }
+        .tag-method { background: rgba(255,169,77,.15); color: var(--orange); }
+        .tag-practice { background: rgba(0,229,199,.15); color: var(--accent); }
+
+        /* =========================================
+           INSTRUCTOR
+           ========================================= */
+        .instructor-section { background: var(--bg-secondary); }
+        .instructor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 4vw, 4rem);
+            margin-top: clamp(1.5rem, 3vw, 2.5rem);
+            align-items: start;
+        }
+        @media (max-width: 700px) { .instructor-grid { grid-template-columns: 1fr; } }
+        .timeline {
+            display: flex; flex-direction: column;
+            gap: clamp(.6rem, 1.2vh, .9rem);
+        }
+        .tl-item {
+            display: flex; align-items: flex-start;
+            gap: clamp(.6rem, 1.2vw, 1rem);
+        }
+        .tl-year {
+            font-family: var(--font-display);
+            font-size: clamp(.8rem, 1.2vw, .95rem);
+            font-weight: 700; color: var(--accent);
+            min-width: clamp(3.5rem, 6vw, 4.5rem);
+            flex-shrink: 0;
+        }
+        .tl-text {
+            font-size: clamp(.75rem, 1.2vw, .9rem);
+            color: var(--text-secondary); line-height: 1.5;
+            padding-left: clamp(.6rem, 1.2vw, .9rem);
+            border-left: 2px solid var(--border);
+        }
+        .tl-text strong { color: var(--text-primary); }
+        .highlight-list {
+            list-style: none; padding: 0;
+            display: flex; flex-direction: column;
+            gap: clamp(.5rem, 1vh, .75rem);
+        }
+        .highlight-list li {
+            font-size: clamp(.8rem, 1.3vw, .95rem);
+            color: var(--text-secondary); line-height: 1.55;
+            padding-left: 1.3em; position: relative;
+        }
+        .highlight-list li::before {
+            content: ''; position: absolute; left: 0;
+            top: clamp(.45rem, .7vh, .55rem);
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--accent);
+        }
+        .highlight-list li strong { color: var(--text-primary); }
+
+        /* =========================================
+           OUTCOMES
+           ========================================= */
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+            gap: clamp(.75rem, 1.5vw, 1.25rem);
+            margin-top: clamp(1.5rem, 3vw, 2.5rem);
+        }
+        .outcome-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: clamp(1.25rem, 2.5vw, 2rem);
+            text-align: center;
+        }
+        .outcome-card .num {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700; color: var(--accent); line-height: 1;
+        }
+        .outcome-card h3 {
+            font-size: clamp(.85rem, 1.3vw, 1rem);
+            font-weight: 700; margin-top: clamp(.4rem, 1vh, .6rem);
+            margin-bottom: clamp(.2rem, .5vh, .3rem);
+        }
+        .outcome-card p {
+            font-size: clamp(.7rem, 1.1vw, .85rem);
+            color: var(--text-secondary); line-height: 1.5;
+        }
+
+        /* =========================================
+           QUOTE / TESTIMONIAL
+           ========================================= */
+        .quote-section { text-align: center; }
+        .big-quote {
+            font-size: clamp(1.15rem, 2.5vw, 1.75rem);
+            font-style: italic; color: var(--text-primary);
+            line-height: 1.55; max-width: 720px;
+            margin: clamp(1rem, 2vw, 1.5rem) auto 0;
+        }
+        .big-quote .accent-line { color: var(--accent); font-weight: 600; }
+
+        /* =========================================
+           CTA SECTION
+           ========================================= */
+        .cta-section {
+            text-align: center;
+            background: var(--bg-secondary);
+            position: relative; overflow: hidden;
+        }
+        .cta-section .bg-glow {
+            position: absolute; width: clamp(300px, 50vw, 600px); height: clamp(300px, 50vw, 600px);
+            border-radius: 50%; filter: blur(140px); opacity: .06; pointer-events: none;
+        }
+        .cta-section .glow-1 { background: var(--accent); top: -40%; right: -10%; }
+        .cta-section .glow-2 { background: #7950f2; bottom: -40%; left: -10%; }
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 700; line-height: 1.15;
+        }
+        .cta-sub {
+            font-size: clamp(.85rem, 1.4vw, 1.1rem);
+            color: var(--text-secondary); line-height: 1.6;
+            max-width: 520px; margin: clamp(.75rem, 1.5vw, 1.25rem) auto 0;
+        }
+        .cta-actions {
+            margin-top: clamp(1.5rem, 3vw, 2.5rem);
+            display: flex; justify-content: center;
+            gap: clamp(.75rem, 1.5vw, 1rem); flex-wrap: wrap;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        .footer {
+            padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 5vw, 4rem);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: clamp(.65rem, 1vw, .8rem);
+            color: var(--text-muted);
+        }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 600px) {
+            .proof-inner { gap: clamp(1.25rem, 5vw, 2rem); }
+            .instructor-grid { gap: clamp(1.5rem, 3vw, 2rem); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .2s !important;
+            }
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <span class="nav-logo">曾言 <span class="accent">/</span> AI实战课</span>
+        <a href="#cta" class="nav-cta">立即报名</a>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="bg-glow glow-1"></div>
+        <div class="bg-glow glow-2"></div>
+        <div class="container">
+            <p class="hero-label reveal">6讲 × 3节 × 15分钟</p>
+            <h1 class="reveal d1">产品人的<span class="accent">AI</span>实战课</h1>
+            <p class="hero-sub reveal d2">不教你写代码，教你做AI时代的产品决策。<br>从认知到方法论到亲手做，一套完整的AI产品能力体系。</p>
+            <div class="hero-meta reveal d3">
+                <span>数学博士</span><span class="sep">|</span>
+                <span>10年AI产品经验</span><span class="sep">|</span>
+                <span>滴滴 · 快手 · 携程</span>
+            </div>
+            <div class="hero-actions reveal d4">
+                <a href="#cta" class="btn-primary">立即报名</a>
+                <a href="#curriculum" class="btn-secondary">查看课程大纲</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- PROOF BAR -->
+    <div class="proof-bar">
+        <div class="proof-inner reveal">
+            <div class="proof-item">
+                <span class="proof-num">10+</span>
+                <span class="proof-label">年AI产品经验</span>
+            </div>
+            <div class="proof-item">
+                <span class="proof-num">4</span>
+                <span class="proof-label">家顶级互联网公司</span>
+            </div>
+            <div class="proof-item">
+                <span class="proof-num">7</span>
+                <span class="proof-label">个国家的业务经验</span>
+            </div>
+            <div class="proof-item">
+                <span class="proof-num">85%</span>
+                <span class="proof-label">AI值机成功率</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAIN POINTS -->
+    <section class="pain-section">
+        <div class="container">
+            <p class="section-label reveal">为什么需要这门课</p>
+            <h2 class="section-title reveal d1">你是不是也有这些困惑？</h2>
+            <div class="pain-grid">
+                <div class="pain-card reveal d1">
+                    <div class="icon">?</div>
+                    <h3>AI到底能做什么、不能做什么？</h3>
+                    <p>看了很多科普，但轮到自己判断一个AI需求能不能做的时候，还是没把握。</p>
+                </div>
+                <div class="pain-card reveal d2">
+                    <div class="icon">!</div>
+                    <h3>AI产品PRD怎么写？</h3>
+                    <p>传统PRD的方法论套不上去。模型会犯错、会产生幻觉，这些怎么写进产品设计？</p>
+                </div>
+                <div class="pain-card reveal d3">
+                    <div class="icon">%</div>
+                    <h3>AI项目的指标怎么定？</h3>
+                    <p>准确率、覆盖率、成功率……算法团队扔一堆数字过来，产品人怎么判断好不好？</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CURRICULUM -->
+    <section id="curriculum">
+        <div class="container">
+            <p class="section-label reveal">课程大纲</p>
+            <h2 class="section-title reveal d1">6讲，从认知到动手</h2>
+            <p class="section-desc reveal d2">三大板块：认知重建 → 方法论 → 实操复盘。每讲15分钟×3节，碎片时间就能学完。</p>
+            <div class="curriculum-list">
+                <div class="lecture-row reveal">
+                    <span class="lecture-num">01</span>
+                    <div class="lecture-info">
+                        <h3>产品人真正需要懂的AI</h3>
+                        <p>大模型四大能力、三条红线、AI方案可行性评估表。用滴滴智能发券的故事开场。</p>
+                        <span class="lecture-tag tag-cognition">认知重建</span>
+                    </div>
+                </div>
+                <div class="lecture-row reveal">
+                    <span class="lecture-num">02</span>
+                    <div class="lecture-info">
+                        <h3>AI产品的机会识别</h3>
+                        <p>携程值机三阶段演进，"用AI做"vs"AI做得更好"，三个检验问题。</p>
+                        <span class="lecture-tag tag-method">方法论</span>
+                    </div>
+                </div>
+                <div class="lecture-row reveal">
+                    <span class="lecture-num">03</span>
+                    <div class="lecture-info">
+                        <h3>AI产品PRD怎么写</h3>
+                        <p>模型行为规格、置信度设计、降级策略。传统PRD和AI PRD的三个关键差异。</p>
+                        <span class="lecture-tag tag-method">方法论</span>
+                    </div>
+                </div>
+                <div class="lecture-row reveal">
+                    <span class="lecture-num">04</span>
+                    <div class="lecture-info">
+                        <h3>AI产品的数据与指标</h3>
+                        <p>三层指标框架（模型层/产品层/用户层）、准确率和覆盖率的取舍、数据飞轮设计。</p>
+                        <span class="lecture-tag tag-method">方法论</span>
+                    </div>
+                </div>
+                <div class="lecture-row reveal">
+                    <span class="lecture-num">05</span>
+                    <div class="lecture-info">
+                        <h3>Vibe Coding入门</h3>
+                        <p>产品人如何用AI做自己的工具。工具链介绍、实操演示、避坑指南。</p>
+                        <span class="lecture-tag tag-practice">实操</span>
+                    </div>
+                </div>
+                <div class="lecture-row reveal">
+                    <span class="lecture-num">06</span>
+                    <div class="lecture-info">
+                        <h3>综合复盘 — 我做AI产品的10年</h3>
+                        <p>从ML到Agent四个时代，10年踩坑总结，最大的弯路和最关键的决策。</p>
+                        <span class="lecture-tag tag-practice">复盘</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section style="background:var(--bg-secondary)">
+        <div class="container">
+            <p class="section-label reveal">学完你能做到什么</p>
+            <h2 class="section-title reveal d1">四个可衡量的能力</h2>
+            <div class="outcomes-grid">
+                <div class="outcome-card reveal d1">
+                    <div class="num">01</div>
+                    <h3>判断AI需求</h3>
+                    <p>能判断一个AI需求是否值得做，用5维评估表快速决策</p>
+                </div>
+                <div class="outcome-card reveal d2">
+                    <div class="num">02</div>
+                    <h3>写AI产品PRD</h3>
+                    <p>能写出包含模型行为规格、降级策略的完整AI产品PRD</p>
+                </div>
+                <div class="outcome-card reveal d3">
+                    <div class="num">03</div>
+                    <h3>搭建AI原型</h3>
+                    <p>能独立用Claude/Cursor搭建一个简单的AI工具原型</p>
+                </div>
+                <div class="outcome-card reveal d4">
+                    <div class="num">04</div>
+                    <h3>对话算法团队</h3>
+                    <p>能在会议上有效质疑或支持算法团队的方案</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTRUCTOR -->
+    <section class="instructor-section" id="instructor">
+        <div class="container">
+            <p class="section-label reveal">讲师介绍</p>
+            <h2 class="section-title reveal d1">曾言</h2>
+            <p class="section-desc reveal d2">数学博士 × AI产品人 × 出海先锋</p>
+            <div class="instructor-grid">
+                <div class="reveal d2">
+                    <div class="timeline">
+                        <div class="tl-item">
+                            <span class="tl-year">2014</span>
+                            <div class="tl-text"><strong>滴滴</strong> — 数据挖掘/BI，智能发券系统、动态调价、顺风车从零到一</div>
+                        </div>
+                        <div class="tl-item">
+                            <span class="tl-year">2017</span>
+                            <div class="tl-text"><strong>滴滴国际化</strong> — 巴西/墨西哥BI负责人，补贴策略操盘手</div>
+                        </div>
+                        <div class="tl-item">
+                            <span class="tl-year">2020</span>
+                            <div class="tl-text"><strong>快手</strong> — Trust & Safety Head → 巴西GM，DAU千万级</div>
+                        </div>
+                        <div class="tl-item">
+                            <span class="tl-year">2024</span>
+                            <div class="tl-text"><strong>Betse</strong> — 体育博彩CEO，6个月做到top10平台</div>
+                        </div>
+                        <div class="tl-item">
+                            <span class="tl-year">2025</span>
+                            <div class="tl-text"><strong>携程</strong> — AI值机、选座优化、商务舱项目</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal d3">
+                    <ul class="highlight-list">
+                        <li>北京大学<strong>数学博士</strong>，算法思维做产品</li>
+                        <li>AI值机成功率 <strong>60% → 85%</strong>，覆盖率翻倍</li>
+                        <li>快手巴西用户时长 <strong>20分钟 → 70分钟</strong></li>
+                        <li>滴滴巴西东北创新：<strong>降补贴反涨份额</strong></li>
+                        <li>亲手用AI做了 <strong>4个可用的应用</strong></li>
+                        <li>覆盖 <strong>7个国家</strong> 的一线业务经验</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="quote-section">
+        <div class="container">
+            <p class="section-label reveal">课程理念</p>
+            <p class="big-quote reveal d1">
+                "技术在变，但产品人的核心能力没变——<br>
+                <span class="accent-line">理解用户、定义问题、做出取舍。</span><br>
+                AI只是让你做这些事情的工具变强了。"
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+        <div class="bg-glow glow-1"></div>
+        <div class="bg-glow glow-2"></div>
+        <div class="container" style="position:relative;z-index:1">
+            <p class="section-label reveal">开始学习</p>
+            <h2 class="cta-title reveal d1">在AI时代建立<span class="accent">真正的竞争力</span></h2>
+            <p class="cta-sub reveal d2">6讲完整课程，从认知重建到亲手实操。不教你写代码，教你做AI时代的产品决策。</p>
+            <div class="cta-actions reveal d3">
+                <a href="#" class="btn-primary">立即报名 ¥299</a>
+                <a href="#" class="btn-secondary">免费试听第1讲</a>
+            </div>
+            <p class="reveal d4" style="margin-top:clamp(1rem,2vw,1.5rem);font-size:clamp(.7rem,1vw,.8rem);color:var(--text-muted)">30天无理由退款 · 购买后永久回看</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>曾言 · 产品人的AI实战课 · 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Nav hide on scroll down, show on scroll up
+        let lastScroll = 0;
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            const curr = window.scrollY;
+            if (curr > lastScroll && curr > 80) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            lastScroll = curr;
+        }, { passive: true });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

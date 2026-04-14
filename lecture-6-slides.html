@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6讲：综合复盘 — 曾言</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg-primary:#0b1120;--bg-secondary:#111b2e;--bg-card:rgba(255,255,255,.04);--bg-card-hover:rgba(255,255,255,.07);--text-primary:#f0f4f8;--text-secondary:#8899aa;--text-muted:#556677;--accent:#00e5c7;--accent-dim:rgba(0,229,199,.15);--accent-glow:rgba(0,229,199,.25);--red:#ff6b6b;--red-dim:rgba(255,107,107,.15);--orange:#ffa94d;--orange-dim:rgba(255,169,77,.15);--blue:#74c0fc;--blue-dim:rgba(116,192,252,.15);--purple:#b197fc;--purple-dim:rgba(177,151,252,.15);--yellow:#ffd43b;--yellow-dim:rgba(255,212,59,.15);--border:rgba(255,255,255,.06);--font-display:'Clash Display','Noto Sans SC',sans-serif;--font-body:'Satoshi','Noto Sans SC',sans-serif;--title-size:clamp(2rem,5.5vw,4.5rem);--h2-size:clamp(1.5rem,4vw,3rem);--h3-size:clamp(1.1rem,2.5vw,1.75rem);--body-size:clamp(.8rem,1.4vw,1.15rem);--small-size:clamp(.7rem,1vw,.9rem);--label-size:clamp(.6rem,.9vw,.8rem);--slide-padding:clamp(1.5rem,5vw,5rem);--content-gap:clamp(.75rem,2vw,2rem);--element-gap:clamp(.4rem,1vh,1rem);--ease-out-expo:cubic-bezier(.16,1,.3,1);--duration:.7s}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;height:100%;overflow-x:hidden}body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;height:100%;-webkit-font-smoothing:antialiased}
+        .slide{width:100vw;height:100vh;height:100dvh;padding:var(--slide-padding);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;max-width:1200px;width:100%;margin:0 auto}
+        .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:1000;transition:width .3s ease;box-shadow:0 0 10px var(--accent-glow)}
+        .nav-dots{position:fixed;right:clamp(.75rem,2vw,1.5rem);top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);border:none;cursor:pointer;transition:all .3s ease;padding:0}.nav-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent-glow);transform:scale(1.3)}.nav-dot.section-start{width:10px;height:10px}
+        .slide-number{position:absolute;bottom:clamp(1rem,2vw,1.5rem);right:clamp(1.5rem,3vw,2.5rem);font-size:var(--small-size);color:var(--text-muted);font-weight:500}.section-label{font-size:var(--label-size);text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:700;margin-bottom:clamp(.5rem,1.5vw,1.5rem)}
+        .title-huge{font-family:var(--font-display);font-size:var(--title-size);font-weight:700;line-height:1.1;letter-spacing:-.02em}.title-slide-sub{font-size:clamp(.9rem,1.8vw,1.3rem);color:var(--text-secondary);margin-top:clamp(.5rem,1.5vw,1.5rem);font-weight:400;line-height:1.5}h2{font-family:var(--font-display);font-size:var(--h2-size);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--content-gap)}h3{font-family:var(--font-body);font-size:var(--h3-size);font-weight:700;line-height:1.3;margin-bottom:var(--element-gap)}p{font-size:var(--body-size);line-height:1.65;color:var(--text-secondary)}
+        .accent{color:var(--accent)}.red{color:var(--red)}.orange{color:var(--orange)}.blue{color:var(--blue)}.purple{color:var(--purple)}.yellow{color:var(--yellow)}
+        .story-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.25rem,3vw,2.5rem);margin-top:var(--content-gap);backdrop-filter:blur(10px)}.story-card p{font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.7}.story-card p+p{margin-top:clamp(.5rem,1vh,.75rem)}
+        .highlight-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:clamp(1rem,2vw,1.5rem) clamp(1.25rem,2.5vw,2rem);margin-top:var(--content-gap)}.highlight-box p{color:var(--text-primary);font-weight:500;font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.6}.highlight-box.red-box{background:var(--red-dim);border-left-color:var(--red)}.highlight-box.orange-box{background:var(--orange-dim);border-left-color:var(--orange)}.highlight-box.blue-box{background:var(--blue-dim);border-left-color:var(--blue)}.highlight-box.purple-box{background:var(--purple-dim);border-left-color:var(--purple)}.highlight-box.yellow-box{background:var(--yellow-dim);border-left-color:var(--yellow)}
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(.75rem,1.5vw,1.25rem);margin-top:var(--content-gap)}.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);transition:background .3s ease}.card:hover{background:var(--bg-card-hover)}.card-icon{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.card h3{font-size:clamp(.9rem,1.5vw,1.1rem);margin-bottom:clamp(.25rem,.5vh,.5rem)}.card p{font-size:var(--small-size);line-height:1.5}
+        .comparison{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.75rem,2vw,1.5rem);margin-top:var(--content-gap)}@media(max-width:600px){.comparison{grid-template-columns:1fr}}.comparison-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem)}.comparison-col h3{font-size:clamp(.9rem,1.4vw,1.1rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.comparison-col ul{list-style:none;padding:0}.comparison-col li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.5;padding:clamp(.2rem,.5vh,.4rem) 0;padding-left:1.2em;position:relative}.comparison-col li::before{content:'';position:absolute;left:0;top:clamp(.55rem,1vh,.7rem);width:6px;height:6px;border-radius:50%}.comparison-col.green li::before{background:var(--accent)}.comparison-col.orange li::before{background:var(--orange)}.comparison-col.red li::before{background:var(--red)}.comparison-col.blue li::before{background:var(--blue)}.comparison-col.purple li::before{background:var(--purple)}
+        .slide-table{width:100%;border-collapse:collapse;margin-top:var(--content-gap);font-size:var(--body-size)}.slide-table th{text-align:left;padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);background:var(--accent-dim);color:var(--accent);font-weight:600;font-size:var(--small-size);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}.slide-table td{padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);border-bottom:1px solid var(--border);color:var(--text-secondary);line-height:1.5}.slide-table tr:last-child td{border-bottom:none}.slide-table td:first-child{color:var(--text-primary);font-weight:500}
+        .bullet-list{list-style:none;padding:0;margin-top:var(--content-gap);display:flex;flex-direction:column;gap:var(--element-gap)}.bullet-list li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6;padding-left:1.5em;position:relative}.bullet-list li::before{content:'';position:absolute;left:0;top:clamp(.5rem,.8vh,.65rem);width:6px;height:6px;border-radius:50%;background:var(--accent)}.bullet-list li strong{color:var(--text-primary)}
+        .quote{font-size:clamp(1.1rem,2.5vw,1.75rem);font-style:italic;color:var(--text-primary);line-height:1.5;border-left:3px solid var(--accent);padding-left:clamp(1rem,2vw,1.5rem);max-width:800px}
+        .slide.section-divider{background:var(--bg-secondary)}.section-divider .section-number{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:700;color:var(--accent);opacity:.15;position:absolute;top:clamp(1rem,3vw,2rem);right:clamp(2rem,5vw,4rem);line-height:1}
+        .big-stat{font-family:var(--font-display);font-size:clamp(3rem,10vw,8rem);font-weight:700;color:var(--accent);line-height:1;letter-spacing:-.03em}.big-stat-label{font-size:clamp(1rem,2vw,1.5rem);color:var(--text-secondary);margin-top:clamp(.5rem,1vh,1rem)}
+        .bg-glow{position:absolute;width:clamp(300px,50vw,600px);height:clamp(300px,50vw,600px);border-radius:50%;filter:blur(120px);opacity:.07;pointer-events:none}.bg-glow.teal{background:var(--accent)}.bg-glow.blue{background:#4c6ef5}.bg-glow.purple{background:#7950f2}.bg-glow.orange-glow{background:var(--orange)}
+        .reveal{opacity:0;transform:translateY(25px);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal{opacity:1;transform:translateY(0)}.reveal:nth-child(1){transition-delay:.05s}.reveal:nth-child(2){transition-delay:.15s}.reveal:nth-child(3){transition-delay:.25s}.reveal:nth-child(4){transition-delay:.35s}.reveal:nth-child(5){transition-delay:.45s}.reveal:nth-child(6){transition-delay:.55s}
+        .reveal-scale{opacity:0;transform:scale(.92);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal-scale{opacity:1;transform:scale(1)}
+        /* Timeline styles */
+        .timeline{display:flex;flex-direction:column;gap:clamp(.5rem,1.2vh,.9rem);margin-top:var(--content-gap)}.timeline-item{display:flex;align-items:flex-start;gap:clamp(.75rem,1.5vw,1.25rem)}.timeline-year{font-family:var(--font-display);font-size:clamp(.85rem,1.4vw,1.1rem);font-weight:700;color:var(--accent);min-width:clamp(3.5rem,7vw,5.5rem);flex-shrink:0}.timeline-content{font-size:var(--body-size);color:var(--text-secondary);line-height:1.5;padding-left:clamp(.75rem,1.5vw,1rem);border-left:2px solid var(--border)}.timeline-content strong{color:var(--text-primary)}
+        /* Era badge */
+        .era-badge{display:inline-block;font-size:var(--label-size);font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:clamp(.2rem,.5vh,.35rem) clamp(.6rem,1.2vw,1rem);border-radius:6px;margin-bottom:clamp(.5rem,1vh,.75rem)}.era-ml{background:var(--blue-dim);color:var(--blue)}.era-data{background:var(--orange-dim);color:var(--orange)}.era-content{background:var(--purple-dim);color:var(--purple)}.era-agent{background:var(--accent-dim);color:var(--accent)}
+        /* Arrow transition */
+        .arrow-flow{display:flex;align-items:center;gap:clamp(.5rem,1vw,.75rem);margin-top:var(--content-gap);flex-wrap:wrap}.arrow-box{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:clamp(.6rem,1.2vw,1rem) clamp(.8rem,1.5vw,1.25rem);font-size:var(--body-size);color:var(--text-primary);font-weight:500;text-align:center}.arrow-sep{color:var(--accent);font-size:clamp(1rem,2vw,1.5rem);font-weight:700}
+        @media(max-height:700px){:root{--slide-padding:clamp(1rem,3vw,2.5rem);--content-gap:clamp(.5rem,1.5vw,1rem);--title-size:clamp(1.75rem,5vw,3.5rem);--h2-size:clamp(1.25rem,3.5vw,2.25rem)}}@media(max-height:600px){:root{--slide-padding:clamp(.75rem,2.5vw,1.5rem);--content-gap:clamp(.4rem,1vw,.75rem);--title-size:clamp(1.5rem,4.5vw,2.5rem);--h2-size:clamp(1.1rem,3vw,1.75rem);--body-size:clamp(.7rem,1.2vw,.95rem)}.nav-dots,.bg-glow{display:none}}@media(max-height:500px){:root{--slide-padding:clamp(.5rem,2vw,1rem);--title-size:clamp(1.25rem,4vw,2rem);--h2-size:clamp(1rem,2.5vw,1.5rem);--body-size:clamp(.65rem,1vw,.85rem)}}@media(max-width:600px){:root{--title-size:clamp(1.5rem,8vw,3rem)}.card-grid{grid-template-columns:1fr}.comparison{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}html{scroll-behavior:auto}}
+        .keyboard-hint{position:fixed;bottom:clamp(1rem,2vw,1.5rem);left:50%;transform:translateX(-50%);font-size:var(--small-size);color:var(--text-muted);opacity:.5;transition:opacity .5s;pointer-events:none}.keyboard-hint.hidden{opacity:0}
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint" id="keyHint">按 ← → 或滚动翻页</div>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:-20%;right:-10%"></div>
+        <div class="bg-glow purple" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content">
+            <p class="section-label reveal">第6讲 · 终章</p>
+            <h1 class="title-huge reveal">综合<span class="accent">复盘</span></h1>
+            <p class="title-slide-sub reveal">我做AI产品的10年</p>
+            <p class="reveal" style="margin-top:clamp(1rem,2vw,1.5rem);color:var(--text-muted);font-size:var(--small-size)">曾言 — 数学博士 × AI产品人 × 出海先锋</p>
+        </div>
+        <span class="slide-number">1</span>
+    </section>
+
+    <!-- SLIDE 2: 开场 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.1 — 开场</p>
+            <h2 class="reveal">一个产品人和AI一起成长的故事</h2>
+            <div class="story-card reveal">
+                <p>很多人觉得AI产品是2023年ChatGPT之后才有的事。</p>
+                <p>但我从<strong style="color:var(--accent)">2014年</strong>就开始做AI产品了——只是那时候不叫"AI产品"，叫"算法项目"。</p>
+                <p>这10年我经历了AI产品的<strong style="color:var(--text-primary)">四个时代</strong>，每个时代产品人的角色都不一样。</p>
+            </div>
+            <div class="highlight-box reveal">
+                <p>今天把这条线串起来，不是回忆过去，是帮你<strong>看清未来</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">2</span>
+    </section>
+
+    <!-- SLIDE 3: SECTION 6.1 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">6.1</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第一节</p>
+            <h2 class="reveal" style="max-width:700px">一条时间线<br><span class="accent">从ML到大模型Agent</span></h2>
+        </div>
+        <span class="slide-number">3</span>
+    </section>
+
+    <!-- SLIDE 4: 2014-2016 ML时代 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="reveal"><span class="era-badge era-ml">2014 — 2016</span></div>
+            <h2 class="reveal">机器学习时代 — <span class="blue">AI在幕后</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">01</div>
+                    <h3>智能发券系统</h3>
+                    <p>根据用户价格敏感度、新老标签，预估用券概率，最大化每1块钱补贴的订单增量</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">02</div>
+                    <h3>动态调价</h3>
+                    <p>根据冒泡数和供给数实时调价，用AI预估未来15分钟的供需变化</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <h3>用户细分模型</h3>
+                    <p>按价格敏感度、车型偏好、竞品使用分群，服务运营发券和司机任务设计</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">4</span>
+    </section>
+
+    <!-- SLIDE 5: ML时代特点 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="reveal"><span class="era-badge era-ml">2014 — 2016</span></div>
+            <h2 class="reveal">这个时代的特点</h2>
+            <ul class="bullet-list reveal">
+                <li><strong>AI在幕后</strong>，用户完全感知不到</li>
+                <li>当时没人管这叫"AI产品"，叫<strong>"算法模型"</strong></li>
+                <li>AI超过了90%的城市经理——第1讲那个故事</li>
+            </ul>
+            <div class="highlight-box blue-box reveal">
+                <p>产品人的角色：<strong>定义业务目标和评估指标</strong>，然后交给算法团队。你不需要懂模型，但需要懂"什么指标代表成功"。</p>
+            </div>
+        </div>
+        <span class="slide-number">5</span>
+    </section>
+
+    <!-- SLIDE 6: 2017-2019 出海时代 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="reveal"><span class="era-badge era-data">2017 — 2019</span></div>
+            <h2 class="reveal">AI出海时代 — <span class="orange">AI做决策支持</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">01</div>
+                    <h3>最低订单密度模型</h3>
+                    <p>用CR和TPH评估城市供需，制定"8周打平"playbook</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <h3>黑暗森林发券法</h3>
+                    <p>基于数据分析的差异化补贴策略，自己运营城市取得极好效果</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">03</div>
+                    <h3>东北地区创新</h3>
+                    <p>降take rate + 降补贴 = 新业务模式。数据发现现金订单占比高</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">6</span>
+    </section>
+
+    <!-- SLIDE 7: 出海时代特点 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="reveal"><span class="era-badge era-data">2017 — 2019</span></div>
+            <h2 class="reveal">这个时代的特点</h2>
+            <ul class="bullet-list reveal">
+                <li>AI从"模型在幕后跑"变成<strong>"数据驱动的决策框架"</strong></li>
+                <li>不是所有事都需要跑模型，但<strong>所有决策都可以用数据思维</strong></li>
+                <li>Excel模型算burn rate、预算、增长率、市场份额</li>
+            </ul>
+            <div class="highlight-box orange-box reveal">
+                <p>产品人的角色：<strong>用数据思维做业务决策</strong>，AI是你的分析工具。不只是看报表，是用模型思维去理解业务。</p>
+            </div>
+        </div>
+        <span class="slide-number">7</span>
+    </section>
+
+    <!-- SLIDE 8: 2020-2024 内容AI时代 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="reveal"><span class="era-badge era-content">2020 — 2024</span></div>
+            <h2 class="reveal">内容AI时代 — <span class="purple">AI做内容决策</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--purple)">01</div>
+                    <h3>内容分级熔断</h3>
+                    <p>用概率思维把内容分级，做分级处置模型，大幅降低严重漏出事件</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--purple)">02</div>
+                    <h3>质量打分 + 分级分发</h3>
+                    <p>AI给每条内容打质量分，决定分发量级，创作者投稿率从2%涨到6%</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--purple)">03</div>
+                    <h3>双列改单列</h3>
+                    <p>巴西用户时长从20+分钟涨到45分钟，最终到70分钟</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">8</span>
+    </section>
+
+    <!-- SLIDE 9: 内容AI时代特点 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="reveal"><span class="era-badge era-content">2020 — 2024</span></div>
+            <h2 class="reveal">这个时代的特点</h2>
+            <ul class="bullet-list reveal">
+                <li>AI开始做面向用户的决策——<strong>什么内容该推、什么该拦</strong></li>
+                <li>你定义的规则决定了<strong>千万人的信息环境</strong></li>
+                <li>这就是第3讲讲的"模型行为规格"</li>
+            </ul>
+            <div class="highlight-box purple-box reveal">
+                <p>产品人的角色：<strong>定义AI行为的边界</strong>——放多少内容出去 vs 守住底线。权力和责任同时变大了。</p>
+            </div>
+        </div>
+        <span class="slide-number">9</span>
+    </section>
+
+    <!-- SLIDE 10: SECTION 6.2 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">6.2</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第二节</p>
+            <h2 class="reveal" style="max-width:700px">AI产品的<br><span class="accent">四个时代</span></h2>
+        </div>
+        <span class="slide-number">10</span>
+    </section>
+
+    <!-- SLIDE 11: 四个时代一张表 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.2 — 全景图</p>
+            <h2 class="reveal">一张图看四个时代</h2>
+            <div class="reveal-scale" style="overflow-x:auto">
+                <table class="slide-table">
+                    <thead>
+                        <tr><th>时代</th><th>年代</th><th>AI做什么</th><th>产品人角色</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="blue">机器学习</span></td><td>2014-2016</td><td>幕后优化（发券/调价）</td><td>定义指标，交给算法</td></tr>
+                        <tr><td><span class="orange">数据决策</span></td><td>2017-2019</td><td>决策支持（城市/预算模型）</td><td>用数据思维做业务决策</td></tr>
+                        <tr><td><span class="purple">内容AI</span></td><td>2020-2024</td><td>内容分发/审核/推荐</td><td>定义AI行为边界</td></tr>
+                        <tr><td><span class="accent">Agent</span></td><td>2025-</td><td>端到端执行任务</td><td>设计人机协作</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <span class="slide-number">11</span>
+    </section>
+
+    <!-- SLIDE 12: 转变 1→2 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.2 — 关键转变</p>
+            <h2 class="reveal">第一 → 第二时代</h2>
+            <div class="arrow-flow reveal">
+                <div class="arrow-box"><span class="blue">AI是"模型"</span></div>
+                <span class="arrow-sep">→</span>
+                <div class="arrow-box"><span class="orange">AI是"思维方式"</span></div>
+            </div>
+            <div class="story-card reveal">
+                <p>2014年我在<strong style="color:var(--blue)">写模型</strong>，2017年我在用<strong style="color:var(--orange)">模型思维做业务决策</strong>。</p>
+                <p>不是所有事都需要跑模型，但所有决策都可以用数据思维。</p>
+            </div>
+        </div>
+        <span class="slide-number">12</span>
+    </section>
+
+    <!-- SLIDE 13: 转变 2→3 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.2 — 关键转变</p>
+            <h2 class="reveal">第二 → 第三时代</h2>
+            <div class="arrow-flow reveal">
+                <div class="arrow-box"><span class="orange">AI"辅助人"</span></div>
+                <span class="arrow-sep">→</span>
+                <div class="arrow-box"><span class="purple">AI"代替人做判断"</span></div>
+            </div>
+            <div class="story-card reveal">
+                <p>推荐系统决定用户看什么，审核系统决定什么能发。</p>
+                <p>产品人的<strong style="color:var(--text-primary)">权力和责任</strong>同时变大了——你定义的规则决定了千万人的信息环境。</p>
+            </div>
+        </div>
+        <span class="slide-number">13</span>
+    </section>
+
+    <!-- SLIDE 14: 转变 3→4 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.2 — 关键转变</p>
+            <h2 class="reveal">第三 → 第四时代</h2>
+            <div class="arrow-flow reveal">
+                <div class="arrow-box"><span class="purple">AI"做判断"</span></div>
+                <span class="arrow-sep">→</span>
+                <div class="arrow-box"><span class="accent">AI"做动作"</span></div>
+            </div>
+            <div class="story-card reveal">
+                <p>AI值机不只是判断"这个航班能不能值机"，是直接去<strong style="color:var(--accent)">操作</strong>——点击、填表、提交。</p>
+                <p>产品人要设计的不是"AI给什么建议"，是<strong style="color:var(--accent)">"AI做什么动作、做错了怎么办"</strong>。</p>
+            </div>
+            <div class="highlight-box reveal">
+                <p>这就是为什么第3讲的PRD方法论和第4讲的指标体系变得更重要了。</p>
+            </div>
+        </div>
+        <span class="slide-number">14</span>
+    </section>
+
+    <!-- SLIDE 15: Agent时代 — 携程三个项目 -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="reveal"><span class="era-badge era-agent">2025 — 至今</span></div>
+            <h2 class="reveal">Agent时代：携程的三个策略</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">+50%</div>
+                    <h3>选座直接开图</h3>
+                    <p><strong style="color:var(--red)">不是AI</strong>，是好的产品设计。不是所有问题都需要AI</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">60→85%</div>
+                    <h3>AI Agent值机</h3>
+                    <p>AI做端到端执行。第2-4讲的完整案例</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">+100%</div>
+                    <h3>商务舱降friction</h3>
+                    <p><strong style="color:var(--red)">不是AI</strong>，减少营销内容，降低决策门槛</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">15</span>
+    </section>
+
+    <!-- SLIDE 16: AI是工具不是目的 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:-15%;left:-10%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">6.2 — 核心启示</p>
+            <p class="quote reveal">AI是工具，不是目的。<br>最好的产品人知道<span class="accent">什么时候用AI</span>，<br><span class="red">什么时候不用</span>。</p>
+        </div>
+        <span class="slide-number">16</span>
+    </section>
+
+    <!-- SLIDE 17: SECTION 6.3 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">6.3</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第三节</p>
+            <h2 class="reveal" style="max-width:700px">10年<span class="accent">踩坑</span>总结</h2>
+        </div>
+        <span class="slide-number">17</span>
+    </section>
+
+    <!-- SLIDE 18: 弯路一 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.3 — 最大的三个弯路</p>
+            <h2 class="reveal">弯路一：<span class="red">以为AI能解决一切</span></h2>
+            <div class="story-card reveal">
+                <p>在快手，一开始想用AI解决所有内容审核问题。</p>
+                <p>后来发现：底线的定义是<strong style="color:var(--text-primary)">主观的</strong>，不同国家标准不同。AI只能执行标准，<strong style="color:var(--red)">不能定义标准</strong>。</p>
+            </div>
+            <div class="highlight-box red-box reveal">
+                <p>教训：AI再强，也需要人来做判断——什么是底线，什么是可以放过的。</p>
+            </div>
+        </div>
+        <span class="slide-number">18</span>
+    </section>
+
+    <!-- SLIDE 19: 弯路二 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.3 — 最大的三个弯路</p>
+            <h2 class="reveal">弯路二：<span class="red">过度追求模型指标</span></h2>
+            <div class="story-card reveal">
+                <p>模型准确率很高，但用户就是<strong style="color:var(--red)">不买账</strong>。</p>
+                <p>模型层指标好 ≠ 用户层指标好，中间隔着<strong style="color:var(--text-primary)">产品层</strong>。</p>
+            </div>
+            <div class="arrow-flow reveal">
+                <div class="arrow-box">模型层 ✓</div>
+                <span class="arrow-sep">≠</span>
+                <div class="arrow-box">产品层 ?</div>
+                <span class="arrow-sep">≠</span>
+                <div class="arrow-box">用户层 ✗</div>
+            </div>
+            <div class="highlight-box red-box reveal">
+                <p>教训：永远从用户感知出发。模型是手段不是目的。（回顾第4讲）</p>
+            </div>
+        </div>
+        <span class="slide-number">19</span>
+    </section>
+
+    <!-- SLIDE 20: 弯路三 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.3 — 最大的三个弯路</p>
+            <h2 class="reveal">弯路三：<span class="red">不敢放弃</span></h2>
+            <div class="story-card reveal">
+                <p>AI值机里有些航司怎么都做不好，但一开始<strong style="color:var(--red)">不舍得放弃</strong>。</p>
+                <p>Topick在巴西不行，但<strong style="color:var(--red)">坚持了太久</strong>。</p>
+            </div>
+            <div class="highlight-box red-box reveal">
+                <p>教训：知道什么时候该放弃，和知道什么时候该坚持<strong>一样重要</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">20</span>
+    </section>
+
+    <!-- SLIDE 21: 关键决策一 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.3 — 最关键的三个决策</p>
+            <h2 class="reveal">决策一：滴滴东北 — <span class="accent">反直觉</span></h2>
+            <div class="story-card reveal">
+                <p>所有人都在讨论"补贴要不要涨"。</p>
+                <p>我反其道：<strong style="color:var(--accent)">降补贴的同时降take rate</strong>。</p>
+                <p>因为数据告诉我：当地现金订单占比高，司机对take rate敏感度<strong style="color:var(--text-primary)">远大于</strong>乘客对补贴敏感度。</p>
+            </div>
+            <div class="highlight-box reveal">
+                <p>好的决策来自于比别人更深地理解<strong>数据背后的因果关系</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">21</span>
+    </section>
+
+    <!-- SLIDE 22: 关键决策二&三 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.3 — 最关键的三个决策</p>
+            <h2 class="reveal">决策二 & 三</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col green">
+                    <h3><span class="accent">快手双列改单列</span></h3>
+                    <ul>
+                        <li>快手的DNA是双列，但巴西用户不买账</li>
+                        <li>顶着内部压力改单列</li>
+                        <li>用户时长 20+ → 45分钟</li>
+                        <li><strong>尊重数据和用户，不被公司文化绑架</strong></li>
+                    </ul>
+                </div>
+                <div class="comparison-col green">
+                    <h3><span class="accent">Betse外包转自研</span></h3>
+                    <ul>
+                        <li>外包2周才能改一个小需求</li>
+                        <li>决定自研，快速迭代</li>
+                        <li>最后成为top10平台</li>
+                        <li><strong>速度是创业最大的武器</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">22</span>
+    </section>
+
+    <!-- SLIDE 23: 三条建议 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">6.3 — 给想做AI产品的人</p>
+            <h2 class="reveal">三条建议</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <h3>先学会问正确的问题</h3>
+                    <p>不是"能不能用AI"，是"结构性瓶颈在哪"。如果你连瓶颈都不清楚，上AI只是增加复杂度。（回顾第2讲）</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <h3>核心能力是取舍，不是技术</h3>
+                    <p>准确率vs覆盖率、速度vs准确性。技术告诉你"能做到什么"，产品人决定"应该做到什么"。（回顾第3-4讲）</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <h3>动手做，不要只想</h3>
+                    <p>我做4个AI应用，每个2天。不完美，但每个都教了我新东西。产品人最大的杠杆是能把想法变成现实。（回顾第5讲）</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">23</span>
+    </section>
+
+    <!-- SLIDE 24: 结尾金句 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="bottom:-20%;right:-10%"></div>
+        <div class="bg-glow orange-glow" style="top:-20%;left:-10%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">6.3 — 结语</p>
+            <p class="quote reveal" style="border-left:none;text-align:center;padding-left:0">2014年我做智能发券的时候，<br>没人管那叫AI。<br><br>2025年所有人都在谈AI。</p>
+            <div class="highlight-box reveal" style="max-width:700px;margin-left:auto;margin-right:auto;margin-top:clamp(1rem,2vw,2rem)">
+                <p style="text-align:center">技术在变，但产品人的核心能力没变——<br><strong class="accent">理解用户、定义问题、做出取舍</strong>。<br>AI只是让你做这些事情的工具变强了。</p>
+            </div>
+        </div>
+        <span class="slide-number">24</span>
+    </section>
+
+    <!-- SLIDE 25: 费曼检验 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课后自测 — 费曼检验</p>
+            <h2 class="reveal">你能回答这三个问题吗？</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <p>你能画出AI产品四个时代的时间线，并说出每个时代产品人的角色变化吗？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <p>你能判断你当前的产品处于哪个时代吗？下一步应该往哪个方向走？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <p>三条建议里，哪一条对你现在的工作最有用？为什么？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">25</span>
+    </section>
+
+    <!-- SLIDE 26: 课程完结 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:-10%;right:-5%"></div>
+        <div class="bg-glow purple" style="bottom:-15%;left:-5%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">全部课程完</p>
+            <h1 class="title-huge reveal" style="font-size:clamp(1.75rem,4.5vw,3.5rem)">感谢<span class="accent">一路同行</span></h1>
+            <p class="title-slide-sub reveal">6讲 × 3节 × 15分钟 = 一套AI产品方法论</p>
+            <div class="reveal" style="margin-top:clamp(1.5rem,3vw,2.5rem)">
+                <p style="color:var(--text-muted);font-size:var(--small-size)">曾言 — 数学博士 × AI产品人 × 出海先锋</p>
+            </div>
+        </div>
+        <span class="slide-number">26</span>
+    </section>
+
+    <script>
+        class SlidePresentation{constructor(){this.slides=document.querySelectorAll('.slide');this.currentSlide=0;this.totalSlides=this.slides.length;this.init()}init(){this.createNavDots();this.setupIntersectionObserver();this.setupKeyboardNav();this.setupTouchNav();this.updateProgress();this.hideKeyHintOnScroll()}createNavDots(){const c=document.getElementById('navDots');const s=[0,2,9,16];this.slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(s.includes(i)?' section-start':'');d.setAttribute('aria-label',`Go to slide ${i+1}`);d.addEventListener('click',()=>{this.slides[i].scrollIntoView({behavior:'smooth'})});c.appendChild(d)});this.navDots=c.querySelectorAll('.nav-dot')}setupIntersectionObserver(){const o=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const i=Array.from(this.slides).indexOf(e.target);if(i!==-1){this.currentSlide=i;this.updateProgress();this.updateNavDots()}}})},{threshold:0.5});this.slides.forEach(s=>o.observe(s))}setupKeyboardNav(){document.addEventListener('keydown',(e)=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();this.goToSlide(this.currentSlide+1)}else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();this.goToSlide(this.currentSlide-1)}})}setupTouchNav(){let sy=0,sx=0;document.addEventListener('touchstart',(e)=>{sy=e.touches[0].clientY;sx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',(e)=>{const dy=sy-e.changedTouches[0].clientY,dx=sx-e.changedTouches[0].clientX;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>50){this.goToSlide(dy>0?this.currentSlide+1:this.currentSlide-1)}},{passive:true})}goToSlide(i){if(i>=0&&i<this.totalSlides)this.slides[i].scrollIntoView({behavior:'smooth'})}updateProgress(){document.getElementById('progressBar').style.width=((this.currentSlide+1)/this.totalSlides)*100+'%'}updateNavDots(){if(!this.navDots)return;this.navDots.forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide))}hideKeyHintOnScroll(){const h=document.getElementById('keyHint');let done=false;const hide=()=>{if(!done){h.classList.add('hidden');done=true}};document.addEventListener('scroll',hide,{once:true});document.addEventListener('keydown',hide,{once:true})}}
+        document.addEventListener('DOMContentLoaded',()=>{new SlidePresentation()});
+    </script>
+</body>
+</html>

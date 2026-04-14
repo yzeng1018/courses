@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第1讲：产品人真正需要懂的AI — 曾言</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME)
+           =========================================== */
+        :root {
+            /* Colors - Dark base with teal accent */
+            --bg-primary: #0b1120;
+            --bg-secondary: #111b2e;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --text-primary: #f0f4f8;
+            --text-secondary: #8899aa;
+            --text-muted: #556677;
+            --accent: #00e5c7;
+            --accent-dim: rgba(0, 229, 199, 0.15);
+            --accent-glow: rgba(0, 229, 199, 0.25);
+            --red: #ff6b6b;
+            --red-dim: rgba(255, 107, 107, 0.15);
+            --orange: #ffa94d;
+            --orange-dim: rgba(255, 169, 77, 0.15);
+            --blue: #74c0fc;
+            --blue-dim: rgba(116, 192, 252, 0.15);
+            --purple: #b197fc;
+            --border: rgba(255, 255, 255, 0.06);
+
+            /* Typography */
+            --font-display: 'Clash Display', 'Noto Sans SC', sans-serif;
+            --font-body: 'Satoshi', 'Noto Sans SC', sans-serif;
+            --title-size: clamp(2rem, 5.5vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 4vw, 3rem);
+            --h3-size: clamp(1.1rem, 2.5vw, 1.75rem);
+            --body-size: clamp(0.8rem, 1.4vw, 1.15rem);
+            --small-size: clamp(0.7rem, 1vw, 0.9rem);
+            --label-size: clamp(0.6rem, 0.9vw, 0.8rem);
+
+            /* Spacing */
+            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --content-gap: clamp(0.75rem, 2vw, 2rem);
+            --element-gap: clamp(0.4rem, 1vh, 1rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration: 0.7s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            height: 100%;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            padding: var(--slide-padding);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 1000;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* ===========================================
+           NAV DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.75rem, 2vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+            transform: scale(1.3);
+        }
+
+        .nav-dot.section-start {
+            width: 10px;
+            height: 10px;
+        }
+
+        /* ===========================================
+           SLIDE NUMBER
+           =========================================== */
+        .slide-number {
+            position: absolute;
+            bottom: clamp(1rem, 2vw, 1.5rem);
+            right: clamp(1.5rem, 3vw, 2.5rem);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           SECTION LABEL
+           =========================================== */
+        .section-label {
+            font-size: var(--label-size);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: clamp(0.5rem, 1.5vw, 1.5rem);
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        .title-huge {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .title-slide-sub {
+            font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            color: var(--text-secondary);
+            margin-top: clamp(0.5rem, 1.5vw, 1.5rem);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            margin-bottom: var(--content-gap);
+        }
+
+        h3 {
+            font-family: var(--font-body);
+            font-size: var(--h3-size);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: var(--element-gap);
+        }
+
+        p {
+            font-size: var(--body-size);
+            line-height: 1.65;
+            color: var(--text-secondary);
+        }
+
+        .accent { color: var(--accent); }
+        .red { color: var(--red); }
+        .orange { color: var(--orange); }
+        .blue { color: var(--blue); }
+
+        /* ===========================================
+           STORY CARD
+           =========================================== */
+        .story-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: clamp(1.25rem, 3vw, 2.5rem);
+            margin-top: var(--content-gap);
+            backdrop-filter: blur(10px);
+        }
+
+        .story-card p {
+            font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+            line-height: 1.7;
+        }
+
+        .story-card p + p {
+            margin-top: clamp(0.5rem, 1vh, 0.75rem);
+        }
+
+        /* ===========================================
+           HIGHLIGHT BOX
+           =========================================== */
+        .highlight-box {
+            background: var(--accent-dim);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 2.5vw, 2rem);
+            margin-top: var(--content-gap);
+        }
+
+        .highlight-box p {
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+            line-height: 1.6;
+        }
+
+        .highlight-box.red-box {
+            background: var(--red-dim);
+            border-left-color: var(--red);
+        }
+
+        .highlight-box.orange-box {
+            background: var(--orange-dim);
+            border-left-color: var(--orange);
+        }
+
+        .highlight-box.blue-box {
+            background: var(--blue-dim);
+            border-left-color: var(--blue);
+        }
+
+        /* ===========================================
+           GRID CARDS
+           =========================================== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+            gap: clamp(0.75rem, 1.5vw, 1.25rem);
+            margin-top: var(--content-gap);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            transition: background 0.3s ease;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .card-icon {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: clamp(0.4rem, 1vh, 0.75rem);
+        }
+
+        .card h3 {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            margin-bottom: clamp(0.25rem, 0.5vh, 0.5rem);
+        }
+
+        .card p {
+            font-size: var(--small-size);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           COMPARISON
+           =========================================== */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(0.75rem, 2vw, 1.5rem);
+            margin-top: var(--content-gap);
+        }
+
+        @media (max-width: 600px) {
+            .comparison { grid-template-columns: 1fr; }
+        }
+
+        .comparison-col {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .comparison-col h3 {
+            font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+            margin-bottom: clamp(0.4rem, 1vh, 0.75rem);
+        }
+
+        .comparison-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-col li {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding: clamp(0.2rem, 0.5vh, 0.4rem) 0;
+            padding-left: 1.2em;
+            position: relative;
+        }
+
+        .comparison-col li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: clamp(0.55rem, 1vh, 0.7rem);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .comparison-col.green li::before { background: var(--accent); }
+        .comparison-col.orange li::before { background: var(--orange); }
+
+        /* ===========================================
+           TABLE
+           =========================================== */
+        .slide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--content-gap);
+            font-size: var(--body-size);
+        }
+
+        .slide-table th {
+            text-align: left;
+            padding: clamp(0.5rem, 1vh, 0.75rem) clamp(0.75rem, 1.5vw, 1.25rem);
+            background: var(--accent-dim);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .slide-table td {
+            padding: clamp(0.5rem, 1vh, 0.75rem) clamp(0.75rem, 1.5vw, 1.25rem);
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .slide-table tr:last-child td { border-bottom: none; }
+
+        .slide-table td:first-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           BULLET LIST
+           =========================================== */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin-top: var(--content-gap);
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+        }
+
+        .bullet-list li {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: clamp(0.5rem, 0.8vh, 0.65rem);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .bullet-list li strong {
+            color: var(--text-primary);
+        }
+
+        /* ===========================================
+           BIG NUMBER / STAT
+           =========================================== */
+        .big-stat {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .big-stat-label {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-top: clamp(0.5rem, 1vh, 1rem);
+        }
+
+        /* ===========================================
+           QUOTE
+           =========================================== */
+        .quote {
+            font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.5;
+            border-left: 3px solid var(--accent);
+            padding-left: clamp(1rem, 2vw, 1.5rem);
+            max-width: 800px;
+        }
+
+        .quote-attr {
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            margin-top: clamp(0.5rem, 1vh, 1rem);
+            font-style: normal;
+        }
+
+        /* ===========================================
+           SECTION DIVIDER
+           =========================================== */
+        .slide.section-divider {
+            background: var(--bg-secondary);
+        }
+
+        .section-divider .section-number {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 700;
+            color: var(--accent);
+            opacity: 0.15;
+            position: absolute;
+            top: clamp(1rem, 3vw, 2rem);
+            right: clamp(2rem, 5vw, 4rem);
+            line-height: 1;
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .reveal:nth-child(5) { transition-delay: 0.45s; }
+        .reveal:nth-child(6) { transition-delay: 0.55s; }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===========================================
+           BACKGROUND DECORATION
+           =========================================== */
+        .bg-glow {
+            position: absolute;
+            width: clamp(300px, 50vw, 600px);
+            height: clamp(300px, 50vw, 600px);
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.07;
+            pointer-events: none;
+        }
+
+        .bg-glow.teal { background: var(--accent); }
+        .bg-glow.blue { background: #4c6ef5; }
+        .bg-glow.purple { background: #7950f2; }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1rem);
+                --title-size: clamp(1.75rem, 5vw, 3.5rem);
+                --h2-size: clamp(1.25rem, 3.5vw, 2.25rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1.1rem, 3vw, 1.75rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots { display: none; }
+            .bg-glow { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1.25rem, 4vw, 2rem);
+                --h2-size: clamp(1rem, 2.5vw, 1.5rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --title-size: clamp(1.5rem, 8vw, 3rem);
+            }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ===========================================
+           KEYBOARD HINT
+           =========================================== */
+        .keyboard-hint {
+            position: fixed;
+            bottom: clamp(1rem, 2vw, 1.5rem);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            opacity: 0.5;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .keyboard-hint.hidden { opacity: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Nav Dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- Keyboard Hint -->
+    <div class="keyboard-hint" id="keyHint">按 ← → 或滚动翻页</div>
+
+    <!-- =============================================
+         SLIDE 1: TITLE
+         ============================================= -->
+    <section class="slide" data-section="title">
+        <div class="bg-glow teal" style="top: -20%; right: -10%;"></div>
+        <div class="bg-glow purple" style="bottom: -20%; left: -10%;"></div>
+        <div class="slide-content">
+            <p class="section-label reveal">第1讲</p>
+            <h1 class="title-huge reveal">产品人真正需要懂的<span class="accent">AI</span></h1>
+            <p class="title-slide-sub reveal">曾言 — 数学博士 × AI产品人 × 出海先锋</p>
+        </div>
+        <span class="slide-number">1</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 2: 课程结构
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">今天的路线图</p>
+            <h2 class="reveal">三个问题，一条线索</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon">1.1</div>
+                    <h3>AI有多强？</h3>
+                    <p>一个2017年的真实故事</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">1.2</div>
+                    <h3>AI的边界在哪？</h3>
+                    <p>三条不可逾越的红线</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">1.3</div>
+                    <h3>你怎么判断？</h3>
+                    <p>一张拿走就能用的评估表</p>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>叙事弧线：<strong class="accent">强</strong> → <strong class="orange">但有边界</strong> → <strong class="blue">你怎么判断</strong></p>
+            </div>
+        </div>
+        <span class="slide-number">2</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 3: SECTION 1.1 DIVIDER
+         ============================================= -->
+    <section class="slide section-divider" data-section="1.1">
+        <div class="section-number">1.1</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第一节</p>
+            <h2 class="reveal" style="max-width: 600px;">AI已经比你想象中<span class="accent">强了</span></h2>
+        </div>
+        <span class="slide-number">3</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 4: 故事铺垫
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 一个真实的故事</p>
+            <h2 class="reveal">2017年，滴滴的补贴系统</h2>
+            <div class="story-card reveal">
+                <p>滴滴每个城市都有<strong style="color: var(--text-primary);">城市经理</strong>。</p>
+                <p>他们最核心的工作之一：在有限预算内决定补贴怎么发——乘客的券、司机的任务奖励。</p>
+                <p>这是一个高度依赖<strong style="color: var(--text-primary);">经验</strong>和<strong style="color: var(--text-primary);">本地判断</strong>的工作。</p>
+            </div>
+        </div>
+        <span class="slide-number">4</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 5: 故事转折
+         ============================================= -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top: 20%; left: 30%;"></div>
+        <div class="slide-content" style="align-items: center; text-align: center;">
+            <p class="section-label reveal">A/B测试结果</p>
+            <div class="big-stat reveal">90%</div>
+            <p class="big-stat-label reveal">的城市经理，被AI补贴系统超越</p>
+            <p class="reveal" style="margin-top: var(--content-gap); max-width: 600px;">
+                核心指标：每1块钱补贴带来的<strong style="color: var(--text-primary);">订单增量</strong>
+            </p>
+        </div>
+        <span class="slide-number">5</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 6: 冲击感
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 时间线</p>
+            <h2 class="reveal">那是<span class="accent">2017</span>年</h2>
+            <ul class="bullet-list">
+                <li class="reveal">距离 ChatGPT 出现还有<strong>6年</strong></li>
+                <li class="reveal">连"大模型"这个词都还没流行</li>
+                <li class="reveal">AI就已经在<strong>真金白银</strong>的决策上赢了绝大多数人</li>
+            </ul>
+            <div class="highlight-box reveal">
+                <p>但是——剩下那 <strong class="accent">10%</strong> 没被超过的城市经理，做对了什么？</p>
+            </div>
+        </div>
+        <span class="slide-number">6</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 7: 四大能力
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 2024之后的跃迁</p>
+            <h2 class="reveal">大模型的四大核心能力</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon">🗣️</div>
+                    <h3>语言理解</h3>
+                    <p>读懂自然语言的意图，不再需要关键词匹配</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>逻辑推理</h3>
+                    <p>多步推理，不只是检索——能分析、判断、建议</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💻</div>
+                    <h3>代码生成</h3>
+                    <p>写出可运行的程序——产品人可以自己做原型</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👁️</div>
+                    <h3>多模态</h3>
+                    <p>看图、听声音、生成图片视频——输入输出彻底扩展</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">7</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 8: 金句
+         ============================================= -->
+    <section class="slide">
+        <div class="bg-glow blue" style="top: 30%; right: 20%;"></div>
+        <div class="slide-content" style="justify-content: center;">
+            <div class="quote reveal">
+                2017年的AI赢在"算得比你快"。<br>
+                2024年之后的AI赢在"<span class="accent">懂得比你多</span>"。<br><br>
+                这是质变，不是量变。
+            </div>
+        </div>
+        <span class="slide-number">8</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 9: 10%做对了什么
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 回到故事</p>
+            <h2 class="reveal">那10%的人做对了什么？</h2>
+            <ul class="bullet-list">
+                <li class="reveal">当地政府的<strong>执法力度</strong>（抓车情况）</li>
+                <li class="reveal">与<strong>租赁公司</strong>的关系和司机运力</li>
+                <li class="reveal">本地竞争的<strong>复杂博弈</strong></li>
+                <li class="reveal">难以预测的<strong>堵车和天气</strong></li>
+            </ul>
+            <div class="highlight-box reveal">
+                <p>他们判断的是 AI <strong>看不到</strong>的东西。</p>
+            </div>
+        </div>
+        <span class="slide-number">9</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 10: 核心结论
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 核心结论</p>
+            <h2 class="reveal">AI强在哪，人强在哪</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col green">
+                    <h3><span class="accent">AI 擅长</span></h3>
+                    <ul>
+                        <li>大规模优化</li>
+                        <li>高频重复决策</li>
+                        <li>数据密集型任务</li>
+                    </ul>
+                </div>
+                <div class="comparison-col orange">
+                    <h3><span class="orange">人 擅长</span></h3>
+                    <ul>
+                        <li>小样本判断</li>
+                        <li>高不确定性场景</li>
+                        <li>关系与临场决策</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal" style="margin-top: var(--content-gap);">
+                <p>问题不是"AI强不强"，而是"<strong class="accent">AI的边界在哪里</strong>"。</p>
+            </div>
+        </div>
+        <span class="slide-number">10</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 11: SECTION 1.2 DIVIDER
+         ============================================= -->
+    <section class="slide section-divider" data-section="1.2">
+        <div class="section-number">1.2</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第二节</p>
+            <h2 class="reveal" style="max-width: 600px;">AI的三条<span class="red">红线</span></h2>
+            <p class="reveal" style="color: var(--text-secondary); margin-top: var(--element-gap); max-width: 500px;">
+                AI越强，你越需要知道它在哪里会出事
+            </p>
+        </div>
+        <span class="slide-number">11</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 12: 红线一 - 幻觉
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 红线一</p>
+            <h2 class="reveal"><span class="red">幻觉</span> — AI会一本正经地胡说八道</h2>
+            <div class="story-card reveal">
+                <p>AI生成的内容看起来完全合理，但事实完全错误。</p>
+                <p>它不会告诉你"我不确定"——<strong style="color: var(--red);">说错话的时候和说对话的时候，语气一模一样。</strong></p>
+            </div>
+        </div>
+        <span class="slide-number">12</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 13: 幻觉亲身经历
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 我的亲身经历</p>
+            <h2 class="reveal">AI推荐的酒店，<span class="red">已经关门了</span></h2>
+            <div class="story-card reveal">
+                <p>我自己做了一个AI旅行助手。有一次让它推荐酒店——</p>
+                <p>名字、地址、描述都像模像样。</p>
+                <p>我去查了一下：<strong style="color: var(--red);">这家酒店已经关门了。</strong></p>
+                <p style="margin-top: clamp(0.5rem, 1vh, 1rem); color: var(--text-primary);">如果我没查，直接推给用户呢？</p>
+            </div>
+        </div>
+        <span class="slide-number">13</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 14: 幻觉的产品判断
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 产品判断</p>
+            <h2 class="reveal">你的场景容忍幻觉吗？</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col green">
+                    <h3><span class="accent">容错高</span></h3>
+                    <ul>
+                        <li>帮你写周报</li>
+                        <li>头脑风暴</li>
+                        <li>错了改改就行</li>
+                    </ul>
+                </div>
+                <div class="comparison-col orange">
+                    <h3><span class="red">零容忍</span></h3>
+                    <ul>
+                        <li>医疗问诊推荐药物</li>
+                        <li>法律/金融建议</li>
+                        <li>幻觉 = 事故</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box red-box reveal">
+                <p>这决定了：AI的输出能不能<strong>直接给用户看</strong>，还是必须加人工审核。</p>
+            </div>
+        </div>
+        <span class="slide-number">14</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 15: 红线二 - 知识截止
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 红线二</p>
+            <h2 class="reveal"><span class="orange">知识截止</span> — AI不知道"刚刚发生了什么"</h2>
+            <div class="story-card reveal">
+                <p>大模型的知识有一个截止日期。</p>
+                <p>对训练数据之后发生的事，它要么不知道，要么——更危险的——<strong style="color: var(--orange);">瞎编。</strong></p>
+            </div>
+        </div>
+        <span class="slide-number">15</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 16: ChatGPT vs Claude
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 真实对比</p>
+            <h2 class="reveal">同一个问题，两种态度</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col orange">
+                    <h3><span class="orange">ChatGPT</span></h3>
+                    <ul>
+                        <li>编了一个听起来很专业的答案</li>
+                        <li>完全是假的</li>
+                        <li>语气非常自信</li>
+                    </ul>
+                </div>
+                <div class="comparison-col green">
+                    <h3><span class="accent">Claude</span></h3>
+                    <ul>
+                        <li>"我不知道"</li>
+                        <li>"我的知识截止到某某日期"</li>
+                        <li>诚实告知局限</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box orange-box reveal">
+                <p>选模型时，不只看它<strong>"知道什么"</strong>，还要看它<strong>"不知道的时候怎么办"</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">16</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 17: 红线三 - 上下文衰减
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 红线三</p>
+            <h2 class="reveal"><span class="blue">上下文衰减</span> — AI的记忆没你以为的那么好</h2>
+            <div class="story-card reveal">
+                <p>你和AI聊了 <strong style="color: var(--text-primary);">3天前</strong>的事——它可能记得很清楚。</p>
+                <p>你提起 <strong style="color: var(--text-primary);">30天前</strong>的对话——它可能完全想不起来，或者张冠李戴。</p>
+                <p style="margin-top: clamp(0.5rem, 1vh, 0.75rem);">不是完全丢失，是<strong style="color: var(--blue);">模糊了、混淆了、把A的细节安到B身上</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">17</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 18: 上下文衰减的产品启示
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 产品启示</p>
+            <h2 class="reveal">用户不会理解"上下文窗口"</h2>
+            <ul class="bullet-list">
+                <li class="reveal">如果你的产品依赖长期记忆（客服历史、个人助手、学习辅导），纯靠模型<strong>不够</strong></li>
+                <li class="reveal">你需要设计<strong>外部记忆系统</strong>——主动存关键信息，而不是指望模型"记住"</li>
+                <li class="reveal">用户只会觉得：<strong class="blue">"这个AI怎么把我说的话忘了"</strong></li>
+            </ul>
+            <div class="highlight-box blue-box reveal">
+                <p>这是<strong>产品体验问题</strong>，不是技术问题。</p>
+            </div>
+        </div>
+        <span class="slide-number">18</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 19: SECTION 1.3 DIVIDER
+         ============================================= -->
+    <section class="slide section-divider" data-section="1.3">
+        <div class="section-number">1.3</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第三节</p>
+            <h2 class="reveal" style="max-width: 600px;">产品人的<span class="accent">AI判断力</span></h2>
+            <p class="reveal" style="color: var(--text-secondary); margin-top: var(--element-gap); max-width: 500px;">
+                一张表，5分钟判断一个AI方案值不值得做
+            </p>
+        </div>
+        <span class="slide-number">19</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 20: 看失败场景
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 核心观点</p>
+            <h2 class="reveal">不是跑Benchmark，是<span class="accent">看失败场景</span></h2>
+            <div class="story-card reveal">
+                <p>算法团队说：<strong style="color: var(--text-primary);">"我们的模型准确率93%。"</strong></p>
+                <p style="margin-top: clamp(0.5rem, 1vh, 0.75rem);">你应该问的第一个问题：</p>
+                <p style="color: var(--accent); font-weight: 700; font-size: clamp(1rem, 1.8vw, 1.3rem); margin-top: clamp(0.3rem, 0.5vh, 0.5rem);">那7%错的时候，会发生什么？</p>
+            </div>
+        </div>
+        <span class="slide-number">20</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 21: 93%的两面
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 同样93%，不同后果</p>
+            <h2 class="reveal">准确率是同一个数字，后果天壤之别</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col green">
+                    <h3><span class="accent">7%错了，没事</span></h3>
+                    <ul>
+                        <li>推荐了一首你不喜欢的歌</li>
+                        <li>用户划走就好</li>
+                    </ul>
+                </div>
+                <div class="comparison-col orange">
+                    <h3><span class="red">7%错了，出人命</span></h3>
+                    <ul>
+                        <li>给病人推荐了错误的药</li>
+                        <li>没有第二次机会</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>评估AI方案：先看它<strong>失败时有多痛</strong>，再看它成功时有多好。</p>
+            </div>
+        </div>
+        <span class="slide-number">21</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 22: 准确率vs召回率 - 比喻
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 准确率 vs 召回率</p>
+            <h2 class="reveal">用机场安检来理解</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col green">
+                    <h3><span class="accent">准确率高</span></h3>
+                    <ul>
+                        <li>拦下来的人，确实都带了违禁品</li>
+                        <li>= 拦得准</li>
+                    </ul>
+                </div>
+                <div class="comparison-col orange">
+                    <h3><span class="orange">召回率高</span></h3>
+                    <ul>
+                        <li>所有带违禁品的人，都被拦下来了</li>
+                        <li>= 不漏人</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>你<strong>不可能两个都100%</strong>。放松标准→不漏人，但冤枉好人。收紧标准→拦得准，但漏掉坏人。</p>
+            </div>
+        </div>
+        <span class="slide-number">22</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 23: 产品决策
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 产品决策</p>
+            <h2 class="reveal">你的场景要什么？</h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr>
+                        <th>场景</th>
+                        <th>优先</th>
+                        <th>逻辑</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>内容审核</td>
+                        <td><span class="orange">召回率</span></td>
+                        <td>宁可误删，不能漏放</td>
+                    </tr>
+                    <tr>
+                        <td>商品推荐</td>
+                        <td><span class="accent">准确率</span></td>
+                        <td>宁可少推，不能推错</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight-box reveal">
+                <p>这是你和算法团队对话的<strong>起点</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">23</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 24: 评估表
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 交付物</p>
+            <h2 class="reveal">AI方案可行性评估表</h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr>
+                        <th>维度</th>
+                        <th>核心问题</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>场景适配</td>
+                        <td>重复性高、数据密集？还是需要创意和临场判断？</td>
+                    </tr>
+                    <tr>
+                        <td>失败代价</td>
+                        <td>AI犯错时，最坏后果是什么？</td>
+                    </tr>
+                    <tr>
+                        <td>数据就绪</td>
+                        <td>有没有足够的数据来训练/评估？</td>
+                    </tr>
+                    <tr>
+                        <td>人机分工</td>
+                        <td>AI做到什么程度，人接手？</td>
+                    </tr>
+                    <tr>
+                        <td>成本合理</td>
+                        <td>AI方案的成本和收益能算过来账吗？</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">24</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 25: 结尾金句
+         ============================================= -->
+    <section class="slide">
+        <div class="bg-glow teal" style="bottom: 10%; left: 20%;"></div>
+        <div class="slide-content" style="justify-content: center;">
+            <div class="quote reveal">
+                会用AI的产品人，不是对AI说"你来干"的人。<br><br>
+                是能画出那条线的人——<br>
+                <span class="accent">这边AI干，那边人干。</span>
+            </div>
+        </div>
+        <span class="slide-number">25</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 26: 回到故事
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">回到开头的故事</p>
+            <h2 class="reveal">真正厉害的人是谁？</h2>
+            <ul class="bullet-list">
+                <li class="reveal">不是AI补贴系统</li>
+                <li class="reveal">也不是那10%的城市经理</li>
+                <li class="reveal">是知道<strong class="accent">什么时候该信AI、什么时候该信人</strong>的决策者</li>
+            </ul>
+        </div>
+        <span class="slide-number">26</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 27: 费曼检验
+         ============================================= -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课后自测 — 费曼检验</p>
+            <h2 class="reveal">你能回答这三个问题吗？</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color: var(--accent);">01</div>
+                    <p>你能向一个不懂技术的朋友解释"为什么2017年的AI就能超过90%的人"吗？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color: var(--orange);">02</div>
+                    <p>你能说出AI的三条红线，并各举一个产品场景吗？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color: var(--blue);">03</div>
+                    <p>下次有人说"模型准确率93%"，你的第一个追问是什么？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">27</span>
+    </section>
+
+    <!-- =============================================
+         SLIDE 28: END
+         ============================================= -->
+    <section class="slide" data-section="end">
+        <div class="bg-glow teal" style="top: -10%; right: -5%;"></div>
+        <div class="bg-glow purple" style="bottom: -15%; left: -5%;"></div>
+        <div class="slide-content" style="align-items: center; text-align: center;">
+            <p class="section-label reveal">第1讲完</p>
+            <h1 class="title-huge reveal" style="font-size: clamp(1.75rem, 4.5vw, 3.5rem);">下一讲预告</h1>
+            <p class="title-slide-sub reveal">AI产品的机会识别 — 从"用AI做"到"AI做得更好"</p>
+            <p class="reveal" style="margin-top: clamp(1.5rem, 3vw, 2.5rem); color: var(--text-muted); font-size: var(--small-size);">
+                曾言 — 数学博士 × AI产品人 × 出海先锋
+            </p>
+        </div>
+        <span class="slide-number">28</span>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT: SLIDE CONTROLLER
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                this.isScrolling = false;
+
+                this.init();
+            }
+
+            init() {
+                this.createNavDots();
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.updateProgress();
+                this.hideKeyHintOnScroll();
+            }
+
+            /* --- Nav Dots --- */
+            createNavDots() {
+                const container = document.getElementById('navDots');
+                const sectionSlides = [0, 2, 10, 18]; // section divider indices
+
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (sectionSlides.includes(i) ? ' section-start' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    container.appendChild(dot);
+                });
+
+                this.navDots = container.querySelectorAll('.nav-dot');
+            }
+
+            /* --- Intersection Observer for animations --- */
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+
+                            // Update current slide index
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            if (index !== -1) {
+                                this.currentSlide = index;
+                                this.updateProgress();
+                                this.updateNavDots();
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.5
+                });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            /* --- Keyboard Navigation --- */
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.goToSlide(this.currentSlide + 1);
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.goToSlide(this.currentSlide - 1);
+                    }
+                });
+            }
+
+            /* --- Touch Navigation --- */
+            setupTouchNav() {
+                let touchStartY = 0;
+                let touchStartX = 0;
+
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                    touchStartX = e.touches[0].clientX;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    const deltaY = touchStartY - e.changedTouches[0].clientY;
+                    const deltaX = touchStartX - e.changedTouches[0].clientX;
+
+                    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
+                        if (deltaY > 0) {
+                            this.goToSlide(this.currentSlide + 1);
+                        } else {
+                            this.goToSlide(this.currentSlide - 1);
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            /* --- Go to specific slide --- */
+            goToSlide(index) {
+                if (index >= 0 && index < this.totalSlides) {
+                    this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            /* --- Progress bar --- */
+            updateProgress() {
+                const progress = ((this.currentSlide + 1) / this.totalSlides) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+            }
+
+            /* --- Nav dots --- */
+            updateNavDots() {
+                if (!this.navDots) return;
+                this.navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentSlide);
+                });
+            }
+
+            /* --- Hide keyboard hint after first scroll --- */
+            hideKeyHintOnScroll() {
+                const hint = document.getElementById('keyHint');
+                let hidden = false;
+
+                const hide = () => {
+                    if (!hidden) {
+                        hint.classList.add('hidden');
+                        hidden = true;
+                    }
+                };
+
+                document.addEventListener('scroll', hide, { once: true });
+                document.addEventListener('keydown', hide, { once: true });
+            }
+        }
+
+        // Initialize presentation
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5讲：Vibe Coding入门 — 曾言</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg-primary:#0b1120;--bg-secondary:#111b2e;--bg-card:rgba(255,255,255,.04);--bg-card-hover:rgba(255,255,255,.07);--text-primary:#f0f4f8;--text-secondary:#8899aa;--text-muted:#556677;--accent:#00e5c7;--accent-dim:rgba(0,229,199,.15);--accent-glow:rgba(0,229,199,.25);--red:#ff6b6b;--red-dim:rgba(255,107,107,.15);--orange:#ffa94d;--orange-dim:rgba(255,169,77,.15);--blue:#74c0fc;--blue-dim:rgba(116,192,252,.15);--purple:#b197fc;--purple-dim:rgba(177,151,252,.15);--yellow:#ffd43b;--yellow-dim:rgba(255,212,59,.15);--border:rgba(255,255,255,.06);--font-display:'Clash Display','Noto Sans SC',sans-serif;--font-body:'Satoshi','Noto Sans SC',sans-serif;--title-size:clamp(2rem,5.5vw,4.5rem);--h2-size:clamp(1.5rem,4vw,3rem);--h3-size:clamp(1.1rem,2.5vw,1.75rem);--body-size:clamp(.8rem,1.4vw,1.15rem);--small-size:clamp(.7rem,1vw,.9rem);--label-size:clamp(.6rem,.9vw,.8rem);--slide-padding:clamp(1.5rem,5vw,5rem);--content-gap:clamp(.75rem,2vw,2rem);--element-gap:clamp(.4rem,1vh,1rem);--ease-out-expo:cubic-bezier(.16,1,.3,1);--duration:.7s}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;height:100%;overflow-x:hidden}body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;height:100%;-webkit-font-smoothing:antialiased}
+        .slide{width:100vw;height:100vh;height:100dvh;padding:var(--slide-padding);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;max-width:1200px;width:100%;margin:0 auto}
+        .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:1000;transition:width .3s ease;box-shadow:0 0 10px var(--accent-glow)}
+        .nav-dots{position:fixed;right:clamp(.75rem,2vw,1.5rem);top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);border:none;cursor:pointer;transition:all .3s ease;padding:0}.nav-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent-glow);transform:scale(1.3)}.nav-dot.section-start{width:10px;height:10px}
+        .slide-number{position:absolute;bottom:clamp(1rem,2vw,1.5rem);right:clamp(1.5rem,3vw,2.5rem);font-size:var(--small-size);color:var(--text-muted);font-weight:500}.section-label{font-size:var(--label-size);text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:700;margin-bottom:clamp(.5rem,1.5vw,1.5rem)}
+        .title-huge{font-family:var(--font-display);font-size:var(--title-size);font-weight:700;line-height:1.1;letter-spacing:-.02em}.title-slide-sub{font-size:clamp(.9rem,1.8vw,1.3rem);color:var(--text-secondary);margin-top:clamp(.5rem,1.5vw,1.5rem);font-weight:400;line-height:1.5}h2{font-family:var(--font-display);font-size:var(--h2-size);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--content-gap)}h3{font-family:var(--font-body);font-size:var(--h3-size);font-weight:700;line-height:1.3;margin-bottom:var(--element-gap)}p{font-size:var(--body-size);line-height:1.65;color:var(--text-secondary)}
+        .accent{color:var(--accent)}.red{color:var(--red)}.orange{color:var(--orange)}.blue{color:var(--blue)}.purple{color:var(--purple)}.yellow{color:var(--yellow)}
+        .story-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.25rem,3vw,2.5rem);margin-top:var(--content-gap);backdrop-filter:blur(10px)}.story-card p{font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.7}.story-card p+p{margin-top:clamp(.5rem,1vh,.75rem)}
+        .highlight-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:clamp(1rem,2vw,1.5rem) clamp(1.25rem,2.5vw,2rem);margin-top:var(--content-gap)}.highlight-box p{color:var(--text-primary);font-weight:500;font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.6}.highlight-box.red-box{background:var(--red-dim);border-left-color:var(--red)}.highlight-box.orange-box{background:var(--orange-dim);border-left-color:var(--orange)}.highlight-box.blue-box{background:var(--blue-dim);border-left-color:var(--blue)}.highlight-box.purple-box{background:var(--purple-dim);border-left-color:var(--purple)}.highlight-box.yellow-box{background:var(--yellow-dim);border-left-color:var(--yellow)}
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(.75rem,1.5vw,1.25rem);margin-top:var(--content-gap)}.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);transition:background .3s ease}.card:hover{background:var(--bg-card-hover)}.card-icon{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.card h3{font-size:clamp(.9rem,1.5vw,1.1rem);margin-bottom:clamp(.25rem,.5vh,.5rem)}.card p{font-size:var(--small-size);line-height:1.5}
+        .comparison{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.75rem,2vw,1.5rem);margin-top:var(--content-gap)}@media(max-width:600px){.comparison{grid-template-columns:1fr}}.comparison-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem)}.comparison-col h3{font-size:clamp(.9rem,1.4vw,1.1rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.comparison-col ul{list-style:none;padding:0}.comparison-col li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.5;padding:clamp(.2rem,.5vh,.4rem) 0;padding-left:1.2em;position:relative}.comparison-col li::before{content:'';position:absolute;left:0;top:clamp(.55rem,1vh,.7rem);width:6px;height:6px;border-radius:50%}.comparison-col.green li::before{background:var(--accent)}.comparison-col.orange li::before{background:var(--orange)}.comparison-col.red li::before{background:var(--red)}
+        .slide-table{width:100%;border-collapse:collapse;margin-top:var(--content-gap);font-size:var(--body-size)}.slide-table th{text-align:left;padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);background:var(--accent-dim);color:var(--accent);font-weight:600;font-size:var(--small-size);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}.slide-table td{padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);border-bottom:1px solid var(--border);color:var(--text-secondary);line-height:1.5}.slide-table tr:last-child td{border-bottom:none}.slide-table td:first-child{color:var(--text-primary);font-weight:500}
+        .bullet-list{list-style:none;padding:0;margin-top:var(--content-gap);display:flex;flex-direction:column;gap:var(--element-gap)}.bullet-list li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6;padding-left:1.5em;position:relative}.bullet-list li::before{content:'';position:absolute;left:0;top:clamp(.5rem,.8vh,.65rem);width:6px;height:6px;border-radius:50%;background:var(--accent)}.bullet-list li strong{color:var(--text-primary)}
+        .quote{font-size:clamp(1.1rem,2.5vw,1.75rem);font-style:italic;color:var(--text-primary);line-height:1.5;border-left:3px solid var(--accent);padding-left:clamp(1rem,2vw,1.5rem);max-width:800px}
+        .slide.section-divider{background:var(--bg-secondary)}.section-divider .section-number{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:700;color:var(--accent);opacity:.15;position:absolute;top:clamp(1rem,3vw,2rem);right:clamp(2rem,5vw,4rem);line-height:1}
+        .big-stat{font-family:var(--font-display);font-size:clamp(3rem,10vw,8rem);font-weight:700;color:var(--accent);line-height:1;letter-spacing:-.03em}.big-stat-label{font-size:clamp(1rem,2vw,1.5rem);color:var(--text-secondary);margin-top:clamp(.5rem,1vh,1rem)}
+        /* Code block style */
+        .code-block{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);margin-top:var(--content-gap);font-family:'SF Mono','Fira Code',monospace;font-size:var(--small-size);color:var(--accent);line-height:1.7;overflow:hidden;white-space:pre-wrap}
+        .code-comment{color:var(--text-muted)}
+        .bg-glow{position:absolute;width:clamp(300px,50vw,600px);height:clamp(300px,50vw,600px);border-radius:50%;filter:blur(120px);opacity:.07;pointer-events:none}.bg-glow.teal{background:var(--accent)}.bg-glow.blue{background:#4c6ef5}.bg-glow.purple{background:#7950f2}
+        .reveal{opacity:0;transform:translateY(25px);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal{opacity:1;transform:translateY(0)}.reveal:nth-child(1){transition-delay:.05s}.reveal:nth-child(2){transition-delay:.15s}.reveal:nth-child(3){transition-delay:.25s}.reveal:nth-child(4){transition-delay:.35s}.reveal:nth-child(5){transition-delay:.45s}.reveal:nth-child(6){transition-delay:.55s}
+        .reveal-scale{opacity:0;transform:scale(.92);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal-scale{opacity:1;transform:scale(1)}
+        @media(max-height:700px){:root{--slide-padding:clamp(1rem,3vw,2.5rem);--content-gap:clamp(.5rem,1.5vw,1rem);--title-size:clamp(1.75rem,5vw,3.5rem);--h2-size:clamp(1.25rem,3.5vw,2.25rem)}}@media(max-height:600px){:root{--slide-padding:clamp(.75rem,2.5vw,1.5rem);--content-gap:clamp(.4rem,1vw,.75rem);--title-size:clamp(1.5rem,4.5vw,2.5rem);--h2-size:clamp(1.1rem,3vw,1.75rem);--body-size:clamp(.7rem,1.2vw,.95rem)}.nav-dots,.bg-glow{display:none}}@media(max-height:500px){:root{--slide-padding:clamp(.5rem,2vw,1rem);--title-size:clamp(1.25rem,4vw,2rem);--h2-size:clamp(1rem,2.5vw,1.5rem);--body-size:clamp(.65rem,1vw,.85rem)}}@media(max-width:600px){:root{--title-size:clamp(1.5rem,8vw,3rem)}.card-grid{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}html{scroll-behavior:auto}}
+        .keyboard-hint{position:fixed;bottom:clamp(1rem,2vw,1.5rem);left:50%;transform:translateX(-50%);font-size:var(--small-size);color:var(--text-muted);opacity:.5;transition:opacity .5s;pointer-events:none}.keyboard-hint.hidden{opacity:0}
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint" id="keyHint">按 ← → 或滚动翻页</div>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:-20%;right:-10%"></div>
+        <div class="bg-glow purple" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content">
+            <p class="section-label reveal">第5讲</p>
+            <h1 class="title-huge reveal">Vibe <span class="accent">Coding</span></h1>
+            <p class="title-slide-sub reveal">产品人如何用AI做自己的工具</p>
+        </div>
+        <span class="slide-number">1</span>
+    </section>
+
+    <!-- SLIDE 2: 开场 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 一个事实</p>
+            <h2 class="reveal">我不是工程师</h2>
+            <div class="story-card reveal">
+                <p>我用Claude Code，<strong style="color:var(--accent)">2天</strong>做了一个AI旅行助手。</p>
+                <p>又花2天做了一个股票异动监控系统。</p>
+                <p>又花2天做了一个智能记账。</p>
+                <p style="margin-top:clamp(.5rem,1vh,.75rem);color:var(--text-primary);font-weight:500">我是产品人。但我自己做了4个可用的AI应用。</p>
+            </div>
+            <div class="highlight-box reveal">
+                <p>这在两年前<strong>完全不可能</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">2</span>
+    </section>
+
+    <!-- SLIDE 3: SECTION 5.1 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">5.1</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第一节</p>
+            <h2 class="reveal" style="max-width:700px">什么是Vibe Coding<br><span class="accent">为什么产品人应该学</span></h2>
+        </div>
+        <span class="slide-number">3</span>
+    </section>
+
+    <!-- SLIDE 4: 不是学编程 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 关键区分</p>
+            <h2 class="reveal">Vibe Coding <span class="red">≠</span> 学编程</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col red">
+                    <h3><span class="red">学编程</span></h3>
+                    <ul>
+                        <li>学语法、数据结构、算法</li>
+                        <li>需要几个月到几年</li>
+                        <li>你写每一行代码</li>
+                    </ul>
+                </div>
+                <div class="comparison-col green">
+                    <h3><span class="accent">Vibe Coding</span></h3>
+                    <ul>
+                        <li>用自然语言描述需求</li>
+                        <li>AI帮你写代码</li>
+                        <li>你做决策，AI做执行</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">4</span>
+    </section>
+
+    <!-- SLIDE 5: 三个价值 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 为什么学</p>
+            <h2 class="reveal">产品人学Vibe Coding的<span class="accent">三个价值</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">⚡</div>
+                    <h3>原型验证速度</h3>
+                    <p>30分钟就有肉眼可见的版本，不用等开发排期</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">🤝</div>
+                    <h3>降低沟通成本</h3>
+                    <p>自己做一遍，比写PRD给工程师描述清楚十倍</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">🚀</div>
+                    <h3>独立落地想法</h3>
+                    <p>不用求人，你的创意直接变成可用的东西</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">5</span>
+    </section>
+
+    <!-- SLIDE 6: 工具链 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 工具链</p>
+            <h2 class="reveal">各工具适合什么</h2>
+            <table class="slide-table reveal-scale">
+                <thead><tr><th>工具</th><th>适合</th><th>一句话</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="accent">Claude Code</span></td><td>完整应用开发</td><td>终端对话式写代码，从0搭建</td></tr>
+                    <tr><td>Cursor</td><td>在现有代码上工作</td><td>带AI的编辑器，修改和迭代</td></tr>
+                    <tr><td>v0</td><td>UI原型</td><td>自然语言生成前端，30秒出页面</td></tr>
+                    <tr><td>Replit</td><td>快速实验</td><td>在线环境，简单脚本和小工具</td></tr>
+                </tbody>
+            </table>
+            <div class="highlight-box reveal">
+                <p>我主要用 <strong class="accent">Claude Code</strong>——最适合从0搭建完整应用。</p>
+            </div>
+        </div>
+        <span class="slide-number">6</span>
+    </section>
+
+    <!-- SLIDE 7: SECTION 5.2 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">5.2</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第二节</p>
+            <h2 class="reveal" style="max-width:700px">实操感受<br><span class="accent">30分钟</span>到可用产品</h2>
+        </div>
+        <span class="slide-number">7</span>
+    </section>
+
+    <!-- SLIDE 8: 30分钟 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:20%;left:30%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">5.2 — 第一个啊哈时刻</p>
+            <div class="big-stat reveal">30min</div>
+            <p class="big-stat-label reveal">从一句话需求，到一个能跑的版本</p>
+        </div>
+        <span class="slide-number">8</span>
+    </section>
+
+    <!-- SLIDE 9: 实际体验 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 真实过程</p>
+            <h2 class="reveal">你告诉它要做什么，它就做</h2>
+            <div class="code-block reveal"><span class="code-comment">// 你在终端里输入：</span>
+
+"我想做一个A股异动监控系统。
+每天收盘后扫描所有A股，
+找出涨跌超过5%的股票，
+用AI分析异动原因，
+生成简报推送到我微信。"
+
+<span class="code-comment">// 30分钟后：界面有了，数据在拉，分析在生成</span></div>
+        </div>
+        <span class="slide-number">9</span>
+    </section>
+
+    <!-- SLIDE 10: AI主动提示 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 第二个惊喜</p>
+            <h2 class="reveal">AI会提示你<span class="accent">没想到的事</span></h2>
+            <div class="story-card reveal">
+                <p>做旅行助手的时候，Claude Code主动说：</p>
+                <p style="color:var(--accent);font-weight:500;margin-top:clamp(.3rem,.5vh,.5rem)">"你要不要加一个缓存？不然每次查酒店都要调API，很慢而且费钱。"</p>
+                <p style="margin-top:clamp(.5rem,1vh,.75rem)">你作为产品人可能没想到这一层——但AI替你想了。</p>
+            </div>
+        </div>
+        <span class="slide-number">10</span>
+    </section>
+
+    <!-- SLIDE 11: 四个应用 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 我做的4个应用</p>
+            <h2 class="reveal">每个2天，每个可用</h2>
+            <table class="slide-table reveal-scale">
+                <thead><tr><th>应用</th><th>做了什么</th><th>时间</th></tr></thead>
+                <tbody>
+                    <tr><td>AI旅行助手</td><td>对话式推荐航班+酒店</td><td>~2天</td></tr>
+                    <tr><td>股票异动监控</td><td>每日扫描+AI分析+推送</td><td>~2天</td></tr>
+                    <tr><td>智能记账</td><td>拍照/语音输入自动记账</td><td>~2天</td></tr>
+                    <tr><td>命理系统</td><td>输入生辰八字AI解读</td><td>~2天</td></tr>
+                </tbody>
+            </table>
+            <div class="highlight-box reveal">
+                <p>不完美，但<strong class="accent">能用</strong>。验证一个想法，这个速度足够了。</p>
+            </div>
+        </div>
+        <span class="slide-number">11</span>
+    </section>
+
+    <!-- SLIDE 12: 什么时候自己做 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — Betse的教训</p>
+            <h2 class="reveal">什么时候自己做，什么时候找人</h2>
+            <div class="story-card reveal">
+                <p>我做体育博彩项目Betse，一开始用外包软件。</p>
+                <p>很简单的需求改动，外包要<strong style="color:var(--red)">2周</strong>才能交付。</p>
+                <p>我需要<strong style="color:var(--accent)">快速看到结果</strong>，快速迭代。</p>
+                <p style="margin-top:clamp(.5rem,1vh,.75rem);color:var(--text-primary);font-weight:500">最终决定自研——上线后效果就起来了。</p>
+            </div>
+        </div>
+        <span class="slide-number">12</span>
+    </section>
+
+    <!-- SLIDE 13: 判断框架 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 判断框架</p>
+            <h2 class="reveal">自己做 vs 找工程师</h2>
+            <table class="slide-table reveal-scale">
+                <thead><tr><th>场景</th><th>自己做</th><th>找工程师</th></tr></thead>
+                <tbody>
+                    <tr><td>验证想法</td><td><span class="accent">✓</span> 2天出原型</td><td><span class="red">✗</span> 排期2周</td></tr>
+                    <tr><td>内部工具</td><td><span class="accent">✓</span> 够用就行</td><td><span class="red">✗</span> 杀鸡用牛刀</td></tr>
+                    <tr><td>面向用户产品</td><td><span class="red">✗</span> 质量不够</td><td><span class="accent">✓</span> 需要工程质量</td></tr>
+                    <tr><td>高并发/安全敏感</td><td><span class="red">✗</span> 有风险</td><td><span class="accent">✓</span> 必须专业</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">13</span>
+    </section>
+
+    <!-- SLIDE 14: SECTION 5.3 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">5.3</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第三节</p>
+            <h2 class="reveal" style="max-width:700px">方法论与<span class="accent">避坑指南</span></h2>
+        </div>
+        <span class="slide-number">14</span>
+    </section>
+
+    <!-- SLIDE 15: 好的需求描述 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 如何跟AI沟通</p>
+            <h2 class="reveal">需求描述决定代码质量</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col red">
+                    <h3><span class="red">差的描述</span></h3>
+                    <ul>
+                        <li>"帮我做一个股票监控"</li>
+                        <li>监控什么？怎么监控？</li>
+                        <li>结果给谁看？</li>
+                    </ul>
+                </div>
+                <div class="comparison-col green">
+                    <h3><span class="accent">好的描述</span></h3>
+                    <ul>
+                        <li>A股，涨跌超5%，AI分析原因</li>
+                        <li>每天收盘后自动扫描</li>
+                        <li>生成简报推送到微信</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>和写PRD一模一样。<strong class="accent">产品人天然适合Vibe Coding</strong>——你们本来就擅长描述需求。</p>
+            </div>
+        </div>
+        <span class="slide-number">15</span>
+    </section>
+
+    <!-- SLIDE 16: 最大的坑 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 最大的坑</p>
+            <h2 class="reveal">不测试 = <span class="red">一堆bug</span></h2>
+            <div class="story-card reveal">
+                <p><strong style="color:var(--text-primary)">我的血泪教训：</strong>当我自己不测试的时候，bug不少。</p>
+                <p>AI写的代码看起来很完整，运行好像没问题——</p>
+                <p>但很多<strong style="color:var(--red)">边界情况没覆盖</strong>，你不试就不知道。</p>
+            </div>
+            <ul class="bullet-list reveal">
+                <li>股票监控在<strong>周末跑会报错</strong>（没有交易数据）</li>
+                <li>记账系统输入<strong>英文金额会崩溃</strong></li>
+            </ul>
+        </div>
+        <span class="slide-number">16</span>
+    </section>
+
+    <!-- SLIDE 17: 避坑方法 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 避坑方法</p>
+            <h2 class="reveal">三步避坑</h2>
+            <ul class="bullet-list">
+                <li class="reveal">每做完一个功能，<strong>立刻自己试一遍</strong>——不要等全做完</li>
+                <li class="reveal">故意输入"奇怪的"数据：<strong>空值、超长文本、特殊字符</strong></li>
+                <li class="reveal">发现bug直接告诉AI，让它修——<strong>这就是迭代</strong></li>
+            </ul>
+            <div class="highlight-box red-box reveal">
+                <p>AI写代码很快，但<strong>不会自己测试</strong>。测试是你的工作。</p>
+            </div>
+        </div>
+        <span class="slide-number">17</span>
+    </section>
+
+    <!-- SLIDE 18: 日常工具箱 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 日常应用</p>
+            <h2 class="reveal">不只是做应用，<span class="accent">日常工作也能用</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">📊</div>
+                    <h3>数据分析</h3>
+                    <p>把Excel丢给AI，5分钟写Python脚本出结论</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">🔍</div>
+                    <h3>竞品分析</h3>
+                    <p>AI爬公开数据，自动生成对比表</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">📝</div>
+                    <h3>PRD辅助</h3>
+                    <p>口述需求，AI结构化成PRD格式</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--purple)">🎨</div>
+                    <h3>演示文稿</h3>
+                    <p>AI生成演示内容（就像这个课件）</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">18</span>
+    </section>
+
+    <!-- SLIDE 19: 金句 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="bottom:20%;right:20%"></div>
+        <div class="slide-content" style="justify-content:center">
+            <div class="quote reveal">
+                Vibe Coding不是让产品人变成工程师。<br><br>
+                是让产品人拿回一个能力：<br>
+                <span class="accent">不用求人，就能把想法变成现实。</span>
+            </div>
+        </div>
+        <span class="slide-number">19</span>
+    </section>
+
+    <!-- SLIDE 20: 回顾 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课程回顾</p>
+            <h2 class="reveal">今天的三个关键收获</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <h3>Vibe Coding ≠ 学编程</h3>
+                    <p>你做决策，AI做执行。产品人天然适合</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <h3>30分钟到可用</h3>
+                    <p>2天出一个完整应用。验证想法的速度是最大价值</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <h3>测试是你的工作</h3>
+                    <p>AI不会自己测试。好的需求描述 + 及时测试 = 避坑</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">20</span>
+    </section>
+
+    <!-- SLIDE 21: 费曼检验 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课后自测 — 费曼检验</p>
+            <h2 class="reveal">你能回答这三个问题吗？</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <p>你能向不懂技术的朋友解释Vibe Coding和学编程的区别吗？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--orange)">02</div>
+                    <p>你能想到一个日常工作中可以用Vibe Coding解决的问题吗？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <p>你知道什么时候该自己做、什么时候该找工程师吗？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">21</span>
+    </section>
+
+    <!-- SLIDE 22: 下一讲预告 -->
+    <section class="slide">
+        <div class="bg-glow teal" style="top:-10%;right:-5%"></div>
+        <div class="bg-glow purple" style="bottom:-15%;left:-5%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">第5讲完</p>
+            <h1 class="title-huge reveal" style="font-size:clamp(1.75rem,4.5vw,3.5rem)">下一讲预告</h1>
+            <p class="title-slide-sub reveal">综合复盘 — 我做AI产品的10年</p>
+            <p class="reveal" style="margin-top:clamp(1.5rem,3vw,2.5rem);color:var(--text-muted);font-size:var(--small-size)">曾言 — 数学博士 × AI产品人 × 出海先锋</p>
+        </div>
+        <span class="slide-number">22</span>
+    </section>
+
+    <script>
+        class SlidePresentation{constructor(){this.slides=document.querySelectorAll('.slide');this.currentSlide=0;this.totalSlides=this.slides.length;this.init()}init(){this.createNavDots();this.setupIntersectionObserver();this.setupKeyboardNav();this.setupTouchNav();this.updateProgress();this.hideKeyHintOnScroll()}createNavDots(){const c=document.getElementById('navDots');const s=[0,2,6,13];this.slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(s.includes(i)?' section-start':'');d.setAttribute('aria-label',`Go to slide ${i+1}`);d.addEventListener('click',()=>{this.slides[i].scrollIntoView({behavior:'smooth'})});c.appendChild(d)});this.navDots=c.querySelectorAll('.nav-dot')}setupIntersectionObserver(){const o=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const i=Array.from(this.slides).indexOf(e.target);if(i!==-1){this.currentSlide=i;this.updateProgress();this.updateNavDots()}}})},{threshold:0.5});this.slides.forEach(s=>o.observe(s))}setupKeyboardNav(){document.addEventListener('keydown',(e)=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();this.goToSlide(this.currentSlide+1)}else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();this.goToSlide(this.currentSlide-1)}})}setupTouchNav(){let sy=0,sx=0;document.addEventListener('touchstart',(e)=>{sy=e.touches[0].clientY;sx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',(e)=>{const dy=sy-e.changedTouches[0].clientY,dx=sx-e.changedTouches[0].clientX;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>50){this.goToSlide(dy>0?this.currentSlide+1:this.currentSlide-1)}},{passive:true})}goToSlide(i){if(i>=0&&i<this.totalSlides)this.slides[i].scrollIntoView({behavior:'smooth'})}updateProgress(){document.getElementById('progressBar').style.width=((this.currentSlide+1)/this.totalSlides)*100+'%'}updateNavDots(){if(!this.navDots)return;this.navDots.forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide))}hideKeyHintOnScroll(){const h=document.getElementById('keyHint');let done=false;const hide=()=>{if(!done){h.classList.add('hidden');done=true}};document.addEventListener('scroll',hide,{once:true});document.addEventListener('keydown',hide,{once:true})}}
+        document.addEventListener('DOMContentLoaded',()=>{new SlidePresentation()});
+    </script>
+</body>
+</html>
