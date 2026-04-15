@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战略第1讲：产品人为什么需要商业思维 — 曾言</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg-primary:#0d0b1a;--bg-secondary:#17122a;--bg-card:rgba(255,255,255,.04);--bg-card-hover:rgba(255,255,255,.07);--text-primary:#f0f4f8;--text-secondary:#9a99b8;--text-muted:#6a6789;--accent:#a78bfa;--accent-dim:rgba(167,139,250,.15);--accent-glow:rgba(167,139,250,.3);--red:#ff6b6b;--red-dim:rgba(255,107,107,.15);--orange:#ffa94d;--orange-dim:rgba(255,169,77,.15);--blue:#74c0fc;--blue-dim:rgba(116,192,252,.15);--purple:#b197fc;--purple-dim:rgba(177,151,252,.15);--green:#51cf66;--green-dim:rgba(81,207,102,.15);--teal:#00e5c7;--teal-dim:rgba(0,229,199,.15);--amber:#f59e0b;--amber-dim:rgba(245,158,11,.15);--border:rgba(255,255,255,.06);--font-display:'Clash Display','Noto Sans SC',sans-serif;--font-body:'Satoshi','Noto Sans SC',sans-serif;--title-size:clamp(2rem,5.5vw,4.5rem);--h2-size:clamp(1.5rem,4vw,3rem);--h3-size:clamp(1.1rem,2.5vw,1.75rem);--body-size:clamp(.8rem,1.4vw,1.15rem);--small-size:clamp(.7rem,1vw,.9rem);--label-size:clamp(.6rem,.9vw,.8rem);--slide-padding:clamp(1.5rem,5vw,5rem);--content-gap:clamp(.75rem,2vw,2rem);--element-gap:clamp(.4rem,1vh,1rem);--ease-out-expo:cubic-bezier(.16,1,.3,1);--duration:.7s}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;height:100%;overflow-x:hidden}body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;height:100%;-webkit-font-smoothing:antialiased}
+        .slide{width:100vw;height:100vh;height:100dvh;padding:var(--slide-padding);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;max-width:1200px;width:100%;margin:0 auto}
+        .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:1000;transition:width .3s ease;box-shadow:0 0 10px var(--accent-glow)}
+        .nav-dots{position:fixed;right:clamp(.75rem,2vw,1.5rem);top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);border:none;cursor:pointer;transition:all .3s ease;padding:0}.nav-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent-glow);transform:scale(1.3)}.nav-dot.section-start{width:10px;height:10px}
+        .slide-number{position:absolute;bottom:clamp(1rem,2vw,1.5rem);right:clamp(1.5rem,3vw,2.5rem);font-size:var(--small-size);color:var(--text-muted);font-weight:500}.section-label{font-size:var(--label-size);text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:700;margin-bottom:clamp(.5rem,1.5vw,1.5rem)}
+        .title-huge{font-family:var(--font-display);font-size:var(--title-size);font-weight:700;line-height:1.1;letter-spacing:-.02em}.title-slide-sub{font-size:clamp(.9rem,1.8vw,1.3rem);color:var(--text-secondary);margin-top:clamp(.5rem,1.5vw,1.5rem);font-weight:400;line-height:1.5}h2{font-family:var(--font-display);font-size:var(--h2-size);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--content-gap)}h3{font-family:var(--font-body);font-size:var(--h3-size);font-weight:700;line-height:1.3;margin-bottom:var(--element-gap)}p{font-size:var(--body-size);line-height:1.65;color:var(--text-secondary)}
+        .accent{color:var(--accent)}.red{color:var(--red)}.green{color:var(--green)}.blue{color:var(--blue)}.purple{color:var(--purple)}.teal{color:var(--teal)}.amber{color:var(--amber)}
+        .story-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.25rem,3vw,2.5rem);margin-top:var(--content-gap);backdrop-filter:blur(10px)}.story-card p{font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.7}.story-card p+p{margin-top:clamp(.5rem,1vh,.75rem)}
+        .highlight-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:clamp(1rem,2vw,1.5rem) clamp(1.25rem,2.5vw,2rem);margin-top:var(--content-gap)}.highlight-box p{color:var(--text-primary);font-weight:500;font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.6}.highlight-box.red-box{background:var(--red-dim);border-left-color:var(--red)}.highlight-box.green-box{background:var(--green-dim);border-left-color:var(--green)}.highlight-box.blue-box{background:var(--blue-dim);border-left-color:var(--blue)}.highlight-box.amber-box{background:var(--amber-dim);border-left-color:var(--amber)}
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(.75rem,1.5vw,1.25rem);margin-top:var(--content-gap)}.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);transition:background .3s ease}.card:hover{background:var(--bg-card-hover)}.card-icon{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.card h3{font-size:clamp(.9rem,1.5vw,1.1rem);margin-bottom:clamp(.25rem,.5vh,.5rem)}.card p{font-size:var(--small-size);line-height:1.5}
+        .comparison{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.75rem,2vw,1.5rem);margin-top:var(--content-gap)}@media(max-width:600px){.comparison{grid-template-columns:1fr}}.comparison-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem)}.comparison-col h3{font-size:clamp(.9rem,1.4vw,1.1rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.comparison-col ul{list-style:none;padding:0}.comparison-col li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.5;padding:clamp(.2rem,.5vh,.4rem) 0;padding-left:1.2em;position:relative}.comparison-col li::before{content:'';position:absolute;left:0;top:clamp(.55rem,1vh,.7rem);width:6px;height:6px;border-radius:50%}.comparison-col.col-accent li::before{background:var(--accent)}.comparison-col.col-green li::before{background:var(--green)}.comparison-col.col-red li::before{background:var(--red)}.comparison-col.col-blue li::before{background:var(--blue)}
+        .slide-table{width:100%;border-collapse:collapse;margin-top:var(--content-gap);font-size:var(--body-size)}.slide-table th{text-align:left;padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);background:var(--accent-dim);color:var(--accent);font-weight:600;font-size:var(--small-size);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}.slide-table td{padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);border-bottom:1px solid var(--border);color:var(--text-secondary);line-height:1.5}.slide-table tr:last-child td{border-bottom:none}.slide-table td:first-child{color:var(--text-primary);font-weight:500}
+        .bullet-list{list-style:none;padding:0;margin-top:var(--content-gap);display:flex;flex-direction:column;gap:var(--element-gap)}.bullet-list li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6;padding-left:1.5em;position:relative}.bullet-list li::before{content:'';position:absolute;left:0;top:clamp(.5rem,.8vh,.65rem);width:6px;height:6px;border-radius:50%;background:var(--accent)}.bullet-list li strong{color:var(--text-primary)}
+        .quote{font-size:clamp(1.1rem,2.5vw,1.75rem);font-style:italic;color:var(--text-primary);line-height:1.5;border-left:3px solid var(--accent);padding-left:clamp(1rem,2vw,1.5rem);max-width:800px}
+        .slide.section-divider{background:var(--bg-secondary)}.section-divider .section-number{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:700;color:var(--accent);opacity:.15;position:absolute;top:clamp(1rem,3vw,2rem);right:clamp(2rem,5vw,4rem);line-height:1}
+        .bg-glow{position:absolute;width:clamp(300px,50vw,600px);height:clamp(300px,50vw,600px);border-radius:50%;filter:blur(120px);opacity:.07;pointer-events:none}.bg-glow.glow-violet{background:var(--accent)}.bg-glow.glow-blue{background:#4c6ef5}.bg-glow.glow-pink{background:#e879f9}
+        .reveal{opacity:0;transform:translateY(25px);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal{opacity:1;transform:translateY(0)}.reveal:nth-child(1){transition-delay:.05s}.reveal:nth-child(2){transition-delay:.15s}.reveal:nth-child(3){transition-delay:.25s}.reveal:nth-child(4){transition-delay:.35s}.reveal:nth-child(5){transition-delay:.45s}.reveal:nth-child(6){transition-delay:.55s}
+        .reveal-scale{opacity:0;transform:scale(.92);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal-scale{opacity:1;transform:scale(1)}
+        .step-flow{display:flex;flex-direction:column;gap:clamp(.5rem,1vh,.75rem);margin-top:var(--content-gap)}.step-item{display:flex;align-items:flex-start;gap:clamp(.75rem,1.5vw,1.25rem)}.step-num{font-family:var(--font-display);font-size:clamp(1rem,1.8vw,1.4rem);font-weight:700;color:var(--accent);min-width:clamp(1.5rem,3vw,2rem)}.step-text{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6}.step-text strong{color:var(--text-primary)}
+        .calc-block{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);margin-top:var(--content-gap);font-family:var(--font-body);font-size:var(--body-size);line-height:1.8}.calc-line{display:flex;justify-content:space-between;padding:clamp(.2rem,.4vh,.35rem) 0;color:var(--text-secondary)}.calc-line .val{color:var(--accent);font-weight:600}.calc-line.total{border-top:1px solid var(--border);margin-top:.5rem;padding-top:.5rem;color:var(--text-primary);font-weight:700}
+        @media(max-height:700px){:root{--slide-padding:clamp(1rem,3vw,2.5rem);--content-gap:clamp(.5rem,1.5vw,1rem);--title-size:clamp(1.75rem,5vw,3.5rem);--h2-size:clamp(1.25rem,3.5vw,2.25rem)}}@media(max-height:600px){:root{--slide-padding:clamp(.75rem,2.5vw,1.5rem);--content-gap:clamp(.4rem,1vw,.75rem);--title-size:clamp(1.5rem,4.5vw,2.5rem);--h2-size:clamp(1.1rem,3vw,1.75rem);--body-size:clamp(.7rem,1.2vw,.95rem)}.nav-dots,.bg-glow{display:none}}@media(max-height:500px){:root{--slide-padding:clamp(.5rem,2vw,1rem);--title-size:clamp(1.25rem,4vw,2rem);--h2-size:clamp(1rem,2.5vw,1.5rem);--body-size:clamp(.65rem,1vw,.85rem)}}@media(max-width:600px){:root{--title-size:clamp(1.5rem,8vw,3rem)}.card-grid{grid-template-columns:1fr}.comparison{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}html{scroll-behavior:auto}}
+        .keyboard-hint{position:fixed;bottom:clamp(1rem,2vw,1.5rem);left:50%;transform:translateX(-50%);font-size:var(--small-size);color:var(--text-muted);opacity:.5;transition:opacity .5s;pointer-events:none}.keyboard-hint.hidden{opacity:0}
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint" id="keyHint">按 ← → 或滚动翻页</div>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide">
+        <div class="bg-glow glow-violet" style="top:-20%;right:-10%"></div>
+        <div class="bg-glow glow-pink" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content">
+            <p class="section-label reveal">战略实战 · 第1讲</p>
+            <h1 class="title-huge reveal">产品人为什么需要<br><span class="accent">商业思维</span></h1>
+            <p class="title-slide-sub reveal">从"做好产品"到"经营好生意"</p>
+        </div>
+        <span class="slide-number">1</span>
+    </section>
+
+    <!-- SLIDE 2: 开场 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 携程选座案例</p>
+            <h2 class="reveal">一个<span class="green">好的产品决策</span>，<br>可以是<span class="red">坏的商业决策</span></h2>
+            <div class="story-card reveal">
+                <p>携程选座优化：开放可视化选座后，选座订单<strong style="color:var(--green)">涨50%</strong>。</p>
+                <p>但同时商务舱转化率在下降——营销内容干扰了决策。减少营销后，商务舱<strong style="color:var(--accent)">涨100%</strong>。</p>
+            </div>
+            <div class="highlight-box reveal">
+                <p>产品人的盲区：你优化了A，可能损害了B。只有站在商业全局看，才能做出真正正确的决策。</p>
+            </div>
+        </div>
+        <span class="slide-number">2</span>
+    </section>
+
+    <!-- SLIDE 3: SECTION 1.1 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">1.1</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第一节</p>
+            <h2 class="reveal" style="max-width:700px">产品思维的<br><span class="accent">天花板</span></h2>
+        </div>
+        <span class="slide-number">3</span>
+    </section>
+
+    <!-- SLIDE 4: 产品vs商业思维 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 本质区别</p>
+            <h2 class="reveal">多了<span class="accent">三个维度</span></h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr><th>维度</th><th>产品思维</th><th>商业思维</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>竞争</td><td>产品好不好</td><td>产品能不能赢</td></tr>
+                    <tr><td>成本</td><td>能不能做</td><td>ROI是什么</td></tr>
+                    <tr><td>时机</td><td>什么时候做完</td><td>什么时候该做</td></tr>
+                </tbody>
+            </table>
+            <div class="highlight-box reveal">
+                <p>商业思维不是否定产品思维，是包含产品思维。你需要在更大的画布上思考。</p>
+            </div>
+        </div>
+        <span class="slide-number">4</span>
+    </section>
+
+    <!-- SLIDE 5: 三角模型 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 三角模型</p>
+            <h2 class="reveal">用户 × 公司 × <span class="accent">市场</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">👤</div>
+                    <h3>用户视角</h3>
+                    <p>这个决策对用户有没有价值？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">💰</div>
+                    <h3>公司视角</h3>
+                    <p>对公司的P&L有什么影响？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">📊</div>
+                    <h3>市场视角</h3>
+                    <p>让我们更有竞争力还是更弱？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">5</span>
+    </section>
+
+    <!-- SLIDE 6: 新氧案例 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.1 — 新氧六折活动</p>
+            <h2 class="reveal">三角分析：<span class="accent">短期赢，长期输</span></h2>
+            <ul class="bullet-list reveal">
+                <li><strong>用户视角：</strong>六折预定费，用户疯了一样涌入 ✓</li>
+                <li><strong>公司视角：</strong>虽有刷单，平台仍赚钱，短期P&L正 ✓</li>
+                <li><strong>市场视角：</strong>美团获客100元 vs 新氧上千元——<span class="red">结构性劣势没变</span></li>
+            </ul>
+            <div class="highlight-box red-box reveal">
+                <p>好的产品运营决策，不等于好的战略决策。它没有改变竞争格局。</p>
+            </div>
+        </div>
+        <span class="slide-number">6</span>
+    </section>
+
+    <!-- SLIDE 7: SECTION 1.2 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">1.2</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第二节</p>
+            <h2 class="reveal" style="max-width:700px">第一性原理与<br><span class="accent">费米估算</span></h2>
+        </div>
+        <span class="slide-number">7</span>
+    </section>
+
+    <!-- SLIDE 8: 第一性原理 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 第一性原理</p>
+            <h2 class="reveal">把问题拆到<span class="accent">最基本的事实</span></h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col col-red">
+                    <h3><span class="red">类比思维</span></h3>
+                    <ul>
+                        <li>"别人这么做，所以我也这么做"</li>
+                        <li>在成熟市场有效</li>
+                        <li>在新市场常常失败</li>
+                    </ul>
+                </div>
+                <div class="comparison-col col-accent">
+                    <h3><span class="accent">第一性原理</span></h3>
+                    <ul>
+                        <li>"本质是什么？最优解是什么？"</li>
+                        <li>在新市场/新领域更有效</li>
+                        <li>陌生环境逼出来的能力</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">8</span>
+    </section>
+
+    <!-- SLIDE 9: 巴西东北案例 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 案例</p>
+            <h2 class="reveal">滴滴巴西东北：<span class="accent">反套路创新</span></h2>
+            <div class="story-card reveal">
+                <p><strong style="color:var(--red)">类比思维：</strong>照搬中国模式——高司机抽成 + 高乘客补贴</p>
+                <p><strong style="color:var(--accent)">第一性原理：</strong>东北现金订单占比高，银行卡少——降take rate + 降补贴 + 支持现金</p>
+                <p>结果：效果极好。不是多烧钱，是<strong>理解了本质需求</strong>。</p>
+            </div>
+        </div>
+        <span class="slide-number">9</span>
+    </section>
+
+    <!-- SLIDE 10: 费米估算 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 费米估算</p>
+            <h2 class="reveal">5分钟估出<span class="accent">中国OTA机票市场</span></h2>
+            <div class="calc-block reveal-scale">
+                <div class="calc-line"><span>中国人口</span><span class="val">14亿</span></div>
+                <div class="calc-line"><span>年均坐飞机比例</span><span class="val">~10%</span></div>
+                <div class="calc-line"><span>人均飞行次数</span><span class="val">~3次/年</span></div>
+                <div class="calc-line"><span>年度机票订单</span><span class="val">~4.2亿张</span></div>
+                <div class="calc-line"><span>平均票价</span><span class="val">~800元</span></div>
+                <div class="calc-line"><span>机票市场总规模</span><span class="val">~3360亿</span></div>
+                <div class="calc-line"><span>OTA占比</span><span class="val">~50%</span></div>
+                <div class="calc-line total"><span>OTA机票市场</span><span class="val">~1700亿</span></div>
+            </div>
+        </div>
+        <span class="slide-number">10</span>
+    </section>
+
+    <!-- SLIDE 11: 为什么需要费米估算 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 产品人的武器</p>
+            <h2 class="reveal">费米估算有<span class="accent">三个用途</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <h3>评估新业务</h3>
+                    <p>老板说"做这个"，你能快速判断天花板有多高</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">02</div>
+                    <h3>谈判资源</h3>
+                    <p>用数据说话而不是感觉说话</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">03</div>
+                    <h3>面试利器</h3>
+                    <p>VP/D级别面试常考</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">11</span>
+    </section>
+
+    <!-- SLIDE 12: 数据直觉 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.2 — 数据直觉</p>
+            <h2 class="reveal">不是天赋，是<span class="accent">训练</span></h2>
+            <div class="step-flow reveal-scale">
+                <div class="step-item">
+                    <span class="step-num">01</span>
+                    <span class="step-text"><strong>记关键数字</strong> — 你产品的DAU/留存率，像手机号一样熟</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">02</span>
+                    <span class="step-text"><strong>做因果推断</strong> — DAU涨了，是广告还是节日？</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">03</span>
+                    <span class="step-text"><strong>估算练习</strong> — 每周出一个估算题，查真实数据校准</span>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">12</span>
+    </section>
+
+    <!-- SLIDE 13: SECTION 1.3 DIVIDER -->
+    <section class="slide section-divider">
+        <div class="section-number">1.3</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第三节</p>
+            <h2 class="reveal" style="max-width:700px">从执行者到<br><span class="accent">决策者</span></h2>
+        </div>
+        <span class="slide-number">13</span>
+    </section>
+
+    <!-- SLIDE 14: 执行者vs决策者 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 本质区别</p>
+            <h2 class="reveal">思维方式的<span class="accent">升级</span></h2>
+            <table class="slide-table reveal-scale">
+                <thead>
+                    <tr><th>维度</th><th>执行者</th><th>决策者</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>核心问题</td><td>"怎么做好"</td><td>"做不做，为什么"</td></tr>
+                    <tr><td>信息基础</td><td>充分的需求</td><td>不完整信息下判断</td></tr>
+                    <tr><td>风险态度</td><td>规避风险</td><td>管理风险</td></tr>
+                    <tr><td>评价标准</td><td>产品指标</td><td>业务P&L</td></tr>
+                    <tr><td>时间维度</td><td>本季度</td><td>1-3年</td></tr>
+                </tbody>
+            </table>
+            <div class="highlight-box reveal">
+                <p>90%的P7卡在P8，不是产品能力不够，是还在用执行者的思维做事。</p>
+            </div>
+        </div>
+        <span class="slide-number">14</span>
+    </section>
+
+    <!-- SLIDE 15: 四次角色升级 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 我的路径</p>
+            <h2 class="reveal">四次<span class="accent">角色升级</span></h2>
+            <div class="step-flow reveal-scale">
+                <div class="step-item">
+                    <span class="step-num">01</span>
+                    <span class="step-text"><strong>数据挖掘 → BI负责人</strong>（滴滴2015）— 从"给答案"到"定问题"</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">02</span>
+                    <span class="step-text"><strong>BI → 业务负责人</strong>（巴西2017）— 从"支持"到"负责"</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">03</span>
+                    <span class="step-text"><strong>产品总监 → GM</strong>（快手2020）— 从"产品好"到"业务赚钱"</span>
+                </div>
+                <div class="step-item">
+                    <span class="step-num">04</span>
+                    <span class="step-text"><strong>GM → CEO</strong>（Betse 2024）— 从"有靠山"到"全靠自己"</span>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">15</span>
+    </section>
+
+    <!-- SLIDE 16: 五个决策模型 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">1.3 — 心智模型库</p>
+            <h2 class="reveal">我常用的<span class="accent">五个决策模型</span></h2>
+            <ul class="bullet-list reveal">
+                <li><strong>10/10/10法则</strong> — 10分钟/10个月/10年后分别影响什么（避免短视）</li>
+                <li><strong>不可逆性判断</strong> — 单向门还是双向门？（Jeff Bezos）</li>
+                <li><strong>机会成本思维</strong> — 做这件事意味着不做什么？</li>
+                <li><strong>二阶效应</strong> — 直接影响 vs 间接影响（选座案例）</li>
+                <li><strong>反转测试</strong> — 如果已在做，你会停掉吗？</li>
+            </ul>
+        </div>
+        <span class="slide-number">16</span>
+    </section>
+
+    <!-- SLIDE 17: 金句 -->
+    <section class="slide">
+        <div class="bg-glow glow-violet" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">1.3 — 结语</p>
+            <p class="quote reveal" style="border-left:none;text-align:center;padding-left:0">商业思维不是<br>MBA才能教你的。<br><br>它是一种<span class="accent">看世界的方式</span>。</p>
+        </div>
+        <span class="slide-number">17</span>
+    </section>
+
+    <!-- SLIDE 18: 费曼检验 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课后自测 — 费曼检验</p>
+            <h2 class="reveal">你能回答这三个问题吗？</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">01</div>
+                    <p>用三角模型分析你最近的一个产品决策</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">02</div>
+                    <p>在5分钟内估算你所在行业的市场规模</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">03</div>
+                    <p>执行者和决策者的五个维度，你现在卡在哪？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">18</span>
+    </section>
+
+    <!-- SLIDE 19: 下一讲 -->
+    <section class="slide">
+        <div class="bg-glow glow-violet" style="top:-10%;right:-5%"></div>
+        <div class="bg-glow glow-pink" style="bottom:-15%;left:-5%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">第1讲完</p>
+            <h1 class="title-huge reveal" style="font-size:clamp(1.75rem,4.5vw,3.5rem)">下一讲预告</h1>
+            <p class="title-slide-sub reveal">竞争战略 — 从补贴战到护城河</p>
+        </div>
+        <span class="slide-number">19</span>
+    </section>
+
+    <script>
+        class SlidePresentation{constructor(){this.slides=document.querySelectorAll('.slide');this.currentSlide=0;this.totalSlides=this.slides.length;this.init()}init(){this.createNavDots();this.setupIntersectionObserver();this.setupKeyboardNav();this.setupTouchNav();this.updateProgress();this.hideKeyHintOnScroll()}createNavDots(){const c=document.getElementById('navDots');const s=[0,2,6,12];this.slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(s.includes(i)?' section-start':'');d.setAttribute('aria-label',`Go to slide ${i+1}`);d.addEventListener('click',()=>{this.slides[i].scrollIntoView({behavior:'smooth'})});c.appendChild(d)});this.navDots=c.querySelectorAll('.nav-dot')}setupIntersectionObserver(){const o=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const i=Array.from(this.slides).indexOf(e.target);if(i!==-1){this.currentSlide=i;this.updateProgress();this.updateNavDots()}}})},{threshold:0.5});this.slides.forEach(s=>o.observe(s))}setupKeyboardNav(){document.addEventListener('keydown',(e)=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();this.goToSlide(this.currentSlide+1)}else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();this.goToSlide(this.currentSlide-1)}})}setupTouchNav(){let sy=0,sx=0;document.addEventListener('touchstart',(e)=>{sy=e.touches[0].clientY;sx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',(e)=>{const dy=sy-e.changedTouches[0].clientY,dx=sx-e.changedTouches[0].clientX;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>50){this.goToSlide(dy>0?this.currentSlide+1:this.currentSlide-1)}},{passive:true})}goToSlide(i){if(i>=0&&i<this.totalSlides)this.slides[i].scrollIntoView({behavior:'smooth'})}updateProgress(){document.getElementById('progressBar').style.width=((this.currentSlide+1)/this.totalSlides)*100+'%'}updateNavDots(){if(!this.navDots)return;this.navDots.forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide))}hideKeyHintOnScroll(){const h=document.getElementById('keyHint');let done=false;const hide=()=>{if(!done){h.classList.add('hidden');done=true}};document.addEventListener('scroll',hide,{once:true});document.addEventListener('keydown',hide,{once:true})}}
+        document.addEventListener('DOMContentLoaded',()=>{new SlidePresentation()});
+    </script>
+</body>
+</html>
