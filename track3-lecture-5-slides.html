@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战略第5讲：投资视角看公司 — 产品人的独特优势 — 曾言</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=clash-display@600,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg-primary:#0d0b1a;--bg-secondary:#17122a;--bg-card:rgba(255,255,255,.04);--bg-card-hover:rgba(255,255,255,.07);--text-primary:#f0f4f8;--text-secondary:#9a99b8;--text-muted:#6a6789;--accent:#a78bfa;--accent-dim:rgba(167,139,250,.15);--accent-glow:rgba(167,139,250,.3);--red:#ff6b6b;--red-dim:rgba(255,107,107,.15);--orange:#ffa94d;--orange-dim:rgba(255,169,77,.15);--blue:#74c0fc;--blue-dim:rgba(116,192,252,.15);--green:#51cf66;--green-dim:rgba(81,207,102,.15);--teal:#00e5c7;--teal-dim:rgba(0,229,199,.15);--amber:#f59e0b;--amber-dim:rgba(245,158,11,.15);--border:rgba(255,255,255,.06);--font-display:'Clash Display','Noto Sans SC',sans-serif;--font-body:'Satoshi','Noto Sans SC',sans-serif;--title-size:clamp(2rem,5.5vw,4.5rem);--h2-size:clamp(1.5rem,4vw,3rem);--h3-size:clamp(1.1rem,2.5vw,1.75rem);--body-size:clamp(.8rem,1.4vw,1.15rem);--small-size:clamp(.7rem,1vw,.9rem);--label-size:clamp(.6rem,.9vw,.8rem);--slide-padding:clamp(1.5rem,5vw,5rem);--content-gap:clamp(.75rem,2vw,2rem);--element-gap:clamp(.4rem,1vh,1rem);--ease-out-expo:cubic-bezier(.16,1,.3,1);--duration:.7s}
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth;scroll-snap-type:y mandatory;height:100%;overflow-x:hidden}body{font-family:var(--font-body);background:var(--bg-primary);color:var(--text-primary);overflow-x:hidden;height:100%;-webkit-font-smoothing:antialiased}
+        .slide{width:100vw;height:100vh;height:100dvh;padding:var(--slide-padding);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;max-width:1200px;width:100%;margin:0 auto}
+        .progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:1000;transition:width .3s ease;box-shadow:0 0 10px var(--accent-glow)}
+        .nav-dots{position:fixed;right:clamp(.75rem,2vw,1.5rem);top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted);border:none;cursor:pointer;transition:all .3s ease;padding:0}.nav-dot.active{background:var(--accent);box-shadow:0 0 8px var(--accent-glow);transform:scale(1.3)}.nav-dot.section-start{width:10px;height:10px}
+        .slide-number{position:absolute;bottom:clamp(1rem,2vw,1.5rem);right:clamp(1.5rem,3vw,2.5rem);font-size:var(--small-size);color:var(--text-muted);font-weight:500}.section-label{font-size:var(--label-size);text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:700;margin-bottom:clamp(.5rem,1.5vw,1.5rem)}
+        .title-huge{font-family:var(--font-display);font-size:var(--title-size);font-weight:700;line-height:1.1;letter-spacing:-.02em}.title-slide-sub{font-size:clamp(.9rem,1.8vw,1.3rem);color:var(--text-secondary);margin-top:clamp(.5rem,1.5vw,1.5rem);font-weight:400;line-height:1.5}h2{font-family:var(--font-display);font-size:var(--h2-size);font-weight:700;line-height:1.15;letter-spacing:-.01em;margin-bottom:var(--content-gap)}h3{font-family:var(--font-body);font-size:var(--h3-size);font-weight:700;line-height:1.3;margin-bottom:var(--element-gap)}p{font-size:var(--body-size);line-height:1.65;color:var(--text-secondary)}
+        .accent{color:var(--accent)}.red{color:var(--red)}.green{color:var(--green)}.blue{color:var(--blue)}.teal{color:var(--teal)}.amber{color:var(--amber)}
+        .story-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:clamp(1.25rem,3vw,2.5rem);margin-top:var(--content-gap)}.story-card p{font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.7}.story-card p+p{margin-top:clamp(.5rem,1vh,.75rem)}
+        .highlight-box{background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:clamp(1rem,2vw,1.5rem) clamp(1.25rem,2.5vw,2rem);margin-top:var(--content-gap)}.highlight-box p{color:var(--text-primary);font-weight:500;font-size:clamp(.85rem,1.5vw,1.15rem);line-height:1.6}.highlight-box.red-box{background:var(--red-dim);border-left-color:var(--red)}.highlight-box.green-box{background:var(--green-dim);border-left-color:var(--green)}.highlight-box.blue-box{background:var(--blue-dim);border-left-color:var(--blue)}
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:clamp(.75rem,1.5vw,1.25rem);margin-top:var(--content-gap)}.card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem);transition:background .3s ease}.card:hover{background:var(--bg-card-hover)}.card-icon{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.card h3{font-size:clamp(.9rem,1.5vw,1.1rem);margin-bottom:clamp(.25rem,.5vh,.5rem)}.card p{font-size:var(--small-size);line-height:1.5}
+        .comparison{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.75rem,2vw,1.5rem);margin-top:var(--content-gap)}@media(max-width:600px){.comparison{grid-template-columns:1fr}}.comparison-col{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:clamp(1rem,2vw,1.5rem)}.comparison-col h3{font-size:clamp(.9rem,1.4vw,1.1rem);margin-bottom:clamp(.4rem,1vh,.75rem)}.comparison-col ul{list-style:none;padding:0}.comparison-col li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.5;padding:clamp(.2rem,.5vh,.4rem) 0;padding-left:1.2em;position:relative}.comparison-col li::before{content:'';position:absolute;left:0;top:clamp(.55rem,1vh,.7rem);width:6px;height:6px;border-radius:50%}.comparison-col.col-accent li::before{background:var(--accent)}.comparison-col.col-green li::before{background:var(--green)}.comparison-col.col-red li::before{background:var(--red)}.comparison-col.col-blue li::before{background:var(--blue)}
+        .slide-table{width:100%;border-collapse:collapse;margin-top:var(--content-gap);font-size:var(--body-size)}.slide-table th{text-align:left;padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);background:var(--accent-dim);color:var(--accent);font-weight:600;font-size:var(--small-size);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border)}.slide-table td{padding:clamp(.5rem,1vh,.75rem) clamp(.75rem,1.5vw,1.25rem);border-bottom:1px solid var(--border);color:var(--text-secondary);line-height:1.5}.slide-table tr:last-child td{border-bottom:none}.slide-table td:first-child{color:var(--text-primary);font-weight:500}
+        .bullet-list{list-style:none;padding:0;margin-top:var(--content-gap);display:flex;flex-direction:column;gap:var(--element-gap)}.bullet-list li{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6;padding-left:1.5em;position:relative}.bullet-list li::before{content:'';position:absolute;left:0;top:clamp(.5rem,.8vh,.65rem);width:6px;height:6px;border-radius:50%;background:var(--accent)}.bullet-list li strong{color:var(--text-primary)}
+        .quote{font-size:clamp(1.1rem,2.5vw,1.75rem);font-style:italic;color:var(--text-primary);line-height:1.5;border-left:3px solid var(--accent);padding-left:clamp(1rem,2vw,1.5rem);max-width:800px}
+        .slide.section-divider{background:var(--bg-secondary)}.section-divider .section-number{font-family:var(--font-display);font-size:clamp(4rem,12vw,10rem);font-weight:700;color:var(--accent);opacity:.15;position:absolute;top:clamp(1rem,3vw,2rem);right:clamp(2rem,5vw,4rem);line-height:1}
+        .bg-glow{position:absolute;width:clamp(300px,50vw,600px);height:clamp(300px,50vw,600px);border-radius:50%;filter:blur(120px);opacity:.07;pointer-events:none}.bg-glow.glow-violet{background:var(--accent)}.bg-glow.glow-blue{background:#4c6ef5}.bg-glow.glow-pink{background:#e879f9}
+        .reveal{opacity:0;transform:translateY(25px);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal{opacity:1;transform:translateY(0)}.reveal:nth-child(1){transition-delay:.05s}.reveal:nth-child(2){transition-delay:.15s}.reveal:nth-child(3){transition-delay:.25s}.reveal:nth-child(4){transition-delay:.35s}.reveal:nth-child(5){transition-delay:.45s}.reveal:nth-child(6){transition-delay:.55s}
+        .reveal-scale{opacity:0;transform:scale(.92);transition:opacity var(--duration) var(--ease-out-expo),transform var(--duration) var(--ease-out-expo)}.slide.visible .reveal-scale{opacity:1;transform:scale(1)}
+        .step-flow{display:flex;flex-direction:column;gap:clamp(.5rem,1vh,.75rem);margin-top:var(--content-gap)}.step-item{display:flex;align-items:flex-start;gap:clamp(.75rem,1.5vw,1.25rem)}.step-num{font-family:var(--font-display);font-size:clamp(1rem,1.8vw,1.4rem);font-weight:700;color:var(--accent);min-width:clamp(1.5rem,3vw,2rem)}.step-text{font-size:var(--body-size);color:var(--text-secondary);line-height:1.6}.step-text strong{color:var(--text-primary)}
+        @media(max-height:700px){:root{--slide-padding:clamp(1rem,3vw,2.5rem);--content-gap:clamp(.5rem,1.5vw,1rem);--title-size:clamp(1.75rem,5vw,3.5rem);--h2-size:clamp(1.25rem,3.5vw,2.25rem)}}@media(max-height:600px){:root{--slide-padding:clamp(.75rem,2.5vw,1.5rem);--content-gap:clamp(.4rem,1vw,.75rem);--title-size:clamp(1.5rem,4.5vw,2.5rem);--h2-size:clamp(1.1rem,3vw,1.75rem);--body-size:clamp(.7rem,1.2vw,.95rem)}.nav-dots,.bg-glow{display:none}}@media(max-height:500px){:root{--slide-padding:clamp(.5rem,2vw,1rem);--title-size:clamp(1.25rem,4vw,2rem);--h2-size:clamp(1rem,2.5vw,1.5rem);--body-size:clamp(.65rem,1vw,.85rem)}}@media(max-width:600px){:root{--title-size:clamp(1.5rem,8vw,3rem)}.card-grid{grid-template-columns:1fr}.comparison{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}html{scroll-behavior:auto}}
+        .keyboard-hint{position:fixed;bottom:clamp(1rem,2vw,1.5rem);left:50%;transform:translateX(-50%);font-size:var(--small-size);color:var(--text-muted);opacity:.5;transition:opacity .5s;pointer-events:none}.keyboard-hint.hidden{opacity:0}
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="keyboard-hint" id="keyHint">按 ← → 或滚动翻页</div>
+
+    <!-- 1 TITLE -->
+    <section class="slide">
+        <div class="bg-glow glow-violet" style="top:-20%;right:-10%"></div>
+        <div class="bg-glow glow-blue" style="bottom:-20%;left:-10%"></div>
+        <div class="slide-content">
+            <p class="section-label reveal">战略实战 · 第5讲</p>
+            <h1 class="title-huge reveal">投资视角<span class="accent">看公司</span></h1>
+            <p class="title-slide-sub reveal">产品人的独特优势 — 短期看财务，长期看产品</p>
+        </div>
+        <span class="slide-number">1</span>
+    </section>
+
+    <!-- 2 开场 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 引子</p>
+            <h2 class="reveal">2018年看空拼多多的<br><span class="accent">分析师都错了</span></h2>
+            <div class="story-card reveal">
+                <p><strong style="color:var(--red)">华尔街分析师看到：</strong>巨亏、假货争议、"消费降级"标签</p>
+                <p><strong style="color:var(--accent)">产品人能看到：</strong>社交裂变让获客成本极低 / 工厂直供有结构性价格优势 / 用户增长曲线指数级 / 留存数据在改善</p>
+            </div>
+            <div class="highlight-box green-box reveal">
+                <p>2018年买入，5年涨了10倍。短期看财务，长期看产品——产品人天然有这个能力。</p>
+            </div>
+        </div>
+        <span class="slide-number">2</span>
+    </section>
+
+    <!-- 3 SECTION 5.1 -->
+    <section class="slide section-divider">
+        <div class="section-number">5.1</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第一节</p>
+            <h2 class="reveal" style="max-width:700px">产品人天然的<br><span class="accent">投资优势</span></h2>
+        </div>
+        <span class="slide-number">3</span>
+    </section>
+
+    <!-- 4 四个关键问题 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 评估框架</p>
+            <h2 class="reveal">产品人评估公司的<span class="accent">四个问题</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--red)">01</div>
+                    <h3>真问题还是伪需求？</h3>
+                    <p>用户在你出现之前怎么解决？是"忍着"还是"没问题"？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">02</div>
+                    <h3>护城河是什么？</h3>
+                    <p>网络效应/数据飞轮/转换成本——至少要有一个</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">03</div>
+                    <h3>增长天花板在哪？</h3>
+                    <p>TAM有多大？当前渗透率多少？增长靠花钱还是自然增长？</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">04</div>
+                    <h3>团队能力匹配吗？</h3>
+                    <p>创始人能力圈是否覆盖核心挑战？执行力是否有验证？</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">4</span>
+    </section>
+
+    <!-- 5 产品指标转投资判断 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.1 — 指标解读</p>
+            <h2 class="reveal">产品指标背后的<span class="accent">投资含义</span></h2>
+            <table class="slide-table reveal-scale">
+                <thead><tr><th>产品指标</th><th>投资含义</th><th>好的标准</th></tr></thead>
+                <tbody>
+                    <tr><td>DAU/MAU</td><td>用户粘性</td><td>&gt;30%强粘性（微信&gt;80%）</td></tr>
+                    <tr><td>次日留存</td><td>产品有没有核心价值</td><td>&gt;40%算优秀</td></tr>
+                    <tr><td>LTV/CAC</td><td>经济模型是否健康</td><td>&gt;3倍才可持续</td></tr>
+                    <tr><td>自然增长占比</td><td>飞轮是否在转</td><td>越来越高是好信号</td></tr>
+                    <tr><td>NPS</td><td>口碑和增长潜力</td><td>&gt;50算优秀</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <span class="slide-number">5</span>
+    </section>
+
+    <!-- 6 SECTION 5.2 -->
+    <section class="slide section-divider">
+        <div class="section-number">5.2</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第二节</p>
+            <h2 class="reveal" style="max-width:700px">互联网公司的<br><span class="accent">估值逻辑</span></h2>
+        </div>
+        <span class="slide-number">6</span>
+    </section>
+
+    <!-- 7 为什么能值那么多钱 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 估值基础</p>
+            <h2 class="reveal">为什么互联网公司<br><span class="accent">能值那么多钱</span></h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col col-blue">
+                    <h3><span class="blue">传统公司估值</span></h3>
+                    <ul>
+                        <li>利润 × 倍数（PE）</li>
+                        <li>赚1亿，给15倍PE</li>
+                        <li>= 市值15亿</li>
+                    </ul>
+                </div>
+                <div class="comparison-col col-accent">
+                    <h3><span class="accent">互联网公司估值</span></h3>
+                    <ul>
+                        <li>用户 × 变现潜力</li>
+                        <li>1000万用户 × 100元/年</li>
+                        <li>= 10亿收入 × 10倍PS = 100亿</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>规模效应+网络效应：边际成本趋零，用户越多越有价值。但这也是泡沫的来源。</p>
+            </div>
+        </div>
+        <span class="slide-number">7</span>
+    </section>
+
+    <!-- 8 三种估值方法 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 三种方法</p>
+            <h2 class="reveal">产品人用估值做<span class="accent">判断，不做精算</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">PS</div>
+                    <h3>市销率</h3>
+                    <p>市值/年收入。高增长未盈利公司。SaaS典型5-15倍</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">PE</div>
+                    <h3>市盈率</h3>
+                    <p>市值/年利润。已盈利稳定增长。互联网典型20-40倍</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">UV</div>
+                    <h3>用户价值法</h3>
+                    <p>市值/总用户数。Facebook $300/用户，微信 $200/用户</p>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>当新兴平台每用户价值远低于成熟平台 → 可能被低估。这是产品人的独特判断角度。</p>
+            </div>
+        </div>
+        <span class="slide-number">8</span>
+    </section>
+
+    <!-- 9 三个案例 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.2 — 案例研究</p>
+            <h2 class="reveal">为什么有的护城河强，<span class="red">有的不值钱</span></h2>
+            <ul class="bullet-list reveal">
+                <li><strong>Netflix（强）：</strong>内容投入飞轮 + 推荐算法 + 全球化内容一次制作多次变现</li>
+                <li><strong>大多数SaaS（弱）：</strong>用户数据可导出，转换成本其实不高。真有护城河的：Salesforce（关系数据）、Shopify（商家生态）</li>
+                <li><strong>社区团购（无）：</strong>低频+低客单+低毛利=结构性差生意。美团/拼多多/滴滴烧几百亿最终都收缩</li>
+            </ul>
+            <div class="highlight-box reveal">
+                <p>护城河不是"我们产品做得好"——那不是护城河。</p>
+            </div>
+        </div>
+        <span class="slide-number">9</span>
+    </section>
+
+    <!-- 10 SECTION 5.3 -->
+    <section class="slide section-divider">
+        <div class="section-number">5.3</div>
+        <div class="slide-content">
+            <p class="section-label reveal">第三节</p>
+            <h2 class="reveal" style="max-width:700px">趋势判断：<br><span class="accent">未来3年</span></h2>
+        </div>
+        <span class="slide-number">10</span>
+    </section>
+
+    <!-- 11 AI颠覆vs增强 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — AI时代</p>
+            <h2 class="reveal">AI：<span class="red">颠覆</span>还是<span class="green">增强</span>？</h2>
+            <div class="comparison reveal-scale">
+                <div class="comparison-col col-red">
+                    <h3><span class="red">会被颠覆</span></h3>
+                    <ul>
+                        <li>客服：AI已能处理80%问题</li>
+                        <li>初级数据分析</li>
+                        <li>内容翻译/本地化</li>
+                        <li>代码生成（Vibe Coding）</li>
+                    </ul>
+                </div>
+                <div class="comparison-col col-green">
+                    <h3><span class="green">会被增强</span></h3>
+                    <ul>
+                        <li>教育：AI个性化，老师不消失</li>
+                        <li>医疗：AI辅助诊断，医生不消失</li>
+                        <li>金融：AI风控更精准</li>
+                        <li>电商：AI推荐+AI生图</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box reveal">
+                <p>判断框架：核心价值是"信息处理" → AI颠覆；核心价值是"人际信任" → AI增强。</p>
+            </div>
+        </div>
+        <span class="slide-number">11</span>
+    </section>
+
+    <!-- 12 我最看好的3个方向 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">5.3 — 个人判断</p>
+            <h2 class="reveal">未来3年我最看好的<span class="accent">三个方向</span></h2>
+            <div class="card-grid reveal-scale">
+                <div class="card">
+                    <div class="card-icon" style="color:var(--accent)">🤖</div>
+                    <h3>AI + 垂直行业应用层</h3>
+                    <p>大模型是基础设施，价值在AI+行业know-how的结合。谁能结合，谁建壁垒</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--green)">💳</div>
+                    <h3>新兴市场金融科技</h3>
+                    <p>东南亚/拉美/非洲传统金融覆盖率低。AI风控解决征信不完善，中国经验可输出</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon" style="color:var(--blue)">🌍</div>
+                    <h3>中国创业者做全球品牌</h3>
+                    <p>SHEIN、Anker、大疆已证明。AI降低多语言内容成本，品牌建设门槛下降</p>
+                </div>
+            </div>
+        </div>
+        <span class="slide-number">12</span>
+    </section>
+
+    <!-- 13 金句 -->
+    <section class="slide">
+        <div class="bg-glow glow-violet" style="top:-10%;right:-10%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">5.3 — 结语</p>
+            <p class="quote reveal" style="border-left:none;text-align:center;padding-left:0">产品人做投资判断的优势是：<br>你理解用户价值、产品壁垒、增长机制。<br><br>在AI重构行业的时代，<br>这比任何<span class="accent">财务模型都有价值</span>。</p>
+        </div>
+        <span class="slide-number">13</span>
+    </section>
+
+    <!-- 14 费曼 -->
+    <section class="slide">
+        <div class="slide-content">
+            <p class="section-label reveal">课后自测 — 费曼检验</p>
+            <h2 class="reveal">你能回答这三个问题吗？</h2>
+            <div class="card-grid reveal-scale">
+                <div class="card"><div class="card-icon" style="color:var(--accent)">01</div><p>用四个问题分析你感兴趣的一家公司，它值不值得投/加入？</p></div>
+                <div class="card"><div class="card-icon" style="color:var(--blue)">02</div><p>你所在公司的每用户价值是多少？和行业标杆比呢？</p></div>
+                <div class="card"><div class="card-icon" style="color:var(--green)">03</div><p>你所在行业会被AI颠覆还是增强？判断依据是什么？</p></div>
+            </div>
+        </div>
+        <span class="slide-number">14</span>
+    </section>
+
+    <!-- 15 下一讲 -->
+    <section class="slide">
+        <div class="bg-glow glow-violet" style="top:-10%;right:-5%"></div>
+        <div class="bg-glow glow-pink" style="bottom:-15%;left:-5%"></div>
+        <div class="slide-content" style="align-items:center;text-align:center">
+            <p class="section-label reveal">第5讲完</p>
+            <h1 class="title-huge reveal" style="font-size:clamp(1.75rem,4.5vw,3.5rem)">下一讲预告</h1>
+            <p class="title-slide-sub reveal">从产品人到CEO — 5个行业、4种角色的升级路径</p>
+        </div>
+        <span class="slide-number">15</span>
+    </section>
+
+    <script>
+        class SlidePresentation{constructor(){this.slides=document.querySelectorAll('.slide');this.currentSlide=0;this.totalSlides=this.slides.length;this.init()}init(){this.createNavDots();this.setupIntersectionObserver();this.setupKeyboardNav();this.setupTouchNav();this.updateProgress();this.hideKeyHintOnScroll()}createNavDots(){const c=document.getElementById('navDots');const s=[0,2,5,9];this.slides.forEach((_,i)=>{const d=document.createElement('button');d.className='nav-dot'+(s.includes(i)?' section-start':'');d.setAttribute('aria-label',`Go to slide ${i+1}`);d.addEventListener('click',()=>{this.slides[i].scrollIntoView({behavior:'smooth'})});c.appendChild(d)});this.navDots=c.querySelectorAll('.nav-dot')}setupIntersectionObserver(){const o=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');const i=Array.from(this.slides).indexOf(e.target);if(i!==-1){this.currentSlide=i;this.updateProgress();this.updateNavDots()}}})},{threshold:0.5});this.slides.forEach(s=>o.observe(s))}setupKeyboardNav(){document.addEventListener('keydown',(e)=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '){e.preventDefault();this.goToSlide(this.currentSlide+1)}else if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();this.goToSlide(this.currentSlide-1)}})}setupTouchNav(){let sy=0,sx=0;document.addEventListener('touchstart',(e)=>{sy=e.touches[0].clientY;sx=e.touches[0].clientX},{passive:true});document.addEventListener('touchend',(e)=>{const dy=sy-e.changedTouches[0].clientY,dx=sx-e.changedTouches[0].clientX;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>50){this.goToSlide(dy>0?this.currentSlide+1:this.currentSlide-1)}},{passive:true})}goToSlide(i){if(i>=0&&i<this.totalSlides)this.slides[i].scrollIntoView({behavior:'smooth'})}updateProgress(){document.getElementById('progressBar').style.width=((this.currentSlide+1)/this.totalSlides)*100+'%'}updateNavDots(){if(!this.navDots)return;this.navDots.forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide))}hideKeyHintOnScroll(){const h=document.getElementById('keyHint');let done=false;const hide=()=>{if(!done){h.classList.add('hidden');done=true}};document.addEventListener('scroll',hide,{once:true});document.addEventListener('keydown',hide,{once:true})}}
+        document.addEventListener('DOMContentLoaded',()=>{new SlidePresentation()});
+    </script>
+</body>
+</html>
